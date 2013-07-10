@@ -10,7 +10,7 @@ import java.util.Iterator;
  *
  * @author jova
  */
-public class LinkedList<T> implements Iterable {
+public class LinkedList<T> implements Iterable<T> {
 
     private Link<T> head;
     private Link<T> last;
@@ -41,7 +41,7 @@ public class LinkedList<T> implements Iterable {
 
     @Override
     public Iterator<T> iterator() {
-        return new LinkedListIterator<>();
+        return new LinkedListIterator();
     }
 
     private class Link<T> {
@@ -69,13 +69,12 @@ public class LinkedList<T> implements Iterable {
         }
     }
 
-    private class LinkedListIterator<T> implements Iterator<T> {
+    private class LinkedListIterator implements Iterator<T> {
 
-        Link link = head;
+        Link<T> link = head;
 
         @Override
         public boolean hasNext() {
-
             return link != null;
         }
 
@@ -96,12 +95,11 @@ public class LinkedList<T> implements Iterable {
 
         LinkedList<Integer> l = new LinkedList<>();
 
-
         l.add(15);
         l.add(5);
 
-        // (Integer i : l) {
-        System.out.println(l.getFirst());
-        //}
+        for (Integer i : l) {
+            System.out.println(i);
+        }
     }
 }
