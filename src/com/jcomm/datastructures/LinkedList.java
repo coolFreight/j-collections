@@ -32,6 +32,16 @@ public class LinkedList<T> implements Iterable<T> {
         last = newLink;
     }
 
+    public T remove() {
+        if (head == null) {
+            throw new IllegalOperationException();
+        }
+        T element = head.getElement();
+        head = head.getNext();
+
+        return element;
+    }
+
     public T getFirst() {
         if (isEmpty()) {
             //
@@ -94,6 +104,7 @@ public class LinkedList<T> implements Iterable<T> {
     public static void main(String args[]) {
 
         LinkedList<Integer> l = new LinkedList<>();
+        java.util.LinkedList<Integer> tl = new java.util.LinkedList<>();
 
         l.add(15);
         l.add(5);
