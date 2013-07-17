@@ -10,6 +10,34 @@ package com.jcomm.datastructures;
  */
 public class ArrayList {
 
+    public static int binarySearch(int[] array, int num) {
+
+        return binarySearch(array, 0, array.length - 1, num);
+    }
+
+    private static int binarySearch(int[] array, int lowIndex, int highIndex, int num) {
+
+        int mid = (highIndex + lowIndex) / 2;
+        if (lowIndex == highIndex && array[lowIndex] != num) {
+
+            if (num < array[lowIndex]) {
+                return (lowIndex * -1);
+            } else if (num > array[lowIndex]) {
+                return (lowIndex + 1) * -1;
+            } else {
+                return (lowIndex - 1) * -1;
+            }
+        }
+
+        if (num == array[mid]) {
+            return mid;
+        } else if (num < array[mid]) {
+            return binarySearch(array, lowIndex, mid, num);
+        }
+
+        return binarySearch(array, mid + 1, highIndex, num);
+    }
+
     public static void mergeSort(int[] array) {
 
 
@@ -93,6 +121,8 @@ public class ArrayList {
     public static void main(String args[]) {
 
         int[] array = {25, 6, 1, 88, 2};
-        ArrayList.mergeSort(array);
+
+        int[] sortedArray = {10, 20, 30, 50};
+        System.out.println(ArrayList.binarySearch(sortedArray, 49));
     }
 }
