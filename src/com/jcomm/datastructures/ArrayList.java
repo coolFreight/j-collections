@@ -10,6 +10,19 @@ package com.jcomm.datastructures;
  */
 public class ArrayList {
 
+    public static void insertionSort(int[] array) {
+
+        for (int x = 0; x < array.length; x++) {
+            for (int i = x; i > 0; i--) {
+                if (array[i] < array[i - 1]) {
+                    int temp = array[i - 1];
+                    array[i - 1] = array[i];
+                    array[i] = temp;
+                }
+            }
+        }
+    }
+
     public static int binarySearch(int[] array, int num) {
 
         return binarySearch(array, 0, array.length - 1, num);
@@ -121,8 +134,9 @@ public class ArrayList {
     public static void main(String args[]) {
 
         int[] array = {25, 6, 1, 88, 2};
-
         int[] sortedArray = {10, 20, 30, 50};
-        System.out.println(ArrayList.binarySearch(sortedArray, 49));
+        ArrayList.insertionSort(array);
+        ArrayList.printIntArray(array);
+
     }
 }
