@@ -200,5 +200,30 @@ public class CollectionsHelper {
 		printPseudoHiLoMid(midi + 1, hi);
 		// print left
 	}
+	
+	public static <T> void HeapSort(T array[], int index){
+		
+		int heapSize =0;
+		for(int i= 0;  i<array.length; i++ ){
+			
+			if(array[i]== null)
+				break;		
+			heapSize++;
+		}
+	}
+	
+	/**
+	 * Will swap the values between the given input index params
+	 * 
+	 * @param array
+	 * @param index
+	 * @param otherIndex
+	 * @return the array with the values swapped
+	 */
+	public static <T> void swapValues(T array[], int index, int otherIndex){	
+		T tempVal = array[otherIndex];
+		array[otherIndex] = array[index];
+		array[index] = tempVal;		
+	}
 
 }
