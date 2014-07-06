@@ -149,25 +149,25 @@ public class CollectionsHelper {
 	public static <T> void printArray(T array[]) {
 
 		for (T i : array) {
-			System.out.print(i);
+			System.out.print(i+",");
 		}
 
 		System.out.println("");
 	}
 
-	public static int[] randomIntArray(int size) {
+	public static Integer[] randomIntArray(int size) {
 
-		int a[] = new int[size];
+		Integer a[] = new Integer[size];
 		HashSet<Integer> set = new HashSet<>();
 		for (int x = 0; x < a.length; x++) {
 
 			Random r = new Random();
 			Integer i = r.nextInt(size * 10);
-
+			
 			while (set.contains(i)) {
 				i = r.nextInt(size);
 			}
-
+			set.add(i);
 			a[x] = i;
 		}
 		return a;
@@ -201,29 +201,73 @@ public class CollectionsHelper {
 		// print left
 	}
 	
-	public static <T> void HeapSort(T array[], int index){
-		
-		int heapSize =0;
-		for(int i= 0;  i<array.length; i++ ){
-			
-			if(array[i]== null)
-				break;		
-			heapSize++;
-		}
-	}
-	
 	/**
 	 * Will swap the values between the given input index params
 	 * 
 	 * @param array
 	 * @param index
 	 * @param otherIndex
-	 * @return the array with the values swapped
+	 * 
 	 */
 	public static <T> void swapValues(T array[], int index, int otherIndex){	
 		T tempVal = array[otherIndex];
 		array[otherIndex] = array[index];
 		array[index] = tempVal;		
 	}
+	
+	
+	public static <T extends Comparable<T>> T[] heapSort(T array[]) {
+		int heapSize = 0;  //heapSize is important to know in determining when to the recursive calls
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == null)
+				break;
+			heapSize++;
+		}
+		buildMaxHeap(array, heapSize);
+		
+		for(int i = heapSize; i>1; i--){
+			CollectionsHelper.swapValues(array, 0, heapSize-1);
+			heapSize--;
+			maxHeapify(array, 0, heapSize);
+		}
+		
+		return array;
+	}
+	
+	private static  <T extends Comparable<T>>  void buildMaxHeap(T A[], int heapSize){
+
+		int nonLeaves = (A.length/2)-1;
+		for(int i = nonLeaves; i >= 0; i--){
+			maxHeapify(A, i, heapSize);
+		}
+	}
+
+	private static <T extends Comparable<T>> void maxHeapify(T array[], int index, int heapSize){
+		
+		int leftIndex = getLeftChildIndex(index);
+		int rightIndex = getRightChildIndex(index);
+		int largestIndex = index;
+		
+		if(leftIndex < heapSize && array[index].compareTo(array[leftIndex]) == -1)
+			largestIndex = leftIndex;
+		
+		if(rightIndex < heapSize && array[largestIndex].compareTo(array[rightIndex]) == -1)
+			largestIndex = rightIndex;
+		
+		if(largestIndex != index){
+			CollectionsHelper.swapValues(array, largestIndex, index);
+			maxHeapify(array, largestIndex, heapSize);
+		}
+			
+	}
+
+	private static <T> int getLeftChildIndex(int index) {
+		return (2 * index) + 1;
+	}
+
+	private static <T> int getRightChildIndex(int index) {
+		return (2 * index) + 2;
+	}
+
 
 }
