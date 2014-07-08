@@ -29,13 +29,32 @@ public class CollectionsHelperTest {
 
 		Integer A[] = {100,23,90,55,32,-2,9};
 		CollectionsHelper.heapSort(A);
-		int highestVal = A[0];
-		for(int x = 1; x<A.length; x++){		
-			if(highestVal > A[x]){
-				Assert.fail();
+		int highestVal;
+		for(int x = 0; x<A.length-1; x++){	
+			highestVal = A[x+1];
+			if(highestVal < A[x]){
+				Assert.fail(highestVal+" is not greater than "+A[x]);	
 			}
+			
 		}
 		CollectionsHelper.printArray(A);
+	}
+
+	@Test
+	public void testQuickSortSortedInAscendingOrder(){
+
+		int A[] = {100,23,90,55,32,-2,9};
+		CollectionsHelper.quickSort(A);
+		CollectionsHelper.printArray(A);
+		int highestVal;
+		for(int x = 0; x<A.length-1; x++){	
+			highestVal = A[x+1];
+			if(highestVal < A[x]){
+				Assert.fail(highestVal+" is not greater than "+A[x]);	
+			}
+			
+		}
+		
 	}
 
 }
