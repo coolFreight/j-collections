@@ -1,3 +1,4 @@
+
 package com.jcomm.datastructures;
 
 import java.util.Collections;
