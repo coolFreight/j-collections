@@ -9,8 +9,8 @@ package com.jcomm.trees;
  */
 public class JTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 
-	private TreeNode<T> leftNode = null;
-	private TreeNode<T> rightNode = null;
+	private JTreeNode<T> leftNode = null;
+	private JTreeNode<T> rightNode = null;
 	private T val;
 	
 	public JTreeNode(T val){
@@ -38,21 +38,45 @@ public class JTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 	}
 
 	@Override
-	public TreeNode<T> getLeftNode() {
+	public JTreeNode<T> getLeftNode() {
 		return leftNode;
 	}
 	
-	public void setLeftNode(TreeNode<T> leftNode){
+	public void setLeftNode(JTreeNode<T> leftNode){
 		this.leftNode = leftNode;
 	}
 
 	@Override
-	public TreeNode<T> getRightNode() {
+	public JTreeNode<T> getRightNode() {
 		return rightNode;
 	}
 	
-	public void setRightNode(TreeNode<T> rightNode){
+	public void setRightNode(JTreeNode<T> rightNode){
 		this.rightNode = rightNode;
 	}
+	
+	public boolean isEqual(T value){
+	
+		return val.compareTo(value) == 0;
+		
+	}
+	
+	@Override 
+	public Object clone(){
+		
+		 JTreeNode<T> obj = new  JTreeNode<T>(this.val);
+		 obj.setLeftNode(this.leftNode);
+		 obj.setRightNode(this.rightNode);
+		return leftNode;
+		
+	}
+
+
+	@Override
+	public String toString() {
+		return "JTreeNode [val=" + val + "]";
+	}
+	
+	
 
 }

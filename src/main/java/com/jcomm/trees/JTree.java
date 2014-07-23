@@ -34,8 +34,4 @@ public class JTree<T extends Comparable<T>> implements Tree<T> {
 		
 	}
 	
-	public 
-	
-	private T 
-
 }
