@@ -179,7 +179,6 @@ public class CollectionsHelper {
 		return i;
 
 	}
-	
 	public static void rotateArray(Integer []arr, int index, int rotateBy){
 
 		for(int x = 0; x<arr.length; x++){	
@@ -187,5 +186,7 @@ public class CollectionsHelper {
 			swapValues(arr, x, newLocation);
 		}
 	}
+	
+	
 
 }
