@@ -85,7 +85,7 @@ public class CollectionsHelper {
 		array[otherIndex] = array[index];
 		array[index] = tempVal;
 	}
-
+	
 	public static <T extends Comparable<T>> T[] heapSort(T array[]) {
 		int heapSize = 0; // heapSize is important to know in determining when
 							// to the recursive calls
@@ -178,6 +178,14 @@ public class CollectionsHelper {
 		A[i+1] = temp;
 		return i;
 
+	}
+	
+	public static void rotateArray(Integer []arr, int index, int rotateBy){
+
+		for(int x = 0; x<arr.length; x++){	
+			int newLocation = ((x + rotateBy)-1) % arr.length;
+			swapValues(arr, x, newLocation);
+		}
 	}
 
 }
