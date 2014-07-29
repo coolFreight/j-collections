@@ -61,7 +61,7 @@ public class Permutations extends Backtrack<Integer> {
 	
 	public static void main(String ars[]){
 		Permutations p = new Permutations();
-		p.maxCandidates = 4;
+		p.maxCandidates = 3;
 		p.generate_permutations(3);
 	}
 

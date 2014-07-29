@@ -5,6 +5,7 @@
 package com.jcomm.datastructures;
 
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  *
@@ -15,8 +16,8 @@ public class Graph {
     private final int graph[][];
     private final int ROWS;
     private final int COLS;
-    private java.util.Stack<Vertex> visitedNodes = new java.util.Stack<Vertex>();
     private Queue<Vertex> queueOfNodes = new java.util.LinkedList<>();
+    private Stack<Vertex> visitedNodes = new Stack<>();
     private Vertex[] vertices;
 
     public Graph(int size) {
@@ -28,6 +29,17 @@ public class Graph {
         int x = 0;
         while (x < size) {
             vertices[x] = new Vertex(((char) (x + 65)));
+            x++;
+        }
+    }
+    
+    public void createVertices(int n){
+    	
+    	int x =0;
+    	while (0 < n) {
+    		Vertex v = new Vertex(((char) (x + 65)));
+            vertices[x] = v;
+            System.out.println("Created vertex : "+v);
             x++;
         }
     }
@@ -44,7 +56,10 @@ public class Graph {
         graph.addEdge('A', 'E');
         graph.printGraph();
 
-        graph.bfs('A');
+        //graph.bfs('A');
+        //graph.dfs('A');
+        
+        graph.recursiveBFS('A');
     }
 
     public void addEdge(char start, char end) {
@@ -71,12 +86,84 @@ public class Graph {
             System.out.println();
         }
     }
+    
+    
+    /**
+     * 3 rules 
+     * 
+     * DFS makes use of a stack 
+     * 
+     * Rule 1 : Visit vertex in a systematic way,
+     * 			mark it visited and put it the stack
+     * 
+     * Rule 2 : If you cannot follow Rule 1 anymore then pop vertex off stack
+     * 
+     * Rule 3 : If you cannot do Rule 1 or Rule 2 anymore you are done
+     * 
+     * @param label of vertex
+     */
+    public void dfs(char label){
+    	
+    	
+    	Vertex v = getVertex(label);
+    	v.visited = true;
+    	visitedNodes.push(v);
+    	System.out.println("Visited vertex "+v);
+    	int row = getVertexRow(label);
+    	for(int i = 0; i<this.COLS; i++){
+    		if(graph[row][i] == 1 ){
+    			Vertex t = getVertex(i);
+    			if(t.visited == false)
+    				dfs(t.label);
+    		}			
+    	}
+    }
+    
+    private Vertex getVertex(int col){
+    	return vertices[col];
+    }
+    
+    private int getVertexRow(char label){ 	
+    	return label - 65;
+    }
+    
+    private Vertex getVertex(char label){
+    	int index = label - 65;
+    	return vertices[index];
+    	
+    }
+    
+    public void recursiveBFS(char label){
+    	
+    	Vertex v = getVertex(label);
+    	if(v.visited == false){
+    		v.visited = true;
+    		this.queueOfNodes.add(v);
+    		System.out.println("Visited vertex : "+v);
+    	}
+    	int r = getVertexRow(label);
+    	for(int i = 0; i<this.COLS; i++){
+    		
+    		if(graph[r][i]==1){
+    			
+    			Vertex t = this.vertices[i];
+    			if(t.visited == false){
+    				t.visited = true;
+    				this.queueOfNodes.add(t);
+    				System.out.println("Visited vertex : "+t);
+    			}
+    		}			
+    	}
+    	this.queueOfNodes.poll();
+    	if(queueOfNodes.isEmpty())
+    		return;
+    	this.recursiveBFS(this.queueOfNodes.peek().label);
+    }
 
     public void bfs(char label) {
 
         int index = label - 65;
-
-
+        
         if (vertices[index].wasVisited() == false) {
             vertices[index].setVisited(true);
 
@@ -149,6 +236,11 @@ public class Graph {
         public boolean wasVisited() {
             return this.visited;
 
+        }
+        
+        @Override
+        public String toString(){
+        	return this.label +"";
         }
     }
 }

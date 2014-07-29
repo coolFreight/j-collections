@@ -49,9 +49,21 @@ public class Subsets extends Backtrack<Integer> {
 	
 	public static void main(String args[]){
 		Subsets s = new Subsets();
-//		s.maxCandidates = 2;
-//		s.generateSubsets(3);
-		s.subsets(0, new boolean[4]);
+		s.maxCandidates = 2;
+		
+		
+//		long start =  System.nanoTime();	
+//		s.generateSubsets(20);
+//		long end = System.nanoTime();	
+//		System.out.println("Took: " + ((end - start) / 1000000) + "ms");
+//		
+		
+	
+		long start = System.nanoTime();
+		s.subsets(0, new boolean[20]);
+		long end = System.nanoTime();
+		System.out.println("Took: " + ((end - start) / 1000000) + "ms");
+		
 		
 	}
 	
