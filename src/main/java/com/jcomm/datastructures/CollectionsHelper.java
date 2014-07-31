@@ -1,5 +1,6 @@
 package com.jcomm.datastructures;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -185,6 +186,14 @@ public class CollectionsHelper {
 			int newLocation = ((x + rotateBy)-1) % arr.length;
 			swapValues(arr, x, newLocation);
 		}
+	}
+	
+	public static <T> void printCollection (Collection<T> collection){
+		
+		for(T item : collection){
+			System.out.print(item+",");
+		}
+		System.out.println();
 	}
 	
 	
