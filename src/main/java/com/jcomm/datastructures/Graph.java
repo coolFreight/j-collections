@@ -4,7 +4,9 @@
  */
 package com.jcomm.datastructures;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
@@ -51,18 +53,17 @@ public class Graph {
 		Graph graph = new Graph(6);
 		graph.addUnDirectedEdge('A', 'B', 6);
 		graph.addUnDirectedEdge('A', 'D', 4);
-		
+
 		graph.addUnDirectedEdge('B', 'D', 7);
 		graph.addUnDirectedEdge('B', 'C', 10);
 		graph.addUnDirectedEdge('B', 'E', 7);
-		
+
 		graph.addUnDirectedEdge('C', 'D', 8);
 		graph.addUnDirectedEdge('C', 'E', 5);
 		graph.addUnDirectedEdge('C', 'F', 6);
-		
+
 		graph.addUnDirectedEdge('D', 'E', 12);
-		
-		
+
 		graph.addUnDirectedEdge('F', 'E', 7);
 		graph.printGraph();
 
@@ -72,12 +73,12 @@ public class Graph {
 		// graph.recursiveBFS('B');
 		List<Path> paths = graph.mwst();
 		CollectionsHelper.printCollection(paths, "\n");
-		
+
 		int totalCost = 0;
-		for(Path p : paths)
+		for (Path p : paths)
 			totalCost += p.cost;
-		
-		System.out.println("Total cost is "+totalCost);
+
+		System.out.println("Total cost is " + totalCost);
 	}
 
 	public void addUnDirectedEdge(char start, char end) {
@@ -94,11 +95,15 @@ public class Graph {
 	}
 
 	public void addDirectedEdge(char start, char end) {
-		addDirectedEdge(start - 65, end - 65);
+		addDirectedEdge(start - 65, end - 65, 1);
 	}
 
-	private void addDirectedEdge(int start, int end) {
-		graph[start][end] = 1;
+	public void addDirectedEdge(char start, char end, int weight) {
+		addDirectedEdge(start - 65, end - 65, weight);
+	}
+
+	private void addDirectedEdge(int start, int end, int weight) {
+		graph[start][end] = weight;
 
 	}
 
@@ -164,50 +169,84 @@ public class Graph {
 			}
 		}
 	}
-	
-	public List<Path> mwst(){
+
+	public List<Path> mwst() {
 		return mwst('A', new java.util.ArrayList<Path>());
 	}
 
 	private List<Path> mwst(char label, List<Path> mininumSpanTree) {
-		
-		Vertex v =  getVertex(label);
+
+		Vertex v = getVertex(label);
 		v.visited = true;
 
 		findCheapsestNeighbor(v, mininumSpanTree);
-		
+
 		return mininumSpanTree;
 
 	}
-	
+
+	public void findShortestPath(char start, char destination) {
+
+		java.util.HashMap<String, Path> mapOfPaths = new HashMap<>();
+
+		// for (Vertex t : vertices) {
+		//
+		// if (t.label != start)
+		// mapOfPaths.put(start + t.label + "",
+		// new Path());
+		// }
+		// findShortestPath(start, destination, mapOfPaths);
+	}
+
+	private void findShortestPaths(char start, Map<String, Path> mapOfPaths) {
+
+		Vertex vStart = getVertex(start);
+		vStart.visited = true;
+		int row = getVertexRow(start);
+
+		for (int col = 0; col < COLS; col++) {
+			Vertex tempVertex = getVertex(col);
+			if (graph[row][col] > 0 && !tempVertex.visited) {
+
+				String key = start + tempVertex.label + "";
+				Path p = mapOfPaths.get(key);
+				int tempCost = graph[row][col];
+
+				if (p == null || (p.getCost() > tempCost)) {
+					Path path = new Path(vStart, tempVertex, tempCost);
+					pQueue.add(path);
+				}
+			}
+		}
+
+	}
 
 	public void findCheapsestNeighbor(Vertex v, List<Path> mininumSpanTree) {
-		
+
 		int r = getVertexRow(v.label);
 		Vertex start = getVertex(r);
-		
-		//getting all adjacent neighbors 
+
+		// getting all adjacent neighbors
 		for (int c = 0; c < COLS; c++) {
 			Vertex end;
 			if (graph[r][c] > 0) {
 				end = getVertex(c);
-				if(end.visited)
+				if (end.visited)
 					continue;
 				Path p = new Path(start, end, graph[r][c]);
 				pQueue.add(p);
 			}
 		}
-		
-		if(pQueue.isEmpty())
+
+		if (pQueue.isEmpty())
 			return;
-		
-		Path p = pQueue.remove(); 
+
+		Path p = pQueue.remove();
 		p.getEndNode().visited = true;
 		pQueue.removeIf(t -> t.getEndNode().label == p.getEndNode().label);
 
-		
 		mininumSpanTree.add(p);
-		findCheapsestNeighbor(p.getEndNode(),mininumSpanTree);
+		findCheapsestNeighbor(p.getEndNode(), mininumSpanTree);
 	}
 
 	private Vertex getVertex(int col) {
@@ -396,25 +435,32 @@ public class Graph {
 
 	private class Path implements Comparable<Path> {
 
-		private Vertex node;
-		private Vertex otherNode;
+		private Vertex start;
+		private List<Vertex> listOfDestinations;
+
 		private int cost;
 		private String path;
 
-		public Path(Vertex node, Vertex otherNode, int cost) {
-			this.node = node;
-			this.otherNode = otherNode;
+		public Path(Vertex start, Vertex otherNode, int cost) {
+			this.start = start;
+			this.listOfDestinations = new java.util.LinkedList<>();
+			listOfDestinations.add(otherNode);
 			this.cost = cost;
-			this.path = createPath(node, otherNode);
+			this.path = createPath(start, listOfDestinations.get(0));
 		}
 
 		public Vertex getEndNode() {
-			return this.otherNode;
+			return listOfDestinations.get(listOfDestinations.size() - 1);
+		}
+
+		public void addDestination(Vertex v, int cost) {
+			this.cost += cost;
+			this.listOfDestinations.add(v);
 		}
 
 		private String createPath(Vertex node, Vertex otherNode) {
 
-			return node + " to " + otherNode+" "+cost;
+			return node + " to " + otherNode + " " + cost;
 		}
 
 		@Override
