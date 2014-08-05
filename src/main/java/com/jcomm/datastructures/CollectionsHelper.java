@@ -188,10 +188,10 @@ public class CollectionsHelper {
 		}
 	}
 	
-	public static <T> void printCollection (Collection<T> collection){
+	public static <T> void printCollection (Collection<T> collection, String separtor){
 		
 		for(T item : collection){
-			System.out.print(item+",");
+			System.out.print(item+separtor);
 		}
 		System.out.println();
 	}
