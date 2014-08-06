@@ -50,35 +50,31 @@ public class Graph {
 	}
 
 	public static void main(String args[]) {
-		Graph graph = new Graph(6);
-		graph.addUnDirectedEdge('A', 'B', 6);
-		graph.addUnDirectedEdge('A', 'D', 4);
+		Graph graph = new Graph(5);
+		graph.addDirectedEdge('A', 'B', 50);
+		graph.addDirectedEdge('A', 'D', 80);
 
-		graph.addUnDirectedEdge('B', 'D', 7);
-		graph.addUnDirectedEdge('B', 'C', 10);
-		graph.addUnDirectedEdge('B', 'E', 7);
+		graph.addDirectedEdge('B', 'D', 90);
+		graph.addDirectedEdge('B', 'C', 60);
+		
 
-		graph.addUnDirectedEdge('C', 'D', 8);
-		graph.addUnDirectedEdge('C', 'E', 5);
-		graph.addUnDirectedEdge('C', 'F', 6);
+		graph.addDirectedEdge('C', 'E', 40);
+		
+		graph.addDirectedEdge('D', 'C', 20);
+		graph.addDirectedEdge('D', 'E', 70);
 
-		graph.addUnDirectedEdge('D', 'E', 12);
+		graph.addDirectedEdge('E', 'B', 50);
 
-		graph.addUnDirectedEdge('F', 'E', 7);
 		graph.printGraph();
 
 		// graph.bfs('B');
 		// graph.dfs('B');
 		// graph.mst('A');
 		// graph.recursiveBFS('B');
-		List<Path> paths = graph.mwst();
+		List<Path> paths = graph.findShortestPath('A');
 		CollectionsHelper.printCollection(paths, "\n");
 
-		int totalCost = 0;
-		for (Path p : paths)
-			totalCost += p.cost;
-
-		System.out.println("Total cost is " + totalCost);
+		
 	}
 
 	public void addUnDirectedEdge(char start, char end) {
@@ -185,20 +181,14 @@ public class Graph {
 
 	}
 
-	public void findShortestPath(char start, char destination) {
+	public List<Path> findShortestPath(char start) {
 
-		java.util.HashMap<String, Path> mapOfPaths = new HashMap<>();
-
-		// for (Vertex t : vertices) {
-		//
-		// if (t.label != start)
-		// mapOfPaths.put(start + t.label + "",
-		// new Path());
-		// }
-		// findShortestPath(start, destination, mapOfPaths);
+		List<Path> listOfPaths = new java.util.ArrayList<Path>();
+		return findShortestPaths('A', listOfPaths, null);
 	}
 
-	private void findShortestPaths(char start, Map<String, Path> mapOfPaths) {
+	private List<Path> findShortestPaths(char start, List<Path> listOfPaths,
+			Path currentPath) {
 
 		Vertex vStart = getVertex(start);
 		vStart.visited = true;
@@ -207,16 +197,52 @@ public class Graph {
 		for (int col = 0; col < COLS; col++) {
 			Vertex tempVertex = getVertex(col);
 			if (graph[row][col] > 0 && !tempVertex.visited) {
-
-				String key = start + tempVertex.label + "";
-				Path p = mapOfPaths.get(key);
 				int tempCost = graph[row][col];
 
-				if (p == null || (p.getCost() > tempCost)) {
-					Path path = new Path(vStart, tempVertex, tempCost);
-					pQueue.add(path);
+				Path newPath = null;
+				if (currentPath != null) {
+
+					List<Vertex> list = new java.util.ArrayList<>();
+					list.addAll(currentPath.getDestinations());
+					list.add(tempVertex);
+					newPath = new Path(currentPath.getStartNode(), list,
+							currentPath.getCost() + tempCost);
+					shortestPathQueueInsert(newPath);
+				} else {
+					newPath = new Path(vStart, tempVertex, tempCost);
+					pQueue.add(newPath);
 				}
 			}
+		}
+
+		if (pQueue.isEmpty())
+			return listOfPaths;
+
+		Path newPath = pQueue.remove();
+		listOfPaths.add(newPath);
+
+		return findShortestPaths(newPath.getEndNode().label, listOfPaths,
+				newPath);
+
+	}
+
+	private void shortestPathQueueInsert(Path newPath) {
+
+		Path temp = null;
+		for (Path p : pQueue) {
+			if (p.getEndNode().label == newPath.getEndNode().label)
+				temp = p;
+		}
+
+		if (temp == null) {
+			// Path not in the queue
+			// add new path
+			pQueue.add(newPath);
+		} else if (temp != null && (temp.getCost() > newPath.getCost())) {
+			// replace old path
+			pQueue.remove(temp);
+			pQueue.add(newPath);
+
 		}
 
 	}
@@ -433,7 +459,7 @@ public class Graph {
 		CollectionsHelper.printCollection(s, "\n");
 	}
 
-	private class Path implements Comparable<Path> {
+	private class Path implements Comparable<Path>, Cloneable {
 
 		private Vertex start;
 		private List<Vertex> listOfDestinations;
@@ -444,9 +470,24 @@ public class Graph {
 		public Path(Vertex start, Vertex otherNode, int cost) {
 			this.start = start;
 			this.listOfDestinations = new java.util.LinkedList<>();
-			listOfDestinations.add(otherNode);
+			this.listOfDestinations.add(otherNode);
 			this.cost = cost;
-			this.path = createPath(start, listOfDestinations.get(0));
+			this.path = createPath(start);
+		}
+
+		public Path(Vertex start, List<Vertex> vertices, int cost) {
+			this.start = start;
+			this.listOfDestinations = vertices;
+			this.cost = cost;
+			this.path = createPath(start);
+		}
+
+		public Vertex getStartNode() {
+			return start;
+		}
+
+		public List<Vertex> getDestinations() {
+			return this.listOfDestinations;
 		}
 
 		public Vertex getEndNode() {
@@ -458,9 +499,15 @@ public class Graph {
 			this.listOfDestinations.add(v);
 		}
 
-		private String createPath(Vertex node, Vertex otherNode) {
+		private String createPath(Vertex start) {
 
-			return node + " to " + otherNode + " " + cost;
+			StringBuffer path = new StringBuffer();
+			path.append(start);
+			for (Vertex v : this.listOfDestinations) {
+				path.append(" to " + v);
+			}
+			path.append(" " + this.cost);
+			return path.toString();
 		}
 
 		@Override
@@ -482,6 +529,11 @@ public class Graph {
 			}
 
 			return 0;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			return this.path.equals(((Path) o).path);
 		}
 
 	}
