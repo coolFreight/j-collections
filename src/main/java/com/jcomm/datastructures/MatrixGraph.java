@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.function.Function;
 
 /**
  *
@@ -33,7 +34,7 @@ public class MatrixGraph implements Graph {
 		this.graph = new int[this.ROWS][this.COLS];
 		int x = 0;
 		while (x < size) {
-			vertices[x] = new Vertex(((char) (x + 65)));
+			vertices[x] = new Vertex(((char) (x + 65)),1);
 			x++;
 		}
 	}
@@ -42,7 +43,7 @@ public class MatrixGraph implements Graph {
 
 		int x = 0;
 		while (0 < n) {
-			Vertex v = new Vertex(((char) (x + 65)));
+			Vertex v = new Vertex(((char) (x + 65)),1);
 			vertices[x] = v;
 			System.out.println("Created vertex : " + v);
 			x++;
@@ -138,15 +139,15 @@ public class MatrixGraph implements Graph {
 	public void dfs(char label) {
 
 		Vertex v = getVertex(label);
-		v.visited = true;
+		v.setVisited(true);
 		visitedNodes.push(v);
 		System.out.println("Visited vertex " + v);
 		int row = getVertexRow(label);
 		for (int i = 0; i < this.COLS; i++) {
 			if (graph[row][i] == 1) {
 				Vertex t = getVertex(i);
-				if (t.visited == false)
-					dfs(t.label);
+				if (t.wasVisited() == false)
+					dfs(t.getLabel());
 			}
 		}
 	}
@@ -154,14 +155,14 @@ public class MatrixGraph implements Graph {
 	public void mst(char label) {
 
 		Vertex v = getVertex(label);
-		v.visited = true;
+		v.setVisited(true);
 		int row = getVertexRow(label);
 		for (int i = 0; i < this.COLS; i++) {
 			if (graph[row][i] == 1) {
 				Vertex t = getVertex(i);
-				if (t.visited == false) {
+				if (t.wasVisited() == false) {
 					System.out.println(v + " to " + t);
-					mst(t.label);
+					mst(t.getLabel());
 				}
 			}
 		}
@@ -174,7 +175,7 @@ public class MatrixGraph implements Graph {
 	private List<Path> mwst(char label, List<Path> mininumSpanTree) {
 
 		Vertex v = getVertex(label);
-		v.visited = true;
+		v.setVisited(true);
 
 		findCheapsestNeighbor(v, mininumSpanTree);
 
@@ -192,12 +193,12 @@ public class MatrixGraph implements Graph {
 			Path currentPath) {
 
 		Vertex vStart = getVertex(start);
-		vStart.visited = true;
+		vStart.setVisited(true);
 		int row = getVertexRow(start);
 
 		for (int col = 0; col < COLS; col++) {
 			Vertex tempVertex = getVertex(col);
-			if (graph[row][col] > 0 && !tempVertex.visited) {
+			if (graph[row][col] > 0 && !tempVertex.wasVisited()) {
 				int tempCost = graph[row][col];
 
 				Path newPath = null;
@@ -222,7 +223,7 @@ public class MatrixGraph implements Graph {
 		Path newPath = pQueue.remove();
 		listOfPaths.add(newPath);
 
-		return findShortestPaths(newPath.getEndNode().label, listOfPaths,
+		return findShortestPaths(newPath.getEndNode().getLabel(), listOfPaths,
 				newPath);
 
 	}
@@ -231,7 +232,7 @@ public class MatrixGraph implements Graph {
 
 		Path temp = null;
 		for (Path p : pQueue) {
-			if (p.getEndNode().label == newPath.getEndNode().label)
+			if (p.getEndNode().getLabel() == newPath.getEndNode().getLabel())
 				temp = p;
 		}
 
@@ -250,7 +251,7 @@ public class MatrixGraph implements Graph {
 
 	public void findCheapsestNeighbor(Vertex v, List<Path> mininumSpanTree) {
 
-		int r = getVertexRow(v.label);
+		int r = getVertexRow(v.getLabel());
 		Vertex start = getVertex(r);
 
 		// getting all adjacent neighbors
@@ -258,7 +259,7 @@ public class MatrixGraph implements Graph {
 			Vertex end;
 			if (graph[r][c] > 0) {
 				end = getVertex(c);
-				if (end.visited)
+				if (end.wasVisited())
 					continue;
 				Path p = new Path(start, end, graph[r][c]);
 				pQueue.add(p);
@@ -269,8 +270,8 @@ public class MatrixGraph implements Graph {
 			return;
 
 		Path p = pQueue.remove();
-		p.getEndNode().visited = true;
-		pQueue.removeIf(t -> t.getEndNode().label == p.getEndNode().label);
+		p.getEndNode().setVisited(true);
+		pQueue.removeIf(t -> t.getEndNode().getLabel() == p.getEndNode().getLabel());
 
 		mininumSpanTree.add(p);
 		findCheapsestNeighbor(p.getEndNode(), mininumSpanTree);
@@ -293,8 +294,8 @@ public class MatrixGraph implements Graph {
 	public void recursiveBFS(char label) {
 
 		Vertex v = getVertex(label);
-		if (v.visited == false) {
-			v.visited = true;
+		if (v.wasVisited() == false) {
+			v.setVisited(true);
 			this.queueOfNodes.add(v);
 			System.out.println("Visited vertex : " + v);
 		}
@@ -304,8 +305,8 @@ public class MatrixGraph implements Graph {
 			if (graph[r][i] == 1) {
 
 				Vertex t = this.vertices[i];
-				if (t.visited == false) {
-					t.visited = true;
+				if (t.wasVisited()== false) {
+					t.setVisited(true);
 					this.queueOfNodes.add(t);
 					System.out.println("Visited vertex : " + t);
 				}
@@ -314,17 +315,17 @@ public class MatrixGraph implements Graph {
 		this.queueOfNodes.poll();
 		if (queueOfNodes.isEmpty())
 			return;
-		this.recursiveBFS(this.queueOfNodes.peek().label);
+		this.recursiveBFS(this.queueOfNodes.peek().getLabel());
 	}
 
-	public void bfs(char label) {
+	public void bfs(char label, Function<Vertex, Vertex> action) {
 
 		int index = label - 65;
 
 		if (vertices[index].wasVisited() == false) {
 			vertices[index].setVisited(true);
 
-			System.out.println(label);
+			action.apply(vertices[index]);	
 		}
 
 		for (int cols = 0; cols < COLS; cols++) {
@@ -332,7 +333,8 @@ public class MatrixGraph implements Graph {
 			if (graph[index][cols] == 1 && vertices[cols].wasVisited() == false) {
 				vertices[cols].setVisited(true);
 				queueOfNodes.add(vertices[cols]);
-				System.out.println("Enqueue: " + vertices[cols].getLabel());
+				action.apply(vertices[cols]);
+				//System.out.println("Enqueue: " + vertices[cols].getLabel());
 			}// end of if
 
 		}// end of for loop
@@ -340,8 +342,8 @@ public class MatrixGraph implements Graph {
 		Vertex temp = queueOfNodes.poll();
 
 		if (temp != null) {
-			System.out.println("Dequeue: " + temp.getLabel());
-			bfs(temp.getLabel());
+			//System.out.println("Dequeue: " + temp.getLabel());
+			bfs(temp.getLabel(), action);
 		}
 	}
 
@@ -367,39 +369,7 @@ public class MatrixGraph implements Graph {
 		}
 	}
 
-	private class Vertex {
-
-		private char label;
-		private boolean visited;
-
-		public Vertex(char label) {
-
-			this.label = label;
-
-		}
-
-		public char getLabel() {
-
-			return this.label;
-
-		}
-
-		public void setVisited(boolean val) {
-
-			this.visited = val;
-		}
-
-		public boolean wasVisited() {
-			return this.visited;
-
-		}
-
-		@Override
-		public String toString() {
-			return this.label + "";
-		}
-	}
-
+	
 	public Vertex noSuccessor() {
 
 		Vertex noSuccessorVertex;
@@ -441,7 +411,7 @@ public class MatrixGraph implements Graph {
 			if (noSuccessorVertex != null) {
 				for (int i = 0; i < vertices.length; i++) {
 					if (vertices[i] != null
-							&& vertices[i].label == noSuccessorVertex.label) {
+							&& vertices[i].getLabel() == noSuccessorVertex.getLabel()) {
 						s.add(0, noSuccessorVertex);
 						deleteVertex(i, vertices);
 						numOfVertices--;
@@ -460,82 +430,10 @@ public class MatrixGraph implements Graph {
 		CollectionsHelper.printCollection(s, "\n");
 	}
 
-	private class Path implements Comparable<Path>, Cloneable {
 
-		private Vertex start;
-		private List<Vertex> listOfDestinations;
-
-		private int cost;
-		private String path;
-
-		public Path(Vertex start, Vertex otherNode, int cost) {
-			this.start = start;
-			this.listOfDestinations = new java.util.LinkedList<>();
-			this.listOfDestinations.add(otherNode);
-			this.cost = cost;
-			this.path = createPath(start);
-		}
-
-		public Path(Vertex start, List<Vertex> vertices, int cost) {
-			this.start = start;
-			this.listOfDestinations = vertices;
-			this.cost = cost;
-			this.path = createPath(start);
-		}
-
-		public Vertex getStartNode() {
-			return start;
-		}
-
-		public List<Vertex> getDestinations() {
-			return this.listOfDestinations;
-		}
-
-		public Vertex getEndNode() {
-			return listOfDestinations.get(listOfDestinations.size() - 1);
-		}
-
-		public void addDestination(Vertex v, int cost) {
-			this.cost += cost;
-			this.listOfDestinations.add(v);
-		}
-
-		private String createPath(Vertex start) {
-
-			StringBuffer path = new StringBuffer();
-			path.append(start);
-			for (Vertex v : this.listOfDestinations) {
-				path.append(" to " + v);
-			}
-			path.append(" " + this.cost);
-			return path.toString();
-		}
-
-		@Override
-		public String toString() {
-			return path;
-		}
-
-		public int getCost() {
-			return this.cost;
-		}
-
-		@Override
-		public int compareTo(Path o) {
-
-			if (this.cost > o.cost) {
-				return 1;
-			} else if (this.cost < o.cost) {
-				return -1;
-			}
-
-			return 0;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			return this.path.equals(((Path) o).path);
-		}
-
+	@Override
+	public void addEdge(int start, int source, int weight, boolean directed) {
+		
+		
 	}
 }

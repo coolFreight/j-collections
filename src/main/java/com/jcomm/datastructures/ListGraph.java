@@ -1,6 +1,7 @@
 package com.jcomm.datastructures;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class ListGraph implements Graph {
 
@@ -21,22 +22,20 @@ public class ListGraph implements Graph {
 		
 		
 		ListGraph lg = new ListGraph();
-		lg.createEdge('A', 'D');
-		lg.createEdge('A', 'B');
-		lg.createEdge('B', 'C');
-		lg.createEdge('B', 'D');
-		lg.createEdge('C', 'E');
-		lg.createEdge('D', 'C');
-		lg.createEdge('D', 'E');
-		lg.createEdge('E', 'B');
+		lg.addEdge('A', 'D', 1, true);
+		lg.addEdge('A', 'B', 1, true);
+		lg.addEdge('B', 'C', 1, true);
+		lg.addEdge('B', 'D', 1, true);
+		lg.addEdge('C', 'E', 1, true);
+		lg.addEdge('D', 'C', 1, true);
+		lg.addEdge('D', 'E', 1, true);
+		lg.addEdge('E', 'B', 1, true);
 		lg.printGraph();
 	}
 	
 	public void createEdge(char start, char source){
 
 		List<Vertex> startEdges = getEdges(start);
-		
-		
 		Vertex vSource = getVertex(source);
 		startEdges.add(vSource);
 	}
@@ -75,15 +74,16 @@ public class ListGraph implements Graph {
 	
 	}
 	@Override
-	public void addEdge(int start, int source, int weight) {
+	public void addEdge(int start, int source, int weight, boolean directed) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void bfs(char label) {
-		
+	public void bfs(char label, Function<Vertex, Vertex> action) {
+		// TODO Auto-generated method stub
 		
 	}
+
 	
 	
 }
