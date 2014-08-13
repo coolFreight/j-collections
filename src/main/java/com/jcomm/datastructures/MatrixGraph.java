@@ -436,4 +436,11 @@ public class MatrixGraph implements Graph {
 		
 		
 	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

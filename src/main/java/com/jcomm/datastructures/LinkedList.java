@@ -6,6 +6,8 @@ package com.jcomm.datastructures;
 
 import java.util.Iterator;
 
+import com.jcomm.exceptions.IllegalOperationException;
+
 /**
  *
  * @author jova
@@ -21,7 +23,7 @@ public class LinkedList<T> implements Iterable<T> {
 
     public void add(T item) {
 
-        Link newLink = new Link();
+        Link<T> newLink = new Link<>();
         newLink.setElement(item);
 
         if (isEmpty()) {
@@ -54,26 +56,26 @@ public class LinkedList<T> implements Iterable<T> {
         return new LinkedListIterator();
     }
 
-    private class Link<T> {
+    private class Link<P> {
 
-        public T element;
-        public Link next = null;
+        public P element;
+        public Link<P> next = null;
 
-        public void setElement(T element) {
+        public void setElement(P element) {
             this.element = element;
 
         }
 
-        public T getElement() {
+        public P getElement() {
             return element;
         }
 
-        public void setNext(Link next) {
+        public void setNext(Link<P> next) {
             this.next = next;
 
         }
 
-        public Link getNext() {
+        public Link<P> getNext() {
             return next;
 
         }
@@ -101,16 +103,5 @@ public class LinkedList<T> implements Iterable<T> {
         }
     }
 
-    public static void main(String args[]) {
 
-        LinkedList<Integer> l = new LinkedList<>();
-        java.util.LinkedList<Integer> tl = new java.util.LinkedList<>();
-
-        l.add(15);
-        l.add(5);
-
-        for (Integer i : l) {
-            System.out.println(i);
-        }
-    }
 }

@@ -7,11 +7,12 @@ public class ListGraph implements Graph {
 
 	private List<Vertex> edges [] = new java.util.LinkedList[1000];
 	private Vertex vertices[] = new Vertex[1000];
+	private Vertex parentVertices[] = new Vertex[1000];
+	
 	
 	
 	
 	public ListGraph(){
-		
 		for(int i = 0; i < vertices.length; i++)
 			vertices[i] = new Vertex(convertInt(i), 1);
 		
@@ -75,7 +76,9 @@ public class ListGraph implements Graph {
 	}
 	@Override
 	public void addEdge(int start, int source, int weight, boolean directed) {
-		// TODO Auto-generated method stub
+		
+		//vertices[]
+		
 		
 	}
 	@Override
@@ -83,7 +86,10 @@ public class ListGraph implements Graph {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
