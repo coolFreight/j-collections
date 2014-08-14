@@ -103,4 +103,23 @@ public class GraphTest {
 		});
 	}	
 	
+	
+	@Test
+	public void testFindPath(){
+		ListGraph g = new ListGraph();
+		g.addEdge('A', 'B', 1, true);
+		g.addEdge('A', 'C', 1, true);
+		g.addEdge('A', 'D', 1, true);
+		g.addEdge('D', 'G', 1, true);
+		g.addEdge('G', 'Z', 1, true);
+
+		LinkedList<Vertex> v = g.findPath('A', 'Z');
+//		Assert.assertEquals(v[0],  'A');
+//		Assert.assertEquals(v[1],  'D');
+//		Assert.assertEquals(v[2],  'G');
+//		Assert.assertEquals(v[2],  'Z');
+		CollectionsHelper.printCollection(v);
+		
+	}
+	
 }

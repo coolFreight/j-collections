@@ -18,9 +18,19 @@ public class CollectionsHelper {
 		System.out.println("");
 	}
 
-	public static <T> void printArray(T array[]) {
+	public static <T> void printArray(T coll[]) {
 
-		for (T i : array) {
+		for (T i : coll) {
+			System.out.print(i + ",");
+		}
+
+		System.out.println("");
+	}
+
+	
+	public static <T> void printCollection(Iterable<T> coll) {
+
+		for (T i : coll) {
 			System.out.print(i + ",");
 		}
 

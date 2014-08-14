@@ -16,9 +16,34 @@ public class LinkedList<T> implements Iterable<T> {
 
     private Link<T> head;
     private Link<T> last;
+    private int indexCount = 0;
 
     public boolean isEmpty() {
         return head == null;
+    }
+    
+    /**
+     * Get value at the specified index.  The indexes are based on 0 -> length-1.
+     * 
+     * @param index
+     * @return value at index
+     * 
+     * @throws IllegalOperationException if the index does not exist
+     */
+    public T getValueAtIndex(int index){
+    	
+    	if(index >= this.indexCount)
+    		throw new IllegalOperationException("Index does not exist");
+    	
+    	int count = 0;
+    	for(T val : this){
+    		if(count==index)
+    			return val;
+    		count++;
+    	}
+    	
+    	return null;
+    	
     }
 
     public void add(T item) {
@@ -32,15 +57,23 @@ public class LinkedList<T> implements Iterable<T> {
             last.setNext(newLink);
         }
         last = newLink;
+        this.indexCount++;
     }
 
-    public T remove() {
+    
+    /**
+     *  Removes the first element in the list.
+     * 
+     * @return first element in the list
+     */
+    public T removeFirst() {
         if (head == null) {
             throw new IllegalOperationException();
         }
         T element = head.getElement();
         head = head.getNext();
-
+        
+        this.indexCount--;
         return element;
     }
 

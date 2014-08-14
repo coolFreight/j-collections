@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class ListGraph implements Graph {
 
-	private List<Vertex> edges [] = new java.util.LinkedList[1000];
+	private List<Vertex> edges [] = new java.util.LinkedList[27];
 	private Vertex vertices[] = new Vertex[1000];
 	private Queue<Vertex> pQueue = new java.util.LinkedList<>();
 	private Stack<Vertex> stackVertices = new Stack<>();
@@ -41,6 +41,7 @@ public class ListGraph implements Graph {
 		List<Vertex> startEdges = getEdges(start);
 		Vertex vSource = getVertex(source);
 		startEdges.add(vSource);
+	
 	}
 	
 	private Vertex getVertex(char label){
@@ -52,7 +53,14 @@ public class ListGraph implements Graph {
 		return edges[convertLabel(label)];
 	}
 	
-	
+	/**
+	 * This will convert the label into the key array index 
+	 * where the vertex is stored
+	 * 
+	 *  @param label the vertex character label
+	 *  
+	 *  return the index value where the Vertex is stored
+	 */
 	private int convertLabel(char label){
 		return label - 65;
 	}
@@ -89,6 +97,7 @@ public class ListGraph implements Graph {
 			v.setVisited(true);
 			action.apply(v);
 			pQueue.add(v);
+			parentVertices[0] = new Vertex('.', -1);
 		}
 		
 		
@@ -96,6 +105,8 @@ public class ListGraph implements Graph {
 		for(Vertex neighbor : listOfAdjacent){
 			
 			if(neighbor.wasVisited()==false){
+				
+				parentVertices[convertLabel(neighbor.getLabel())] = v;
 				neighbor.setVisited(true);
 				action.apply(neighbor);
 				pQueue.add(neighbor);
@@ -159,6 +170,40 @@ public class ListGraph implements Graph {
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	public LinkedList<Vertex> findPath(char start, char end){
+		this.bfs(start, (Vertex v) -> { System.out.println(v); return v;} );
+		return findPath(start, end, new LinkedList<Vertex>(), parentVertices);
+	}
+	
+	//A B C D E F G
+	//0 1 2 3 4 5 6
+	//    A     C F
+	// shortest path from A to G
+	
+	// A -> A
+	// A -> C
+	// A -> F
+	// A -> G 
+	private LinkedList<Vertex> findPath(char start, char end,  LinkedList<Vertex> paths, Vertex[] parents){
+		
+		if(start == end || start == '.'){
+			paths.add(getVertex(end));
+			return paths;
+		}else{
+			
+			int endIndex = convertLabel(end);
+			//recurseCall
+			findPath(start, parents[endIndex].getLabel(), paths, parents);
+			
+			paths.add(this.getVertex(end));
+			
+		}
+		
+		return paths;
 		
 	}
 

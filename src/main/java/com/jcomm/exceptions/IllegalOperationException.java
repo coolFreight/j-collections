@@ -10,6 +10,15 @@ package com.jcomm.exceptions;
  */
 public class IllegalOperationException extends RuntimeException {
 
-    public IllegalOperationException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public IllegalOperationException() {
+    }
+    
+    public IllegalOperationException(String message) {
+    	super(message);
     }
 }

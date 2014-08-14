@@ -14,7 +14,7 @@ public class JArrayListTest {
 		
 		arrayList.addInsertSort(25);
 		
-		arrayList.
+		//arrayList.
 	}
 
 }
