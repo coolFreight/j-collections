@@ -7,9 +7,35 @@ package com.jcomm.datastructures;
 /**
  *
  * @author jova
+ * @param <T>
  */
-public class ArrayList {
-
+public  class JArrayList<T extends Comparable<T>> implements JList<T>{
+	
+	
+	private T internalArray [];
+	
+	public JArrayList(){
+		this.internalArray = (T[]) new Object[50];	
+	}
+	
+	
+	public void addInsertSort(T val){
+		
+	}
+	
+	public void insertSort(T[] array){
+		
+		for(int x = 0; x<internalArray.length; x++) {
+			for(int i = x; i >0; i--){
+				if(internalArray[i].compareTo(internalArray[i-1])<0){
+					T temp = internalArray[i];
+					internalArray[i] = internalArray[i-1];
+					internalArray[i-1] = temp;
+				}
+			}
+		}
+	}
+			
     public static void insertionSort(int[] array) {
 
         for (int x = 0; x < array.length; x++) {
@@ -22,6 +48,8 @@ public class ArrayList {
             }
         }
     }
+    
+    
 
     public static int binarySearch(int[] array, int num) {
 
@@ -135,8 +163,8 @@ public class ArrayList {
 
         int[] array = {25, 6, 1, 88, 2};
         int[] sortedArray = {10, 20, 30, 50};
-        ArrayList.insertionSort(array);
-        ArrayList.printIntArray(array);
+        JArrayList.insertionSort(array);
+        JArrayList.printIntArray(array);
 
     }
 }

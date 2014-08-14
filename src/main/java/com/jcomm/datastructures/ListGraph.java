@@ -12,10 +12,10 @@ public class ListGraph implements Graph {
 	private Vertex vertices[] = new Vertex[1000];
 	private Queue<Vertex> pQueue = new java.util.LinkedList<>();
 	private Stack<Vertex> stackVertices = new Stack<>();
+	private Vertex parentVertices[] = new Vertex[1000];
 	
 	
 	public ListGraph(){
-		
 		for(int i = 0; i < vertices.length; i++)
 			vertices[i] = new Vertex(convertInt(i), 1);
 		
@@ -151,7 +151,9 @@ public class ListGraph implements Graph {
 	}
 	@Override
 	public void addEdge(int start, int source, int weight, boolean directed) {
-		// TODO Auto-generated method stub
+		
+		//vertices[]
+		
 		
 	}
 	@Override
@@ -159,4 +161,5 @@ public class ListGraph implements Graph {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

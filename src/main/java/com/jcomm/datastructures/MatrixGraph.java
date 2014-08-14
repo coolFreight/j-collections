@@ -437,7 +437,6 @@ public class MatrixGraph implements Graph {
 		
 	}
 
-	@Override
 	public void dfs(char label, Function<Vertex, Vertex> action) {
 		// TODO Auto-generated method stub
 		
