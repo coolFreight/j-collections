@@ -10,9 +10,9 @@ import com.jcomm.exceptions.IllegalOperationException;
 
 /**
  *
- * @author jova
+ * @author Jovaughn Lockridge
  */
-public class LinkedList<T> implements Iterable<T> {
+public class JLinkedList<T> implements Iterable<T>, JQueue<T> {
 
     private Link<T> head;
     private Link<T> last;
@@ -135,6 +135,22 @@ public class LinkedList<T> implements Iterable<T> {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
+
+	@Override
+	public void enqueue(T val) {
+		this.add(val);
+	}
+
+	@Override
+	public T dequeue() {
+		return removeFirst();
+	}
+
+
+	@Override
+	public T peek() {
+		return head.getElement();
+	}
 
 
 }

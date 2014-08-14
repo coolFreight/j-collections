@@ -113,13 +113,18 @@ public class GraphTest {
 		g.addEdge('D', 'G', 1, true);
 		g.addEdge('G', 'Z', 1, true);
 
-		LinkedList<Vertex> v = g.findPath('A', 'Z');
-//		Assert.assertEquals(v[0],  'A');
-//		Assert.assertEquals(v[1],  'D');
-//		Assert.assertEquals(v[2],  'G');
-//		Assert.assertEquals(v[2],  'Z');
-		CollectionsHelper.printCollection(v);
+		JLinkedList<Vertex> v = g.findPath('A', 'Z');
 		
+    	Assert.assertEquals('A',v.getValueAtIndex(0).getLabel());
+		Assert.assertEquals('D', v.getValueAtIndex(1).getLabel());
+    	Assert.assertEquals('G', v.getValueAtIndex(2).getLabel());
+ 		Assert.assertEquals('Z', v.getValueAtIndex(3).getLabel());
+	}
+	
+	
+	@Test
+	public void testConnectTwoComponents(){
+		Assert.fail();
 	}
 	
 }

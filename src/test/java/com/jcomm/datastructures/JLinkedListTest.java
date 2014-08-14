@@ -5,12 +5,12 @@ import org.junit.Test;
 
 import com.jcomm.exceptions.IllegalOperationException;
 
-public class LinkedListTest {
+public class JLinkedListTest {
 
 	@Test
 	public void testGetIndex(){
 		
-		LinkedList<Integer> l = new LinkedList<>();
+		JLinkedList<Integer> l = new JLinkedList<>();
 		l.add(5);
 		l.add(3);
 		l.add(10);
@@ -24,7 +24,7 @@ public class LinkedListTest {
 	
 	@Test(expected = IllegalOperationException.class)
 	public void testGetIndexOutOfBounds(){
-		LinkedList<Integer> l = new LinkedList<>();
+		JLinkedList<Integer> l = new JLinkedList<>();
 		l.add(5);
 		l.add(3);
 		l.add(10);
