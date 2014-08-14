@@ -436,4 +436,23 @@ public class MatrixGraph implements Graph {
 		
 		
 	}
+
+	@Override
+	public void dfs(char label, Function<Vertex, Vertex> action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addEdge(char start, char source, int weight, boolean directed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

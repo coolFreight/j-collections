@@ -51,20 +51,56 @@ public class GraphTest {
 		g.addDirectedEdge('G', 'I', 1);
 		
 		g.bfs('A', new Function<Vertex, Vertex>(){
-
 			@Override
 			public Vertex apply(Vertex t) {
 				System.out.println("Vertex : "+t);
 				return t;
-			}
-			
+			}		
 		});
 	}
 	
 	
+	@Test
+	public void testListBfs(){
+		ListGraph g = new ListGraph();
+		g.addEdge('A', 'B', 1, true);
+		g.addEdge('A', 'C', 1, true);
+		g.addEdge('A', 'D', 1, true);
+		g.addEdge('A', 'E', 1, true);
+		g.addEdge('B', 'F', 1, true);
+		g.addEdge('F', 'H', 1, true);
+		g.addEdge('D', 'G', 1, true);
+		g.addEdge('G', 'I', 1, true);
+		
+		g.bfs('A', new Function<Vertex, Vertex>(){
+			@Override
+			public Vertex apply(Vertex t) {
+				System.out.println("Vertex : "+t);
+				return t;
+			}		
+		});
+	}
 	
 	
-
-	
+	@Test
+	public void testListDfs(){
+		ListGraph g = new ListGraph();
+		g.addEdge('A', 'B', 1, true);
+		g.addEdge('A', 'C', 1, true);
+		g.addEdge('A', 'D', 1, true);
+		g.addEdge('A', 'E', 1, true);
+		g.addEdge('B', 'F', 1, true);
+		g.addEdge('F', 'H', 1, true);
+		g.addEdge('D', 'G', 1, true);
+		g.addEdge('G', 'I', 1, true);
+		
+		g.dfs('A', new Function<Vertex, Vertex>(){
+			@Override
+			public Vertex apply(Vertex t) {
+				System.out.println("Vertex : "+t);
+				return t;
+			}		
+		});
+	}	
 	
 }
