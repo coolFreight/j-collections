@@ -10,9 +10,9 @@ public class JArrayListTest {
 	public void testAddInsertionSort(){
 		
 		
-		JArrayList<Integer> arrayList = new JArrayList<>();
+		//JArrayList<Integer> arrayList = new JArrayList<>();
 		
-		arrayList.addInsertSort(25);
+		//arrayList.addInsertSort(25);
 		
 		//arrayList.
 	}

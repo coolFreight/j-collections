@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 public class ListGraph implements Graph {
 
-	private List<Vertex> edges [] = new java.util.LinkedList[27];
+	private List<Vertex> edges [] = new java.util.LinkedList[1000];
 	private Vertex vertices[] = new Vertex[1000];
 	private Queue<Vertex> pQueue = new java.util.LinkedList<>();
 	private Stack<Vertex> stackVertices = new Stack<>();
@@ -15,7 +15,7 @@ public class ListGraph implements Graph {
 		
 	public ListGraph(){
 		for(int i = 0; i < vertices.length; i++)
-			vertices[i] = new Vertex(convertInt(i), 1);
+			vertices[i] = new Vertex(i, 1);
 		
 		for(int i = 0; i < edges.length; i++)
 			edges[i] = new java.util.LinkedList<>();
@@ -29,13 +29,23 @@ public class ListGraph implements Graph {
 	
 	}
 	
+	@Deprecated
 	private Vertex getVertex(char label){
 		return vertices[convertLabel(label)];
+	}
+	
+	private Vertex getVertex(int index){
+		return vertices[index];
 	}
 	
 	private List<Vertex> getEdges(char label){
 		
 		return edges[convertLabel(label)];
+	}
+	
+	private List<Vertex> getEdges(int vertex){
+		
+		return edges[vertex];
 	}
 	
 	/**
@@ -148,7 +158,14 @@ public class ListGraph implements Graph {
 	@Override
 	public void addEdge(int start, int source, int weight, boolean directed) {
 		
-		//vertices[]
+		List<Vertex> startEdges = getEdges(start);
+		Vertex vSource = getVertex(source);
+		startEdges.add(vSource);
+		if(!directed){
+			List<Vertex> endEdges = getEdges(source);
+			Vertex vStart = getVertex(start);
+			endEdges.add(vStart);
+		}
 		
 		
 	}
