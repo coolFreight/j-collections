@@ -12,7 +12,7 @@ import com.jcomm.exceptions.IllegalOperationException;
  *
  * @author Jovaughn Lockridge
  */
-public class JLinkedList<T> implements Iterable<T>, JQueue<T> {
+public class JLinkedList<T extends Comparable<T>> implements JQueue<T>, JList<T> {
 
     private Link<T> head;
     private Link<T> last;
@@ -150,6 +150,16 @@ public class JLinkedList<T> implements Iterable<T>, JQueue<T> {
 	@Override
 	public T peek() {
 		return head.getElement();
+	}
+
+	@Override
+	public boolean contains(T val) {
+		
+		for(T t : this)
+			if(t.compareTo(val)==0)
+				return true;
+		
+		return false;
 	}
 
 

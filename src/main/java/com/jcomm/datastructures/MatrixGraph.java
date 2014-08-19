@@ -25,6 +25,8 @@ public class MatrixGraph implements Graph {
 	private Stack<Vertex> visitedNodes = new Stack<>();
 	private PriorityQueue<Path> pQueue = new PriorityQueue<Path>();
 	private Vertex[] vertices;
+	private int vertexIndexCount = 0;
+	private Map<String, Integer> vertexIndexes = new HashMap<>();
 
 	public MatrixGraph(int size) {
 
@@ -32,77 +34,12 @@ public class MatrixGraph implements Graph {
 		this.ROWS = size;
 		this.COLS = size;
 		this.graph = new int[this.ROWS][this.COLS];
-		int x = 0;
-		while (x < size) {
-			vertices[x] = new Vertex(((char) (x + 65)),1);
-			x++;
-		}
 	}
 
-	public void createVertices(int n) {
-
-		int x = 0;
-		while (0 < n) {
-			Vertex v = new Vertex(((char) (x + 65)),1);
-			vertices[x] = v;
-			System.out.println("Created vertex : " + v);
-			x++;
-		}
-	}
-
-	public static void main(String args[]) {
-		MatrixGraph graph = new MatrixGraph(5);
-		graph.addDirectedEdge('A', 'B', 50);
-		graph.addDirectedEdge('A', 'D', 80);
-
-		graph.addDirectedEdge('B', 'D', 90);
-		graph.addDirectedEdge('B', 'C', 60);
-		
-
-		graph.addDirectedEdge('C', 'E', 40);
-		
-		graph.addDirectedEdge('D', 'C', 20);
-		graph.addDirectedEdge('D', 'E', 70);
-
-		graph.addDirectedEdge('E', 'B', 50);
-
-		graph.printGraph();
-
-		// graph.bfs('B');
-		// graph.dfs('B');
-		// graph.mst('A');
-		// graph.recursiveBFS('B');
-		List<Path> paths = graph.findShortestPath('A');
-		CollectionsHelper.printCollection(paths, "\n");
-
-		
-	}
-
-	public void addUnDirectedEdge(char start, char end) {
-		addEdge(start - 65, end - 65, 1);
-	}
-
-	public void addUnDirectedEdge(char start, char end, int weight) {
-		addEdge(start - 65, end - 65, weight);
-	}
-	
-
-	public void addEdge(int start, int end, int weight) {
-		graph[start][end] = weight;
-		graph[end][start] = weight;
-	}
-
-	public void addDirectedEdge(char start, char end) {
-		addDirectedEdge(start - 65, end - 65, 1);
-	}
-
-	public void addDirectedEdge(char start, char end, int weight) {
-		addDirectedEdge(start - 65, end - 65, weight);
-	}
-
-	private void addDirectedEdge(int start, int end, int weight) {
-		graph[start][end] = weight;
-
+	public void createVertex(String label) {
+		this.vertexIndexes.put(label, this.vertexIndexCount);
+		vertices[this.vertexIndexCount] = new Vertex(label);
+		vertexIndexCount++;
 	}
 
 	public void printGraph() {
@@ -136,13 +73,13 @@ public class MatrixGraph implements Graph {
 	 * @param label
 	 *            of vertex
 	 */
-	public void dfs(char label) {
+	public void dfs(String label) {
 
 		Vertex v = getVertex(label);
 		v.setVisited(true);
 		visitedNodes.push(v);
 		System.out.println("Visited vertex " + v);
-		int row = getVertexRow(label);
+		int row = getVertexIndex(label);
 		for (int i = 0; i < this.COLS; i++) {
 			if (graph[row][i] == 1) {
 				Vertex t = getVertex(i);
@@ -152,11 +89,11 @@ public class MatrixGraph implements Graph {
 		}
 	}
 
-	public void mst(char label) {
+	public void mst(String label) {
 
 		Vertex v = getVertex(label);
 		v.setVisited(true);
-		int row = getVertexRow(label);
+		int row = getVertexIndex(label);
 		for (int i = 0; i < this.COLS; i++) {
 			if (graph[row][i] == 1) {
 				Vertex t = getVertex(i);
@@ -169,10 +106,10 @@ public class MatrixGraph implements Graph {
 	}
 
 	public List<Path> mwst() {
-		return mwst('A', new java.util.ArrayList<Path>());
+		return mwst("A", new java.util.ArrayList<Path>());
 	}
 
-	private List<Path> mwst(char label, List<Path> mininumSpanTree) {
+	private List<Path> mwst(String label, List<Path> mininumSpanTree) {
 
 		Vertex v = getVertex(label);
 		v.setVisited(true);
@@ -183,18 +120,18 @@ public class MatrixGraph implements Graph {
 
 	}
 
-	public List<Path> findShortestPath(char start) {
+	public List<Path> findShortestPath(String start) {
 
 		List<Path> listOfPaths = new java.util.ArrayList<Path>();
-		return findShortestPaths('A', listOfPaths, null);
+		return findShortestPaths("A", listOfPaths, null);
 	}
 
-	private List<Path> findShortestPaths(char start, List<Path> listOfPaths,
+	private List<Path> findShortestPaths(String start, List<Path> listOfPaths,
 			Path currentPath) {
 
 		Vertex vStart = getVertex(start);
 		vStart.setVisited(true);
-		int row = getVertexRow(start);
+		int row = getVertexIndex(start);
 
 		for (int col = 0; col < COLS; col++) {
 			Vertex tempVertex = getVertex(col);
@@ -251,7 +188,7 @@ public class MatrixGraph implements Graph {
 
 	public void findCheapsestNeighbor(Vertex v, List<Path> mininumSpanTree) {
 
-		int r = getVertexRow(v.getLabel());
+		int r = getVertexIndex(v.getLabel());
 		Vertex start = getVertex(r);
 
 		// getting all adjacent neighbors
@@ -271,27 +208,27 @@ public class MatrixGraph implements Graph {
 
 		Path p = pQueue.remove();
 		p.getEndNode().setVisited(true);
-		pQueue.removeIf(t -> t.getEndNode().getLabel() == p.getEndNode().getLabel());
+		pQueue.removeIf(t -> t.getEndNode().getLabel() == p.getEndNode()
+				.getLabel());
 
 		mininumSpanTree.add(p);
 		findCheapsestNeighbor(p.getEndNode(), mininumSpanTree);
 	}
 
-	private Vertex getVertex(int col) {
-		return vertices[col];
+	public int getVertexIndex(String label) {
+		return this.vertexIndexes.get(label);
 	}
 
-	private int getVertexRow(char label) {
-		return label - 65;
-	}
-
-	private Vertex getVertex(char label) {
-		int index = label - 65;
+	private Vertex getVertex(String label) {
+		int index = this.vertexIndexes.get(label);
 		return vertices[index];
-
 	}
 
-	public void recursiveBFS(char label) {
+	private Vertex getVertex(int index) {
+		return vertices[index];
+	}
+
+	public void recursiveBFS(String label) {
 
 		Vertex v = getVertex(label);
 		if (v.wasVisited() == false) {
@@ -299,13 +236,13 @@ public class MatrixGraph implements Graph {
 			this.queueOfNodes.add(v);
 			System.out.println("Visited vertex : " + v);
 		}
-		int r = getVertexRow(label);
+		int r = getVertexIndex(label);
 		for (int i = 0; i < this.COLS; i++) {
 
 			if (graph[r][i] == 1) {
 
 				Vertex t = this.vertices[i];
-				if (t.wasVisited()== false) {
+				if (t.wasVisited() == false) {
 					t.setVisited(true);
 					this.queueOfNodes.add(t);
 					System.out.println("Visited vertex : " + t);
@@ -318,14 +255,14 @@ public class MatrixGraph implements Graph {
 		this.recursiveBFS(this.queueOfNodes.peek().getLabel());
 	}
 
-	public void bfs(char label, Function<Vertex, Vertex> action) {
+	public void bfs(String label, Function<Vertex, Vertex> action) {
 
-		int index = label - 65;
+		int index = getVertexIndex(label);
 
 		if (vertices[index].wasVisited() == false) {
 			vertices[index].setVisited(true);
 
-			action.apply(vertices[index]);	
+			action.apply(vertices[index]);
 		}
 
 		for (int cols = 0; cols < COLS; cols++) {
@@ -334,7 +271,7 @@ public class MatrixGraph implements Graph {
 				vertices[cols].setVisited(true);
 				queueOfNodes.add(vertices[cols]);
 				action.apply(vertices[cols]);
-				//System.out.println("Enqueue: " + vertices[cols].getLabel());
+				// System.out.println("Enqueue: " + vertices[cols].getLabel());
 			}// end of if
 
 		}// end of for loop
@@ -342,13 +279,13 @@ public class MatrixGraph implements Graph {
 		Vertex temp = queueOfNodes.poll();
 
 		if (temp != null) {
-			//System.out.println("Dequeue: " + temp.getLabel());
+			// System.out.println("Dequeue: " + temp.getLabel());
 			bfs(temp.getLabel(), action);
 		}
 	}
 
-	public void findConnected(char label) {
-		int index = label - 65;
+	public void findConnected(String label) {
+		int index = getVertexIndex(label);
 		if (vertices[index].wasVisited() == false) {
 			vertices[index].setVisited(true);
 			visitedNodes.push(vertices[index]);
@@ -357,7 +294,7 @@ public class MatrixGraph implements Graph {
 		// traverse columns
 		for (int col = 0; col < COLS; col++) {
 			if (graph[index][col] == 1 && vertices[col].wasVisited() == false) {
-				findConnected((char) (col + 65));
+				findConnected(getVertex(col).getLabel());
 			}
 		}
 
@@ -369,7 +306,6 @@ public class MatrixGraph implements Graph {
 		}
 	}
 
-	
 	public Vertex noSuccessor() {
 
 		Vertex noSuccessorVertex;
@@ -411,7 +347,8 @@ public class MatrixGraph implements Graph {
 			if (noSuccessorVertex != null) {
 				for (int i = 0; i < vertices.length; i++) {
 					if (vertices[i] != null
-							&& vertices[i].getLabel() == noSuccessorVertex.getLabel()) {
+							&& vertices[i].getLabel() == noSuccessorVertex
+									.getLabel()) {
 						s.add(0, noSuccessorVertex);
 						deleteVertex(i, vertices);
 						numOfVertices--;
@@ -430,28 +367,38 @@ public class MatrixGraph implements Graph {
 		CollectionsHelper.printCollection(s, "\n");
 	}
 
-
-	@Override
-	public void addEdge(int start, int source, int weight, boolean directed) {
-		
-		
-	}
-
 	public void dfs(char label, Function<Vertex, Vertex> action) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void addEdge(char start, char source, int weight, boolean directed) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void dfs(String label, Function<Vertex, Vertex> action) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addEdge(String start, String end, int weight, boolean directed) {
+		int startIdx = getVertexIndex(start);
+		int endIdx = getVertexIndex(end);
+
+		graph[startIdx][endIdx] = weight;
+		if (!directed)
+			graph[endIdx][startIdx] = weight;
+
+	}
+
+	@Override
+	public JList<String> getEdges(String label) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

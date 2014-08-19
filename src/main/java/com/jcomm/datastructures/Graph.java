@@ -6,9 +6,10 @@ public interface Graph {
 
 	
 	void printGraph();
-	void addEdge(int start, int source, int weight, boolean directed);
-	void addEdge(char start, char source, int weight, boolean directed);
-	void bfs(char label, Function<Vertex, Vertex> action);
-	void dfs(char label, Function<Vertex, Vertex> action);
+	void createVertex(String label);
+	void addEdge(String start, String end, int weight, boolean directed);
+	void bfs(String label, Function<Vertex, Vertex> action);
+	void dfs (String label, Function<Vertex, Vertex> action);
 	void init();
-}
+	JList<String> getEdges(String label);
+}	

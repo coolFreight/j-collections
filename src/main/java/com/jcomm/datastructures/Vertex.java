@@ -1,44 +1,33 @@
 package com.jcomm.datastructures;
 
-class Vertex {
+public class Vertex implements Comparable<Vertex> {
 	
-	private String tag;
-	private char label;
+	private int tag;
+	private String label;
 	private boolean visited;
-	private int weight;
 
-	@Deprecated
-	public Vertex(char label, int weight) {
-		
-		this.tag = label +"";
+	
+	public Vertex(String label){
 		this.label = label;
-		this.weight = weight;
-
 	}
-	
-	public Vertex(String tag, int weight) {
+	public Vertex(int tag, String label) {
+		this.label = label;
 		this.tag = tag;
-		this.weight = weight;
 	}
 	
-	public Vertex(int tag, int weight) {
-		this.tag = tag +"";
-		this.weight = weight;
+	public Vertex(int tag) {
+		this.tag = tag;
 	}
 	
-	public int getWeight(){
-		return this.weight;
-	}
 
-	@Deprecated
-	public char getLabel() {
+	public String getLabel() {
 		return this.label;
 	}
 
-	public String getTag() {
+	public int getTag() {
 		return tag;
 	}
-
+	
 	public void setVisited(boolean val) {
 
 		this.visited = val;
@@ -51,7 +40,24 @@ class Vertex {
 
 	@Override
 	public String toString() {
-		return this.tag;
+		return label;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		
+		return this.label.equals(((Vertex)o).getLabel());	
+	}
+	
+	@Override
+	public int hashCode(){
+		return label.hashCode();
+		
+	}
+
+	@Override
+	public int compareTo(Vertex o) {	
+		return this.label.compareTo(o.getLabel());
 	}
 
 }

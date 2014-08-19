@@ -4,33 +4,80 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class GraphTest {
 
+	ListGraph listGraph = new ListGraph();
+	Vertex a = new Vertex("A");
+	Vertex b = new Vertex("B");
+	Vertex c = new Vertex("C");
+	Vertex d = new Vertex("D");
+	Vertex e = new Vertex("E");
+	Vertex f = new Vertex("F");
+	Vertex g = new Vertex("G");
+	Vertex h = new Vertex("H");	
+	Vertex i = new Vertex("I");
+
+	
+	
+	@Before
+	public void setUp(){
+		listGraph = new ListGraph();
+
+	}
+	
+	
+	private void createMatrixVertices(MatrixGraph matrixGraph){
+		
+		matrixGraph.createVertex("A");
+		matrixGraph.createVertex("B");
+		matrixGraph.createVertex("C");
+		matrixGraph.createVertex("D");
+		matrixGraph.createVertex("E");
+		matrixGraph.createVertex("F");
+		matrixGraph.createVertex("G");
+		matrixGraph.createVertex("H");
+		matrixGraph.createVertex("I");
+	}
+	
+	private void createListVertices(ListGraph graph){
+
+		graph.createVertex("A");
+		graph.createVertex("B");
+		graph.createVertex("C");
+		graph.createVertex("D");
+		graph.createVertex("E");
+		graph.createVertex("F");
+		graph.createVertex("G");
+		graph.createVertex("H");
+		graph.createVertex("I");
+	}
+	
 	@Test
 	public void testShortestPathAlgo() {
 
-		MatrixGraph g = new MatrixGraph(5);
-
-		g.addDirectedEdge('A', 'B', 10);
-		g.addDirectedEdge('A', 'D', 80);
-		g.addDirectedEdge('B', 'D', 20);
-		g.addDirectedEdge('D', 'E', 70);
-		g.addDirectedEdge('D', 'C', 20);
-		g.addDirectedEdge('C', 'E', 40);
-		g.addDirectedEdge('E', 'B', 50);
+		MatrixGraph g = new MatrixGraph(25);
+		createMatrixVertices(g);
+		g.addEdge("A", "B", 10, true);
+		g.addEdge("A", "D", 80, true);
+		g.addEdge("B", "D", 20, true);
+		g.addEdge("D", "E", 70, true);
+		g.addEdge("D", "C", 20, true);
+		g.addEdge("C", "E", 40, true);
+		g.addEdge("E", "B", 50, true);
 							
-		List<Path> paths = g.findShortestPath('A');
+		List<Path> paths = g.findShortestPath("A");
 		for (Path p : paths) {
 
-			char end = p.getEndNode().getLabel();
+			String end = p.getEndNode().getLabel();
 
 			switch (end) {
-				case 'B':
+				case "B":
 					Assert.assertEquals(10, p.getCost());
 					break;
-				case 'D':
+				case "D":
 					Assert.assertEquals(30, p.getCost());
 					break;
 
@@ -41,16 +88,17 @@ public class GraphTest {
 	@Test
 	public void testMatrixBfs(){
 		MatrixGraph g = new MatrixGraph(9);
-		g.addDirectedEdge('A', 'B', 1);
-		g.addDirectedEdge('A', 'C', 1);
-		g.addDirectedEdge('A', 'D', 1);
-		g.addDirectedEdge('A', 'E', 1);
-		g.addDirectedEdge('B', 'F', 1);
-		g.addDirectedEdge('F', 'H', 1);
-		g.addDirectedEdge('D', 'G', 1);
-		g.addDirectedEdge('G', 'I', 1);
+		createMatrixVertices(g);
+		g.addEdge("A", "B", 1, false);
+		g.addEdge("A", "C", 1, false);
+		g.addEdge("A", "D", 1, false);
+		g.addEdge("A", "E", 1, false);
+		g.addEdge("B", "F", 1, false);
+		g.addEdge("F", "H", 1, false);
+		g.addEdge("D", "G", 1, false);
+		g.addEdge("G", "I", 1, false);
 		
-		g.bfs('A', new Function<Vertex, Vertex>(){
+		g.bfs("A", new Function<Vertex, Vertex>(){
 			@Override
 			public Vertex apply(Vertex t) {
 				System.out.println("Vertex : "+t);
@@ -62,17 +110,19 @@ public class GraphTest {
 	
 	@Test
 	public void testListBfs(){
-		ListGraph g = new ListGraph();
-		g.addEdge('A', 'B', 1, true);
-		g.addEdge('A', 'C', 1, true);
-		g.addEdge('A', 'D', 1, true);
-		g.addEdge('A', 'E', 1, true);
-		g.addEdge('B', 'F', 1, true);
-		g.addEdge('F', 'H', 1, true);
-		g.addEdge('D', 'G', 1, true);
-		g.addEdge('G', 'I', 1, true);
+	
+		listGraph = new ListGraph();
+		createListVertices(listGraph);
+		listGraph.addEdge("A","B", 1, true);
+		listGraph.addEdge("A", "C", 1, true);
+		listGraph.addEdge("A", "D", 1, true);
+		listGraph.addEdge("A", "E", 1, true);
+		listGraph.addEdge("B", "F", 1, true);
+		listGraph.addEdge("F", "H", 1, true);
+		listGraph.addEdge("D", "G", 1, true);
+		listGraph.addEdge("G","I", 1, true);
 		
-//		g.bfs('A', new Function<Vertex, Vertex>(){
+//		g.bfs("A", new Function<Vertex, Vertex>(){
 //			@Override
 //			public Vertex apply(Vertex t) {
 //				System.out.println("Vertex : "+t);
@@ -84,46 +134,47 @@ public class GraphTest {
 	
 	@Test
 	public void testListDfs(){
-		ListGraph g = new ListGraph();
-		g.addEdge('A', 'B', 1, true);
-		g.addEdge('A', 'C', 1, true);
-		g.addEdge('A', 'D', 1, true);
-		g.addEdge('A', 'E', 1, true);
-		g.addEdge('B', 'F', 1, true);
-		g.addEdge('F', 'H', 1, true);
-		g.addEdge('D', 'G', 1, true);
-		g.addEdge('G', 'I', 1, true);
 		
-//		g.dfs('A', new Function<Vertex, Vertex>(){
-//			@Override
-//			public Vertex apply(Vertex t) {
-//				System.out.println("Vertex : "+t);
-//				return t;
-//			}		
-//		});
+		createListVertices(listGraph);
+		listGraph.addEdge("A", "B", 1, true);
+		listGraph.addEdge("A", "C", 1, true);
+		listGraph.addEdge("A", "D", 1, true);
+		listGraph.addEdge("A", "E", 1, true);
+		listGraph.addEdge("B", "F", 1, true);
+		listGraph.addEdge("F", "H", 1, true);
+		listGraph.addEdge("D", "G", 1, true);
+		listGraph.addEdge("E", "I", 1, true);
+		
+		listGraph.dfs("A", new Function<Vertex, Vertex>(){
+			@Override
+			public Vertex apply(Vertex t) {
+				System.out.println("Vertex : "+t);
+				return t;
+			}		
+		});
 	}	
 	
 	
 	@Test
 	public void testFindPath(){
-		ListGraph g = new ListGraph();
-		g.addEdge('A', 'B', 1, true);
-		g.addEdge('A', 'C', 1, true);
-		g.addEdge('A', 'D', 1, true);
-		g.addEdge('C', 'G', 1, true);
-		g.addEdge('D', 'G', 1, true);
-		g.addEdge('D', 'E', 1, true);
-		g.addEdge('E', 'G', 1, true);
-		g.addEdge('G', 'Z', 1, true);
+		createListVertices(listGraph);
+		listGraph.addEdge("A", "B", 1, true);
+		listGraph.addEdge("A", "C", 1, true);
+		listGraph.addEdge("A", "D", 1, true);
+		listGraph.addEdge("A", "G", 1, true);
+		listGraph.addEdge("D", "G", 1, true);
+		listGraph.addEdge("D", "E", 1, true);
+		listGraph.addEdge("E", "G", 1, true);
+		//graph.addEdge(g, g, 1, true);
 
-		//JLinkedList<Vertex> v = g.findPath('D', 'Z');
+		//JLinkedList<Vertex> v = g.findPath("D", "Z");
 		
 		
 		//CollectionsHelper.printCollection(v);
-//    	Assert.assertEquals('D',v.getValueAtIndex(0).getLabel());
-//		Assert.assertEquals('G', v.getValueAtIndex(1).getLabel());
-//    	Assert.assertEquals('Z', v.getValueAtIndex(2).getLabel());
- 		//Assert.assertEquals('Z', v.getValueAtIndex(3).getLabel());
+//    	Assert.assertEquals("D",v.getValueAtIndex(0).getLabel());
+//		Assert.assertEquals("G", v.getValueAtIndex(1).getLabel());
+//    	Assert.assertEquals("Z", v.getValueAtIndex(2).getLabel());
+ 		//Assert.assertEquals("Z", v.getValueAtIndex(3).getLabel());
 	}
 	
 	

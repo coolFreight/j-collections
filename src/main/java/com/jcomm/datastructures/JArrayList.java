@@ -4,12 +4,14 @@
  */
 package com.jcomm.datastructures;
 
+import java.util.Iterator;
+
 /**
  *
  * @author jova
  * @param <T>
  */
-public  class JArrayList<T extends Comparable<T>> implements JList<T>{
+public  class JArrayList<T> implements JList<T>{
 	
 	
 	private T internalArray [];
@@ -23,18 +25,18 @@ public  class JArrayList<T extends Comparable<T>> implements JList<T>{
 		
 	}
 	
-	public void insertSort(T[] array){
-		
-		for(int x = 0; x<internalArray.length; x++) {
-			for(int i = x; i >0; i--){
-				if(internalArray[i].compareTo(internalArray[i-1])<0){
-					T temp = internalArray[i];
-					internalArray[i] = internalArray[i-1];
-					internalArray[i-1] = temp;
-				}
-			}
-		}
-	}
+//	public void insertSort(T[] array){
+//		
+//		for(int x = 0; x<internalArray.length; x++) {
+//			for(int i = x; i >0; i--){
+//				if(internalArray[i].compareTo(internalArray[i-1])<0){
+//					T temp = internalArray[i];
+//					internalArray[i] = internalArray[i-1];
+//					internalArray[i-1] = temp;
+//				}
+//			}
+//		}
+//	}
 			
     public static void insertionSort(int[] array) {
 
@@ -167,4 +169,53 @@ public  class JArrayList<T extends Comparable<T>> implements JList<T>{
         JArrayList.printIntArray(array);
 
     }
+
+
+	@Override
+	public void add(T item) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	  private class JArrayListIterator implements Iterator<T> {
+		  
+		  	
+		  	private int count = 0;
+	       
+	        @Override
+	        public boolean hasNext() {
+	           
+	        	return internalArray[count] != null;
+	        }
+
+	        @Override
+	        public T next() {        	
+	        	T next = internalArray[count];
+	        	count++;
+	        	return next;        	
+	        }
+
+	        @Override
+	        public void remove() {
+	            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	        }
+	    }
+
+	@Override
+	public Iterator<T> iterator() {
+		return new JArrayListIterator();
+	}
+
+
+
+	@Override
+	public boolean contains(T val) {
+		
+		for(T t : this)
+			if(t.equals(val))
+				return true;
+		
+		return false;
+	}
+
 }
