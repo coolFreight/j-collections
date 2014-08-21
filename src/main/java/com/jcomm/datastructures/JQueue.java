@@ -21,4 +21,9 @@ public interface JQueue<T> {
 	 * @retun value
 	 */
 	T peek();
+	
+	boolean isEmpty();
+	
+	int size();
+	
 }

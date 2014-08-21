@@ -162,5 +162,14 @@ public class JLinkedList<T extends Comparable<T>> implements JQueue<T>, JList<T>
 		return false;
 	}
 
+	
+	/**
+	 * The number of of items in the queue
+	 */
+	@Override
+	public int size() {	
+		return  this.indexCount;
+	}
+
 
 }
