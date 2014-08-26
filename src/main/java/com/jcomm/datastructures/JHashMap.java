@@ -33,7 +33,7 @@ public class JHashMap<K, V> {
 				}
 			}
 			if (count == size) {
-				throw new NoSuchMethodError("Resizing of the hashmap");
+				//throw new NoSuchMethodError("Resizing of the hashmap");
 			} else {
 				Bag<K, V> bag = new Bag<K, V>(key, value, internalKey);
 				array[internalKey] = bag;
