@@ -6,6 +6,8 @@ package com.jcomm.datastructures;
 
 import java.util.Iterator;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  *
  * @author jova
@@ -25,19 +27,6 @@ public  class JArrayList<T> implements JList<T>{
 		
 	}
 	
-//	public void insertSort(T[] array){
-//		
-//		for(int x = 0; x<internalArray.length; x++) {
-//			for(int i = x; i >0; i--){
-//				if(internalArray[i].compareTo(internalArray[i-1])<0){
-//					T temp = internalArray[i];
-//					internalArray[i] = internalArray[i-1];
-//					internalArray[i-1] = temp;
-//				}
-//			}
-//		}
-//	}
-			
     public static void insertionSort(int[] array) {
 
         for (int x = 0; x < array.length; x++) {
@@ -216,6 +205,24 @@ public  class JArrayList<T> implements JList<T>{
 				return true;
 		
 		return false;
+	}
+
+
+	@Override
+	public T removeFirst() {
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public T getFirst() {
+		throw new NotImplementedException();
+	}
+
+
+	@Override
+	public void addAll(JList<T> list) {
+		throw new NotImplementedException();
 	}
 
 }

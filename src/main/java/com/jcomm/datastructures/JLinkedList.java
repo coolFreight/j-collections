@@ -170,6 +170,22 @@ public class JLinkedList<T extends Comparable<T>> implements JQueue<T>, JList<T>
 	public int size() {	
 		return  this.indexCount;
 	}
+	
+	/**
+	 *  Add input list to the end of this list. 
+	 * 
+	 * @throws IllegalArgumentException if input list is null
+	 */
+	@Override
+	public void addAll(JList<T> list) {
+		
+		if(list == null)
+			throw new IllegalArgumentException("Input is null");
+		
+		for(T node : list)
+			this.add(node);
+		
+	}
 
 
 }

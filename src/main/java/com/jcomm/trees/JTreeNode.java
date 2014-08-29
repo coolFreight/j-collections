@@ -11,9 +11,15 @@ public class JTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 
 	private JTreeNode<T> leftNode = null;
 	private JTreeNode<T> rightNode = null;
+	private JTreeNode<T> parentNode = null;
 	private T val;
 	
 	public JTreeNode(T val){
+		this.val = val;
+	}
+	
+	
+	public void setValue(T val){
 		this.val = val;
 	}
 	
@@ -75,6 +81,16 @@ public class JTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 	@Override
 	public String toString() {
 		return "JTreeNode [val=" + val + "]";
+	}
+
+
+	public JTreeNode<T> getParentNode() {
+		return parentNode;
+	}
+
+
+	public void setParentNode(JTreeNode<T> parentNode) {
+		this.parentNode = parentNode;
 	}
 	
 	
