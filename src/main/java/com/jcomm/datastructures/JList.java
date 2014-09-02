@@ -6,7 +6,4 @@ public interface JList<T> extends Iterable<T> {
 	T getFirst();
 	void add(T item);
 	void addAll(JList<T> list);
-	boolean contains(T val);
-	
-
 }

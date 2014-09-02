@@ -198,17 +198,6 @@ public  class JArrayList<T> implements JList<T>{
 
 
 	@Override
-	public boolean contains(T val) {
-		
-		for(T t : this)
-			if(t.equals(val))
-				return true;
-		
-		return false;
-	}
-
-
-	@Override
 	public T removeFirst() {
 		throw new NotImplementedException();
 	}

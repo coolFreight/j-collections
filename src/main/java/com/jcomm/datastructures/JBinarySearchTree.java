@@ -31,13 +31,11 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 
 			JTreeNode<T> currentNode = getCurrentNode(rootNode, value);
 			node.setParentNode(currentNode);
-			
+
 			if (currentNode.getValue().compareTo(node.getValue()) > 0)
 				currentNode.setLeftNode(node);
 			else
 				currentNode.setRightNode(node);
-			
-			
 
 		}
 
@@ -49,18 +47,18 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 		if (val != null)
 			remove(val);
 	}
-	
-	private void removeFromTree(JTreeNode<T> source, JTreeNode<T> target){
-		
-		if(source.getParentNode()==null)
+
+	private void removeFromTree(JTreeNode<T> source, JTreeNode<T> target) {
+
+		if (source.getParentNode() == null)
 			this.rootNode = target;
-		else{
+		else {
 			JTreeNode<T> parent = source.getParentNode();
-			if(source.getValue().compareTo(parent.getValue())<=0)
+			if (source.getValue().compareTo(parent.getValue()) <= 0)
 				parent.setLeftNode(target);
 			else
 				parent.setRightNode(target);
-			
+
 		}
 	}
 
@@ -109,8 +107,7 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 		return root;
 
 	}
-	
-	
+
 	public JList<T> getNodesPreOrder() {
 
 		JList<T> l = new JLinkedList<T>();
@@ -268,34 +265,74 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 
 	}
 
-	// public void printLevelTreeTraversal(JTreeNode<T> root, JTreeNode<T>
-	// parentNode) {
-	//
-	// System.out.print(root.getValue() + ", ");
-	// System.out.print(root.getLeftNode().getValue() + ", ");
-	// System.out.print(root.getRightNode().getValue() + ", ");
-	// printLevelTreeTraversal(root.getLeftNode(), root.getRightNode());
-	// }
+	/**
+	 * Gets lowest value in the tree;
+	 * 
+	 * @return lowest value 
+	 */
+	public T findMinimum() {
+		return findMinimum(this.rootNode);
+	}
 
-	// private void printLevelTreeTraversal(JTreeNode<T> root,
-	// JTreeNode<T> nextNode) {
-	//
-	// if (root == null)
-	// return;
-	//
-	// if (root.getLeftNode() != null)
-	// System.out.print(root.getLeftNode().getValue() + ", ");
-	// if (root.getRightNode() != null)
-	// System.out.print(root.getRightNode().getValue() + ", ");
-	//
-	// if (root.getLeftNode() != null)
-	// printLevelTreeTraversal(nextNode, root.getLeftNode());
-	// else if (root.getRightNode() != null)
-	// printLevelTreeTraversal(nextNode, root.getRightNode());
-	// else
-	// printLevelTreeTraversal(nextNode, nextNode.getRightNode());
-	//
-	// }
+	private T findMinimum(JTreeNode<T> root) {
 
+		if (root.getLeftNode() == null)
+			return root.getValue();
+
+		return findMinimum(root.getLeftNode());
+
+	}
+
+	 public void printLevelTreeTraversal(JTreeNode<T> root, JTreeNode<T>
+	 parentNode) {
+	
+	 System.out.print(root.getValue() + ", ");
+	 System.out.print(root.getLeftNode().getValue() + ", ");
+	 System.out.print(root.getRightNode().getValue() + ", ");
+	 printLevelTreeTraversal(root.getLeftNode(), root.getRightNode());
+	 }
+
+	 
+	/**
+	 * Gets a list of all values from the tree in level order from right to left
+	 *   
+	 * The following tree</br></br>
+	 *  <b>root value 9</b></br>
+	 *  <b>left child value 3</b></br>
+	 *  <b>right child value 12</b></br>
+	 *  will give a list <b>9, 3, 12</b>
+	 * 
+	 * @return a list of all values in the tree
+	 */
+	public JLinkedList<T> getLevelOrder(){		
+		return getLevelOrder(this.rootNode);
+	}
+	
+	
+	
+	private JLinkedList<T> getLevelOrder(JTreeNode<T> root) {
+		
+		JQueue<JTreeNode<T>> q = new JLinkedList<JTreeNode<T>>();
+		JLinkedList<T> l = new JLinkedList<>();
+		q.enqueue(root);
+		while(root !=null){
+			
+			if(q.isEmpty())
+				return l;
+			
+			root = q.dequeue();
+			l.add(root.getValue());
+			
+			if(root.getLeftNode()!=null){
+				q.enqueue(root.getLeftNode());
+			}
+			if(root.getRightNode()!=null){
+				q.enqueue(root.getRightNode());
+			}
+					
+		}
+		
+		return l;
+	}
 
 }

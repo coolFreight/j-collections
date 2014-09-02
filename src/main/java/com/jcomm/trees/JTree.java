@@ -8,7 +8,7 @@ package com.jcomm.trees;
  *
  * @param <T>
  */
-public class JTree<T extends Comparable<T>> implements Tree<T> {
+public abstract class JTree<T extends Comparable<T>> implements Tree<T> {
 
 	private int count;
 	private final T[] treeNodes;
@@ -33,5 +33,6 @@ public class JTree<T extends Comparable<T>> implements Tree<T> {
 		
 		
 	}
+
 	
 }

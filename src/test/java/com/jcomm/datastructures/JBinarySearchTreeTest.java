@@ -86,6 +86,36 @@ public class JBinarySearchTreeTest {
 		Assert.assertEquals(Integer.valueOf(15), bst.getRootNode().getRightNode().getValue());
 	}
 	
+	@Test 
+	public void testFindMin(){
+		bst.insert(9);
+		bst.insert(12);
+		bst.insert(3);
+		bst.insert(15);
+		bst.insert(11);
+		bst.insert(10);
+		bst.insert(2);
+		bst.insert(7);		
+		bst.remove(12);
+		Assert.assertEquals(Integer.valueOf(2), bst.findMinimum());
+	}
+	
+	@Test 
+	public void testLevelOrder(){
+		bst.insert(9);
+		bst.insert(12);
+		bst.insert(3);
+		bst.insert(15);
+		bst.insert(11);
+		bst.insert(10);
+		bst.insert(2);
+		bst.insert(7);		
+		
+		CollectionsHelper.printCollection(bst.getLevelOrder());
+	}
+	
+	
+	
 	
 	
 
