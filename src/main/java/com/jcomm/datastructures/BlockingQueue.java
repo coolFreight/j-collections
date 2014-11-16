@@ -3,18 +3,22 @@ package com.jcomm.datastructures;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
+
+@ThreadSafe
 public class BlockingQueue<T> {
 
-	private T arr[];
+	@GuardedBy("lock") private T arr[];
 	private int numOfElements;
 	private int front = 0;
 	private int back = 0;
 	private ReentrantLock lock = new ReentrantLock();
 	private Condition condition = lock.newCondition();
-	private final int size;
+	private final int SIZE;
 
 	public BlockingQueue(int size) {
-		this.size = size;
+		this.SIZE = size;
 		arr = (T[]) new Object[size];
 	}
 
@@ -24,7 +28,7 @@ public class BlockingQueue<T> {
 			if (isFull()) {
 				condition.await();
 			}
-			arr[back] = element;
+			arr[back%SIZE] = element;
 			numOfElements++;
 			back++;
 		} catch (InterruptedException e) {
@@ -41,12 +45,13 @@ public class BlockingQueue<T> {
 		T element = null;
 		try {
 			lock.lock();
-			if (isEmpty()) {
+			if (isEmpty()) 
 				condition.await();
-			}
+
 			element = (T) arr[front];
 			front++;
 			numOfElements--;
+			condition.signal();
 			return element;
 
 		} catch (InterruptedException e) {
@@ -61,7 +66,7 @@ public class BlockingQueue<T> {
 	public boolean isFull() {
 		try {
 			lock.lock();
-			return numOfElements == size;
+			return numOfElements == SIZE;
 		} finally {
 			lock.unlock();
 		}
@@ -81,7 +86,7 @@ public class BlockingQueue<T> {
 	public int size() {
 		try {
 			lock.lock();
-			return size;
+			return SIZE;
 		} finally {
 			lock.unlock();
 		}
