@@ -7,7 +7,7 @@ import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 @ThreadSafe
-public class BlockingQueue<T> {
+public class JBlockingQueue<T> {
 
 	@GuardedBy("lock") private T arr[];
 	private int numOfElements;
@@ -17,7 +17,7 @@ public class BlockingQueue<T> {
 	private Condition condition = lock.newCondition();
 	private final int SIZE;
 
-	public BlockingQueue(int size) {
+	public JBlockingQueue(int size) {
 		this.SIZE = size;
 		arr = (T[]) new Object[size];
 	}

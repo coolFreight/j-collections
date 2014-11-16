@@ -4,9 +4,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-public class BlockingQueueTest {
+public class JBlockingQueueTest {
 	
-	private BlockingQueue<Integer> q = new BlockingQueue<>(1);
+	private JBlockingQueue<Integer> q = new JBlockingQueue<>(1);
 	
 	@Test
 	public void testAdd(){
@@ -18,21 +18,34 @@ public class BlockingQueueTest {
 	
 	@Test
 	public void testAddAwait() throws InterruptedException{	
-		
 		IntAdder ia = new IntAdder(q);
 		Thread t1 = new Thread(ia);
 		t1.start();	
 		Thread.sleep(1000);
 		Assert.assertEquals(Thread.State.WAITING, t1.getState());
+		IntRemover ir = new IntRemover(q);
+		Thread t2 = new Thread(ir);
+		t2.start();
+		Thread.sleep(1000);
+		Assert.assertEquals(Thread.State.TERMINATED, t1.getState());
+	}
+	
+	@Test
+	public void testRemove() throws InterruptedException{
+		testAddAwait();
+		IntRemover ir = new IntRemover(q);
+		Thread t1 = new Thread(ir);
+		t1.start();
+		
 	}
 	
 	
 	
 	 private static class IntAdder implements Runnable{
 
-		private BlockingQueue<Integer> q;
+		private JBlockingQueue<Integer> q;
 		
-		public IntAdder(BlockingQueue<Integer> q){
+		public IntAdder(JBlockingQueue<Integer> q){
 			this.q = q;
 		}
 		
@@ -49,15 +62,14 @@ public class BlockingQueueTest {
 	 
 	 private static class IntRemover implements Runnable{
 
-			private BlockingQueue<Integer> q;
+			private JBlockingQueue<Integer> q;
 			
-			public IntRemover(BlockingQueue<Integer> q){
+			public IntRemover(JBlockingQueue<Integer> q){
 				this.q = q;
 			}
 			
 			@Override
-			public void run() {
-				q.addElement(Integer.valueOf(8));		
+			public void run() {	
 				System.out.println("Remover got : "+q.removeElement());
 			}
 			
