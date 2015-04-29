@@ -392,8 +392,7 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 
 	public JTreeNode<T> convertToLinkList(){
 
-
-		JTreeNode<T> left = convertList(rootNode.getLeftNode());
+		JTreeNode<T> left = convertList(rootNode.getLeftNode(), true);
 
 		while(left.getLeftNode()!=null){
 
@@ -409,10 +408,7 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 			farLeft.setRightNode(rootNode);
 		}
 
-
-
-
-		JTreeNode<T> right = convertList(rootNode.getRightNode());
+		JTreeNode<T> right = convertList(rootNode.getRightNode(), false);
 
 		if(right!=null) {
 			while (right.getLeftNode() != null) {
@@ -426,14 +422,14 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 }
 
 
-	private JTreeNode<T> convertList( JTreeNode<T> current){
+	private JTreeNode<T> convertList( JTreeNode<T> current, boolean isLeft){
 
 		if(current == null){
 			return null;
 		}
 
-		JTreeNode<T> left = convertList(current.getLeftNode());
-		JTreeNode<T> right = convertList(current.getRightNode());
+		JTreeNode<T> left = convertList(current.getLeftNode(), true);
+		JTreeNode<T> right = convertList(current.getRightNode(), false);
 
 		if(left!=null && right==null){
 			left.setRightNode(current);
@@ -453,7 +449,11 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 
 			current.setRightNode(right);
 			right.setLeftNode(current);
-			return right;
+			if(isLeft) {
+				return right;
+			}
+
+			return left;
 		}
 
 
