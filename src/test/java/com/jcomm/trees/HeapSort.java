@@ -2,6 +2,9 @@ package com.jcomm.trees;
 
 import com.jcomm.datastructures.CollectionsHelper;
 
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
 public class HeapSort {
 
 
@@ -54,5 +57,27 @@ public class HeapSort {
 	private static <T> int getRightChildIndex(int index) {
 		return (2 * index) + 2;
 	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int testCases = Integer.parseInt(sc.nextLine());
+		while(testCases>0){
+			int arraySize = Integer.parseInt(sc.nextLine());
+			long []array = new long[arraySize];
+			int arrayCount = 0;
+
+			StringTokenizer st = new StringTokenizer(sc.nextLine());
+			while(arrayCount <= arraySize-1){
+
+				long  l = Long.parseLong(st.nextToken());
+				array[arrayCount] = l;
+				arrayCount= 1 + arrayCount;
+			}
+
+			//getCountArrayShifts(array);
+			testCases--;
+		}
+	}
+
 
 }

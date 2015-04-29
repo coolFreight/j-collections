@@ -2,6 +2,9 @@ package com.jcomm.datastructures;
 
 import com.jcomm.trees.JTreeNode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /***
  * Binary Tree property
  * 
@@ -139,8 +142,7 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 	/**
 	 * 1) Traverse the left subtree 2) Visit the root node 3) traverse the right
 	 * subtree
-	 * 
-	 * @param root
+	 *
 	 * @return list of nodes in inorder position
 	 */
 	public JList<T> getNodesInorder() {
@@ -334,5 +336,130 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 		
 		return l;
 	}
+
+
+	public void printIterative(JTreeNode n){
+		final Deque<JTreeNode<T>> nodeTracker = new ArrayDeque<>();
+		nodeTracker.push(n);
+		while(!nodeTracker.isEmpty()){
+
+			while(n.getLeftNode()!= null && !n.getLeftNode().isVisited()) {
+					nodeTracker.push(n.getLeftNode());
+					n = n.getLeftNode();
+
+			}
+
+			System.out.println(n.getValue());
+			n.setVisited(true);
+			nodeTracker.pop();
+
+			if(n.getRightNode()!=null && !n.getRightNode().isVisited()){
+				nodeTracker.push(n.getRightNode());
+			}
+			n = nodeTracker.peek();
+		}
+	}
+
+	public void printIterativePreOrder(JTreeNode n){
+		final Deque<JTreeNode<T>> nodeTracker = new ArrayDeque<>();
+		if(n==null)
+			return;
+		System.out.println("n : "+n.getValue());
+
+		nodeTracker.push(n);
+
+		while(n!=null){
+
+			if(n.getLeftNode()!=null && !n.getLeftNode().isVisited()){
+				n = n.getLeftNode();
+				n.setVisited(true);
+				nodeTracker.push(n);
+				System.out.println("n : "+n.getValue());
+			}else{
+
+				n = nodeTracker.pop();
+				if(n.getRightNode()!=null && !n.getRightNode().isVisited()){
+					n = n.getRightNode();
+					n.setVisited(true);
+					nodeTracker.push(n);
+					System.out.println("n : "+n.getValue());
+
+				}
+			}
+		}
+
+	}
+
+	public JTreeNode<T> convertToLinkList(){
+
+
+		JTreeNode<T> left = convertList(rootNode.getLeftNode());
+
+		while(left.getLeftNode()!=null){
+
+			left = left.getLeftNode();
+		}
+
+		JTreeNode<T> farLeft = left;
+		if(farLeft!=null){
+
+			while(farLeft.getRightNode()!=null){
+				farLeft = farLeft.getRightNode();
+			}
+			farLeft.setRightNode(rootNode);
+		}
+
+
+
+
+		JTreeNode<T> right = convertList(rootNode.getRightNode());
+
+		if(right!=null) {
+			while (right.getLeftNode() != null) {
+
+				right = right.getLeftNode();
+			}
+			rootNode.setRightNode(right);
+		}
+
+		return (left!=null ? left : rootNode);
+}
+
+
+	private JTreeNode<T> convertList( JTreeNode<T> current){
+
+		if(current == null){
+			return null;
+		}
+
+		JTreeNode<T> left = convertList(current.getLeftNode());
+		JTreeNode<T> right = convertList(current.getRightNode());
+
+		if(left!=null && right==null){
+			left.setRightNode(current);
+			current.setLeftNode(left);
+			return left;
+		}
+
+		if(left==null && right!=null) {
+			current.setRightNode(right);
+			right.setLeftNode(current);
+			return right;
+		}
+
+		if(left!=null && right!=null){
+			left.setRightNode(current);
+			current.setLeftNode(left);
+
+			current.setRightNode(right);
+			right.setLeftNode(current);
+			return right;
+		}
+
+
+		return current;
+
+	}
+
 
 }

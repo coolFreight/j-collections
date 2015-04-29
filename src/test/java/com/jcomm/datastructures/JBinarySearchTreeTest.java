@@ -1,5 +1,7 @@
 package com.jcomm.datastructures;
 
+import com.jcomm.trees.JTree;
+import com.jcomm.trees.JTreeNode;
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -113,10 +115,62 @@ public class JBinarySearchTreeTest {
 		
 		CollectionsHelper.printCollection(bst.getLevelOrder());
 	}
-	
-	
-	
-	
-	
+
+
+	@Test
+	public void testKareem(){
+		bst.insert(20);
+		bst.insert(10);
+		bst.insert(40);
+		bst.insert(15);
+		bst.insert(2);
+		bst.insert(7);
+
+		bst.printIterative(bst.rootNode);
+	}
+
+
+	@Test
+	public void testJova(){
+		bst.insert(20);
+		bst.insert(10);
+		bst.insert(40);
+		bst.insert(15);
+		bst.insert(2);
+		bst.insert(7);
+
+		bst.printIterativePreOrder(bst.rootNode);
+	}
+
+
+	@Test
+	public void testConvertList(){
+		bst.insert(510);
+		bst.insert(90);
+		bst.insert(100);
+		bst.insert(225);
+		bst.insert(300);
+		bst.insert(265);
+		bst.insert(400);
+		bst.insert(700);
+
+		CollectionsHelper.printCollection(bst.getNodesInorder());
+
+
+		JTreeNode<Integer> n = bst.convertToLinkList();
+
+		while(n!=null){
+
+			System.out.println(n);
+			n = n.getRightNode();
+		}
+	}
+
+
+
+
+
+
+
 
 }

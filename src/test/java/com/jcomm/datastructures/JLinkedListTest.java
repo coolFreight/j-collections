@@ -1,5 +1,7 @@
 package com.jcomm.datastructures;
 
+import com.jcomm.trees.JTreeNode;
+import com.jcomm.trees.Node;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,6 +31,13 @@ public class JLinkedListTest {
 		l.add(3);
 		l.add(10);
 		l.getValueAtIndex(4);
+	}
+
+
+	public void testreverse(){
+
+		JTreeNode<Integer> n = new JTreeNode<>(6);
+
 	}
 
 }

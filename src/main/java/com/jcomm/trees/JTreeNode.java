@@ -13,6 +13,16 @@ public class JTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 	private JTreeNode<T> rightNode = null;
 	private JTreeNode<T> parentNode = null;
 	private T val;
+
+	public boolean isVisited() {
+		return isVisited;
+	}
+
+	public void setVisited(boolean isVisited) {
+		this.isVisited = isVisited;
+	}
+
+	private boolean isVisited = false;
 	
 	public JTreeNode(T val){
 		this.val = val;
