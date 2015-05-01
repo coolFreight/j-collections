@@ -434,13 +434,13 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 		if(left!=null && right==null){
 			left.setRightNode(current);
 			current.setLeftNode(left);
-			return left;
+			return current;
 		}
 
 		if(left==null && right!=null) {
 			current.setRightNode(right);
 			right.setLeftNode(current);
-			return right;
+			return current;
 		}
 
 		if(left!=null && right!=null){

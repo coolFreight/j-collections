@@ -157,6 +157,10 @@ public class JBinarySearchTreeTest {
 		bst.insert(800);
 		bst.insert(54);
 		bst.insert(40);
+		bst.insert(650);
+		bst.insert(697);
+		bst.insert(750);
+		bst.insert(850);
 		CollectionsHelper.printCollection(bst.getNodesInorder());
 
 
@@ -164,7 +168,7 @@ public class JBinarySearchTreeTest {
 
 		while(n!=null){
 
-			System.out.println(n);
+			System.out.print(n.getValue()+",");
 			n = n.getRightNode();
 		}
 	}
