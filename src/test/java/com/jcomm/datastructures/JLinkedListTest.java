@@ -34,10 +34,23 @@ public class JLinkedListTest {
 	}
 
 
-	public void testreverse(){
+	@Test
+	public void testReverseList(){
 
-		JTreeNode<Integer> n = new JTreeNode<>(6);
+		JLinkedList<Integer> l = new JLinkedList<>();
+		l.add(5);
+		l.add(3);
+		l.add(10);
+
+		CollectionsHelper.printCollection(l);
+		l.reverseList();
+
+		CollectionsHelper.printCollection(l);
+
+
 
 	}
+
+
 
 }
