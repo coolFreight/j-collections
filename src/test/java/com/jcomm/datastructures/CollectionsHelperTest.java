@@ -56,13 +56,23 @@ public class CollectionsHelperTest {
 		}
 		
 	}
-	
+
+	@Test
+	public void testSelectionSort(){
+
+		int A[] = {100,23,90,55,32,-2,9};
+		CollectionsHelper.selectionSort(A);
+		CollectionsHelper.printArray(A);
+
+
+	}
+
 	@Test
 	public void testRotateArray(){
-		
+
 		Integer [] arr = {2,4,6};
 		CollectionsHelper.rotateArray(arr, 1, 2);
-		
+
 		Integer [] expectedArray = {6, 2,4};
 		//Assert.assertArrayEquals(expectedArray, arr);
 		
