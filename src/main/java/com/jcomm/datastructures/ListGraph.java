@@ -122,21 +122,40 @@ public class ListGraph implements Graph {
 			action.apply(v);
 			pQueue.add(v);
 		}
-
-		// while()
 	}
 
-	public void dfs(Function<Vertex, Vertex> action) {
-		for (Vertex next : vertices) {
+	public void dfsIterative(String label, Function<Vertex, Vertex> action) {
+		boolean found = true;
+		Vertex v = getVertex(label);
+		while(v!=null) {
 
-			if (next!= null && next.wasVisited() == false) {
-				dfs(next.getLabel(), action);
-
+			if(!v.wasVisited() && found){
+				v.setVisited(true);
+				action.apply(v);
+				stackVertices.add(v);
+				found = false;
 			}
+
+			JList<Vertex> listOfAdjacent = getEdges(mapOfVerticeIndex.get(v.getLabel()));
+			for (Vertex next : listOfAdjacent) {
+
+				if (next != null && next.wasVisited() == false) {
+					v = next;
+					found = true;
+					break;
+
+				}
+			}
+
+			if(!found){
+				stackVertices.pop();
+				if(stackVertices.isEmpty())
+					return;
+				v = stackVertices.peek();
+			}
+
+
 		}
-		
-		for (Vertex next : vertices)
-			next.setVisited(false);	
 	}
 
 	public void dfs(String label, Function<Vertex, Vertex> action) {
@@ -180,10 +199,6 @@ public class ListGraph implements Graph {
 
 	}
 
-//	public JLinkedList<Vertex> findPath(Vertex start, Vertex end) {
-//		// this.bfs(start.getLabel(), (Vertex v) -> { return v;} );
-//		//return findPath(start, end, new JLinkedList<Vertex>(), parentVertices);
-//	}
 
 	private JLinkedList<Vertex> findPath(Vertex start, Vertex end,
 			JLinkedList<Vertex> paths, Vertex[] parents) {
