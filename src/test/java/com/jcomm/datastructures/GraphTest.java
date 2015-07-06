@@ -46,14 +46,11 @@ public class GraphTest {
 
 		graph.createVertex("A");
 		graph.createVertex("B");
-		graph.createVertex("C");
-		graph.createVertex("D");
-		graph.createVertex("E");
 		graph.createVertex("F");
-		graph.createVertex("G");
-		graph.createVertex("H");
-		graph.createVertex("I");
+
 	}
+
+
 	
 	@Test
 	public void testShortestPathAlgo() {
@@ -130,8 +127,23 @@ public class GraphTest {
 //			}		
 //		});
 	}
-	
-	
+
+
+
+	@Test
+	public void testFindCycle(){
+
+		createListVertices(listGraph);
+		listGraph.addEdge("A", "B", 1, true);
+		listGraph.addEdge("B", "F", 1, true);
+		listGraph.addEdge("F", "A", 1, true);
+
+
+		listGraph.dfsRecursive("A", null);
+	}
+
+
+
 	@Test
 	public void testListDfs(){
 		
@@ -145,7 +157,7 @@ public class GraphTest {
 		listGraph.addEdge("D", "G", 1, true);
 		listGraph.addEdge("E", "I", 1, true);
 		
-		listGraph.dfs("A", new Function<Vertex, Vertex>(){
+		listGraph.dfsIter("A", new Function<Vertex, Vertex>(){
 			@Override
 			public Vertex apply(Vertex t) {
 				System.out.println("Vertex : "+t);

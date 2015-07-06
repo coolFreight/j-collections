@@ -1,9 +1,10 @@
 package com.jcomm.datastructures;
 
+import com.jcomm.trees.JTree;
 import com.jcomm.trees.JTreeNode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /***
  * Binary Tree property
@@ -19,6 +20,8 @@ import java.util.Deque;
 public class JBinarySearchTree<T extends Comparable<T>> {
 
 	JTreeNode<T> rootNode = null;
+	private int treeSize = 0;
+
 
 	public JTreeNode<T> getRootNode() {
 		return this.rootNode;
@@ -41,6 +44,7 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 				currentNode.setRightNode(node);
 
 		}
+		treeSize++;
 
 	}
 
@@ -460,6 +464,77 @@ public class JBinarySearchTree<T extends Comparable<T>> {
 		return current;
 
 	}
+
+	public <T extends Integer> Set<List<Integer>> getPathsSumToVal(JTreeNode start, int sumVal){
+		int [] parents = new int [this.treeSize];
+
+		int [] vals =  new int[this.treeSize];
+		Set<List<Integer>> paths = new HashSet<>();
+
+		getPathsSumToVal(start, 0, -1, parents, vals);
+
+		int numOfTimes = this.treeSize - 1;
+		while(numOfTimes > 0) {
+			for (int x = numOfTimes; x >= 0; x--) {
+				LinkedList<Integer> path = new LinkedList<>();
+				int sum = 0;
+				int traverser = x;
+				while (traverser >= 0) {
+					sum += vals[traverser];
+					path.addFirst(vals[traverser]);
+					traverser = parents[traverser];
+				}
+
+				if (sum == sumVal)
+					paths.add(path);
+			}
+
+			numOfTimes--;
+		}
+		return paths;
+
+
+	}
+
+
+	private int getPathsSumToVal(JTreeNode<Integer> current, int index, int parentIndex, int [] parents,  int [] vals){
+		if(current == null)
+			return index-1;
+
+		parents[index] = parentIndex;
+		vals[index] = current.getValue();
+
+		parentIndex = index;
+
+		index = getPathsSumToVal(current.getLeftNode(), index+1, parentIndex, parents, vals);
+		 return getPathsSumToVal(current.getRightNode(),index+1, parentIndex, parents, vals);
+	}
+
+
+	public int getTreeDiameter(JTreeNode<T> node){
+
+		int leftSubTreeDepth = getTreeDepth(node.getLeftNode(),  1);
+		int rightSubTreeDepth = getTreeDepth(node.getRightNode(), 1);
+
+		return leftSubTreeDepth + rightSubTreeDepth;
+	}
+
+	private int getTreeDepth(JTreeNode<T> node, int index){
+
+		if(node==null)
+			return index-1;
+
+		int leftCount = getTreeDepth(node.getLeftNode(), index+1);
+		int rightCount = getTreeDepth(node.getRightNode(), index+1);
+
+		if(leftCount> rightCount)
+			return leftCount;
+
+		return rightCount;
+
+	}
+
+
 
 
 }

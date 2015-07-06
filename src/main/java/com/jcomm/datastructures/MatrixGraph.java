@@ -110,14 +110,10 @@ public class MatrixGraph implements Graph {
 	}
 
 	private List<Path> mwst(String label, List<Path> mininumSpanTree) {
-
 		Vertex v = getVertex(label);
 		v.setVisited(true);
-
 		findCheapsestNeighbor(v, mininumSpanTree);
-
 		return mininumSpanTree;
-
 	}
 
 	public List<Path> findShortestPath(String start) {

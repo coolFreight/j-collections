@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.function.Function;
 
 public class CollectionsHelper {
 
@@ -16,6 +17,11 @@ public class CollectionsHelper {
 			System.out.print(x+ ",");
 		}
 		System.out.println("");
+	}
+
+
+	public <T> void apply(Function<T, T> m){
+
 	}
 
 	public static <T> void printArray(T coll[]) {

@@ -7,6 +7,9 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.Set;
+
 public class JBinarySearchTreeTest {
 	private JBinarySearchTree<Integer> bst;
 	
@@ -171,6 +174,53 @@ public class JBinarySearchTreeTest {
 			System.out.print(n.getValue()+",");
 			n = n.getRightNode();
 		}
+	}
+
+
+	@Test
+	public void testPathsSumToVal(){
+		bst.insert(50);
+		bst.insert(30);
+		bst.insert(51);
+		bst.insert(19);
+		bst.insert(40);
+		bst.insert(75);
+		bst.insert(45);
+		bst.insert(60);
+		bst.insert(80);
+		bst.insert(2);
+		bst.insert(41);
+		bst.insert(70);
+		bst.insert(11);
+
+		Set<List<Integer>> paths = bst.getPathsSumToVal(bst.rootNode.getRightNode().getRightNode(), 155);
+
+		CollectionsHelper.printCollection(paths);
+
+	}
+
+
+
+	@Test
+	public void testGetTreeDepth(){
+		bst.insert(100);
+		bst.insert(200);
+		bst.insert(75);
+		bst.insert(30);
+		bst.insert(85);
+		bst.insert(77);
+		bst.insert(89);
+		bst.insert(200);
+		bst.insert(300);
+		bst.insert(400);
+		bst.insert(350);
+		bst.insert(325);
+		bst.insert(375);
+		bst.insert(405);
+
+		System.out.println("Tree diameter is "+ bst.getTreeDiameter(bst.rootNode));
+
+
 	}
 
 }

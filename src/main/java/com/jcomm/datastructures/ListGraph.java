@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class ListGraph implements Graph {
@@ -18,12 +19,28 @@ public class ListGraph implements Graph {
 	private Queue<Vertex> pQueue = new java.util.LinkedList<>();
 	private Stack<Vertex> stackVertices = new Stack<>();
 	private JLinkedList<Vertex> parentVertices[] = new JLinkedList[1000];
+	private int entry[] = new int[1000];
+	private int exit[] = new int[1000];
+	private int parent[] = new int[1000];
+	private STATE state[] = new STATE[1000];
+	private Vertex parentVertex [] = new Vertex[1000];
+	private int time = 0;
+
+
+	private enum STATE{
+		UNDISCOVERED,DISCOVERED,PROCESSSED
+	}
 
 	public ListGraph() {
 		for (int i = 0; i < edges.length; i++)
 			edges[i] = new JLinkedList<>();
-		for (int i = 0; i < parentVertices.length; i++)
+		for (int i = 0; i < parentVertices.length; i++) {
 			parentVertices[i] = new JLinkedList<>();
+			state[i] = STATE.UNDISCOVERED;
+			entry[i] = -1;
+			exit[i] = -1;
+			parent[i] = -1;
+		}
 	}
 
 	@Deprecated
@@ -115,46 +132,107 @@ public class ListGraph implements Graph {
 		bfs(pQueue.peek().getLabel(), action);
 	}
 
-	public void iterativeBfs(char label, Function<Vertex, Vertex> action) {
+	public void iterativeBfs(String label, Function<Vertex, Vertex> action) {
 		Vertex v = getVertex(label);
-		if (v.wasVisited() == false) {
-			v.setVisited(true);
-			action.apply(v);
-			pQueue.add(v);
-		}
-	}
+		v.setVisited(true);
+		Queue<Vertex> pQueue = new java.util.LinkedList<>();
 
-	public void dfsIterative(String label, Function<Vertex, Vertex> action) {
-		boolean found = true;
-		Vertex v = getVertex(label);
-		while(v!=null) {
-
-			if(!v.wasVisited() && found){
-				v.setVisited(true);
-				action.apply(v);
-				stackVertices.add(v);
-				found = false;
-			}
+		while(v!=null){
 
 			JList<Vertex> listOfAdjacent = getEdges(mapOfVerticeIndex.get(v.getLabel()));
-			for (Vertex next : listOfAdjacent) {
-
-				if (next != null && next.wasVisited() == false) {
-					v = next;
-					found = true;
-					break;
-
+			for(Vertex n : listOfAdjacent){
+				if(!n.wasVisited()){
+					pQueue.add(n);
+					action.apply(n);
 				}
 			}
 
-			if(!found){
-				stackVertices.pop();
-				if(stackVertices.isEmpty())
-					return;
-				v = stackVertices.peek();
+			v = pQueue.remove();
+		}
+	}
+
+	public void dfs(Function<Vertex, Vertex> action) {
+
+		for (Vertex next : vertices) {
+
+			if (next!= null && next.wasVisited() == false) {
+				dfs(next.getLabel(), action);
+
+			}
+		}
+		
+		for (Vertex next : vertices)
+			next.setVisited(false);	
+	}
+
+	public void dfsRecursive(String label, BiFunction<Vertex, Vertex, Boolean> processEdge){
+		Vertex u = getVertex(label);
+		int vertexIndex = mapOfVerticeIndex.get(label);
+		state[vertexIndex] = STATE.DISCOVERED;
+		entry[vertexIndex] = ++time;
+
+		for(Vertex v : getEdges(vertexIndex)){
+			int vIndex =  mapOfVerticeIndex.get(v.getLabel());
+			if(state[vIndex] == STATE.UNDISCOVERED){
+				parentVertex[vIndex] = u;
+				parent[vIndex] = vertexIndex;
+				processEdge(vertexIndex, vIndex);
+				dfsRecursive(v.getLabel(), processEdge);
+			}else if(state[vIndex] != STATE.PROCESSSED){
+				processEdge(vertexIndex, vIndex);
 			}
 
+		}
 
+		state[vertexIndex] = STATE.PROCESSSED;
+		exit[vertexIndex] = time;
+		time++;
+
+	}
+
+	private void processEdge(int x, int y){
+		if(state[y]==STATE.DISCOVERED && parent[x] != y){
+			System.out.println("Found cycle");
+		}
+	}
+
+	private void processEdge(Vertex u, Vertex v){
+		int uIndex =  mapOfVerticeIndex.get(u.getLabel());
+		int vIndex =  mapOfVerticeIndex.get(v.getLabel());
+
+		if(state[vIndex]==STATE.DISCOVERED && parent[uIndex] != vIndex){
+			System.out.println("Found cycle");
+		}
+	}
+
+	public void dfsIter(String label, Function<Vertex, Vertex> action) {
+
+
+		boolean foundUnVisted = false;
+		Vertex v = getVertex(label);
+		while(v != null) {
+			foundUnVisted = false;
+			if(!v.wasVisited()) {
+				action.apply(v);
+				v.setVisited(true);
+				stackVertices.push(v);
+			}
+
+			JList<Vertex> listOfAdjacent = getEdges(mapOfVerticeIndex.get(v.getLabel()));
+			for (Vertex t : listOfAdjacent) {
+
+				if (!t.wasVisited()) {
+					foundUnVisted = true;
+					v = t;
+					break;
+				}
+
+
+			}
+			if (!foundUnVisted) {
+				v = stackVertices.pop();
+
+			}
 		}
 	}
 
@@ -199,6 +277,10 @@ public class ListGraph implements Graph {
 
 	}
 
+//	public JLinkedList<Vertex> findPath(Vertex start, Vertex end) {
+//		// this.bfs(start.getLabel(), (Vertex v) -> { return v;} );
+//		//return findPath(start, end, new JLinkedList<Vertex>(), parentVertices);
+//	}
 
 	private JLinkedList<Vertex> findPath(Vertex start, Vertex end,
 			JLinkedList<Vertex> paths, Vertex[] parents) {

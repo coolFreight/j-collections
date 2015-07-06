@@ -102,7 +102,28 @@ public class JTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 	public void setParentNode(JTreeNode<T> parentNode) {
 		this.parentNode = parentNode;
 	}
-	
-	
+
+
+	public boolean isBST(JTreeNode<T> n){
+
+		boolean leftVal;
+		boolean rightVal;
+		if(n==null)
+			return true;
+
+		if(n.getLeftNode()!=null && n.getLeftNode().getValue().compareTo(n.getValue())>0)
+			return false;
+		else
+			leftVal = isBST(n.getLeftNode());
+
+		if(n.getRightNode()!=null && n.getRightNode().getValue().compareTo(n.getValue()) < 0)
+			return false;
+		else
+			rightVal = isBST(n.getRightNode());
+
+
+		return (leftVal&&rightVal);
+	}
+
 
 }

@@ -114,6 +114,17 @@ public class JLinkedList<T> implements JQueue<T>, JList<T> {
         }
     }
 
+    @Override
+    public boolean contains(T item){
+
+        for(T e : this){
+            if(e.equals(item))
+                return true;
+        }
+
+        return false;
+    }
+
     private class LinkedListIterator implements Iterator<T> {
 
         Link<T> link = head;

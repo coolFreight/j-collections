@@ -39,8 +39,8 @@ public  class JArrayList<T> implements JList<T>{
             }
         }
     }
-    
-    
+
+
 
     public static int binarySearch(int[] array, int num) {
 
@@ -213,5 +213,16 @@ public  class JArrayList<T> implements JList<T>{
 	public void addAll(JList<T> list) {
 		throw new NotImplementedException();
 	}
+
+    @Override
+    public boolean contains(T item){
+
+        for(T e : this){
+            if(e.equals(item))
+                return true;
+        }
+
+        return false;
+    }
 
 }
