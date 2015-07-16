@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public class ListGraph implements Graph {
 
-	private Map<Vertex, JList<Vertex>> mapOfEdges = new HashMap<>();
+	private Map<Vertex, JList<Edge>> mapOfEdges = new HashMap<>();
 	private Map<String, Vertex> mapOfVertices = new HashMap<>();
 	private Map<String, Integer> mapOfVerticeIndex = new HashMap<>();
 	private JList<Vertex> edges[] = new JLinkedList[1000];
@@ -300,14 +300,31 @@ public class ListGraph implements Graph {
 
 	}
 
+	/**
+	 * Edges are maintained internally with array of linked list vertices that is connected to.
+	 *
+	 * @param start
+	 * @param end
+	 * @param weight
+	 * @param directed
+	 */
 	@Override
 	public void addEdge(String start, String end, int weight, boolean directed) {
+		Vertex s = vertices[mapOfVerticeIndex.get(start)];
+		Vertex e = vertices[mapOfVerticeIndex.get(end)];
+		Edge edge = new Edge(s, e, weight);
+
 		JList<Vertex> startEdges = getEdges(mapOfVerticeIndex.get(start));
 		startEdges.add(getVertex(end));
+
+		JList<Edge> edges = mapOfEdges.get(s);
+		edges.add(edge);
 
 		if (!directed) {
 			JList<Vertex> endEdges = getEdges(mapOfVerticeIndex.get(end));
 			endEdges.add(getVertex(start));
+			JList<Edge> undirectedEdges = mapOfEdges.get(e);
+			undirectedEdges.add(edge);
 		}
 	}
 

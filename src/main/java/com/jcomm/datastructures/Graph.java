@@ -11,5 +11,5 @@ public interface Graph {
 	void bfs(String label, Function<Vertex, Vertex> action);
 	void dfs (String label, Function<Vertex, Vertex> action);
 	void init();
-	JList<String> getEdges(String label);
+	JList<Edge> getEdges(String label);
 }	
