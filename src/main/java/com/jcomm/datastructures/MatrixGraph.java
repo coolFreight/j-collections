@@ -392,7 +392,7 @@ public class MatrixGraph implements Graph {
 	}
 
 	@Override
-	public JList<String> getEdges(String label) {
+	public JList<Edge> getEdges(String label) {
 		// TODO Auto-generated method stub
 		return null;
 	}

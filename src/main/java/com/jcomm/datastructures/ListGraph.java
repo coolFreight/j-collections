@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public class ListGraph implements Graph {
 
-	private Map<Vertex, JList<Edge>> mapOfEdges = new HashMap<>();
+	private Map<String, JList<Edge>> mapOfEdges = new HashMap<>();
 	private Map<String, Vertex> mapOfVertices = new HashMap<>();
 	private Map<String, Integer> mapOfVerticeIndex = new HashMap<>();
 	private JList<Vertex> edges[] = new JLinkedList[1000];
@@ -62,15 +62,9 @@ public class ListGraph implements Graph {
 	}
 	
 	@Override
-	public JList<String> getEdges(String label) {
-		int index = getVertexIndex(label);
-		
-		JLinkedList<String> list = new JLinkedList<>();
-		for(Vertex v : edges[index]){
-			list.add(v.getLabel());
-		}
+	public JList<Edge> getEdges(String label) {
 
-		return list;
+		return mapOfEdges.get(label);
 	}
 
 	/**
@@ -268,7 +262,7 @@ public class ListGraph implements Graph {
 		verticeCount++;
 
 		mapOfVertices.put(vertex.getLabel(), vertex);
-		mapOfEdges.put(vertex, new JLinkedList<>());
+		mapOfEdges.put(vertex.getLabel(), new JLinkedList<>());
 	}
 
 	@Override
@@ -317,14 +311,11 @@ public class ListGraph implements Graph {
 		JList<Vertex> startEdges = getEdges(mapOfVerticeIndex.get(start));
 		startEdges.add(getVertex(end));
 
-		JList<Edge> edges = mapOfEdges.get(s);
+		JList<Edge> edges = mapOfEdges.get(s.getLabel());
 		edges.add(edge);
 
-		if (!directed) {
-			JList<Vertex> endEdges = getEdges(mapOfVerticeIndex.get(end));
-			endEdges.add(getVertex(start));
-			JList<Edge> undirectedEdges = mapOfEdges.get(e);
-			undirectedEdges.add(edge);
+		if (directed) {
+			edges.add(new Edge(e, s, weight));
 		}
 	}
 
@@ -337,7 +328,7 @@ public class ListGraph implements Graph {
 		this.mapOfVerticeIndex.put(label, verticeCount);
 		edges[verticeCount] = new JLinkedList<Vertex>();
 		verticeCount++;
-		mapOfEdges.put(vertex, new JLinkedList<>());
+		mapOfEdges.put(vertex.getLabel(), new JLinkedList<>());
 
 	}
 
