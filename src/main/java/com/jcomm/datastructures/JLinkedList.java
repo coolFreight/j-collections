@@ -77,6 +77,31 @@ public class JLinkedList<T> implements JQueue<T>, JList<T> {
         return element;
     }
 
+
+    public T removeLast() {
+        if (head == null) {
+            throw new IllegalOperationException();
+        }
+
+        Link<T> temp = head;
+        if(head.getNext() == null){
+            head = null;
+            last = null;
+            return temp.getElement();
+        }
+
+        while(temp.getNext().getNext()!=null){
+
+            temp = temp.getNext();
+        }
+
+        last = temp;
+        Link<T> val = temp.getNext();
+        temp.setNext(null);
+        return val.getElement();
+
+    }
+
     public T getFirst() {
         if (isEmpty()) {
             //

@@ -13,6 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author jova
  * @param <T>
  */
+
 public  class JArrayList<T> implements JList<T>{
 	
 	
@@ -196,8 +197,12 @@ public  class JArrayList<T> implements JList<T>{
 	}
 
 
+    @Override
+    public T removeLast() {
+        return null;
+    }
 
-	@Override
+    @Override
 	public T removeFirst() {
 		throw new NotImplementedException();
 	}
