@@ -21,7 +21,7 @@ public class JHashMap<K, V> {
 		int internalKey = generateKey(key);
 
 		if (array[internalKey] == null) {
-			Bag<K, V> bag = new Bag<K, V>(key, value, internalKey);
+			Bag<K, V> bag = new Bag<>(key, value, internalKey);
 			array[internalKey] = bag;
 		} else {
 			int count = 0;
