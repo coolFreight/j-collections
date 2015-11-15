@@ -51,6 +51,43 @@ public class Practice {
 
     public static void main(String arg[]){
 
+        char c [] = {'a', 't', 'w', 'l'};
+        int l = c.length;
+        ana(0, new char[l], new boolean[l], c);
+
+    }
+
+
+    public static void ana(int depth, char [] words,  boolean [] cans, char [] orig){
+
+
+        if(depth == words.length){
+
+            for(int x = 0; x < words.length; x++){
+
+                System.out.print(words[x]);
+            }
+
+            System.out.println();
+
+        }else {
+
+            int idx []= new int [orig.length];
+            int candids = 0;
+            for (int x = 0; x < cans.length; x++) {
+                if (cans[x] == false) {
+                    idx[candids] = x;
+                    candids++;
+                }
+            }
+
+            for (int x = 0; x < candids; x++) {
+                words[depth] = orig[idx[x]];
+                cans[idx[x]] = true;
+                ana(depth + 1, words,  cans, orig);
+                cans[idx[x]] = false;
+            }
+        }
 
 
     }
