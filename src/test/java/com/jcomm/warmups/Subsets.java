@@ -8,6 +8,7 @@ public class Subsets extends Backtrack<Integer> {
 	final int TRUE = 1;
 	final int FALSE = 0;
 
+
 	@Override
 	public boolean isSolution(int[] a, int k, Integer input) {
 		return (k == input.intValue());
@@ -24,6 +25,8 @@ public class Subsets extends Backtrack<Integer> {
 		System.out.println("}");
 	}
 
+
+
 	@Override
 	public void constructCandidates(int[] a, int k, Integer input, int[] c,
 			RefObj ncandidates) {
@@ -32,6 +35,7 @@ public class Subsets extends Backtrack<Integer> {
 		;
 		c[1] = FALSE;
 		ncandidates.setVal(2);
+
 	}
 
 	@Override
