@@ -23,7 +23,7 @@ public class PrintPermutations {
 	public void swapper(char A[], int x) {
 
 		if(x == 1 ){
-			AlgoUtilities.printArray(A);
+			//CollectionsHelper.printArray(A);
 			return;
 		}
 		

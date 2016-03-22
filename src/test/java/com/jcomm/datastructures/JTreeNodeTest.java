@@ -2,6 +2,7 @@ package com.jcomm.datastructures;
 
 import com.jcomm.trees.JTreeNode;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -11,6 +12,7 @@ public class JTreeNodeTest {
 
 
     @Test
+    @Ignore
     public void testIsBST(){
 
         JTreeNode<Integer> root = new JTreeNode<>(5);
