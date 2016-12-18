@@ -5,8 +5,10 @@ import java.util.function.Function;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class GraphTest {
 
 	ListGraph listGraph = new ListGraph();

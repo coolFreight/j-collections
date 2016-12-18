@@ -4,6 +4,7 @@ import com.jcomm.trees.JTreeNode;
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -133,6 +134,7 @@ public class JBinarySearchTreeTest {
 
 
 	@Test
+	@Ignore
 	public void testJova(){
 		bst.insert(20);
 		bst.insert(10);
