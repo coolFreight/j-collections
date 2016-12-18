@@ -1,7 +1,6 @@
 package com.jcomm.datastructures;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
@@ -351,7 +350,7 @@ public class ListGraph implements Graph {
 		Vertex v = getVertex(label);
 		v.setVisited(true);
 		
-		JList<Vertex> list = getEdges(mapOfVerticeIndex.get(label));		
+		JList<Vertex> list = getEdges(mapOfVerticeIndex.get(label));
 		JList<String> descedancts = new JLinkedList<>();
 		
 		int countDepth = 0;

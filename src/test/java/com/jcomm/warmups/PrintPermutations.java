@@ -20,10 +20,10 @@ public class PrintPermutations {
 	}
 	
 	
-	public void swapper(char A[], int x) {
+	public void swapper(int A[], int x) {
 
 		if(x == 1 ){
-			AlgoUtilities.printArray(A);
+			CollectionsHelper.printArray(A);
 			return;
 		}
 		
@@ -35,9 +35,9 @@ public class PrintPermutations {
 		return;
 	}
 	
-	public void rotate(char A[], int x){
+	public void rotate(int A[], int x){
 		int k = A.length-x;
-		char c = A[k];
+		int c = A[k];
 		
 		for(int j = k; j < A.length-1; j++){
 			

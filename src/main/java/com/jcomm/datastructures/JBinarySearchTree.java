@@ -1,9 +1,7 @@
 package com.jcomm.datastructures;
 
-import com.jcomm.trees.JTree;
 import com.jcomm.trees.JTreeNode;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /***

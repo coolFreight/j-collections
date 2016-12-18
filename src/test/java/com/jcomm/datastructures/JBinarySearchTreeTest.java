@@ -1,6 +1,5 @@
 package com.jcomm.datastructures;
 
-import com.jcomm.trees.JTree;
 import com.jcomm.trees.JTreeNode;
 import junit.framework.Assert;
 
