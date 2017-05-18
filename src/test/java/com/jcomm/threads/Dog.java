@@ -1,6 +1,6 @@
 package com.jcomm.threads;
 
-public class Dog {
+public class Dog extends Human {
 	
 	private Bone b;
 	
@@ -37,18 +37,22 @@ public class Dog {
 		System.out.println("Spot");
 		
 	}
+
+
 	
 	
 	public static void main(String args[]) throws InterruptedException{
 		
 		Dog d = new Dog();
-		Person p1 = new Person (d);
-		Thread t1 = new Thread(p1, "p1");
-		t1.start();
-			
-		Person1 p2 = new Person1(d);
-		Thread t2 = new Thread(p2, "p2");
-		t2.start();
+//		Person p1 = new Person (d);
+//		Thread t1 = new Thread(p1, "p1");
+//		t1.start();
+//
+//		Person1 p2 = new Person1(d);
+//		Thread t2 = new Thread(p2, "p2");
+//		t2.start();
+
+		d.soul();
 
 		//Thread.sleep(1000);
 		//System.out.println("debug statement "+t2.getState());

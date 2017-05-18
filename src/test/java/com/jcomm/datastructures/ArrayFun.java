@@ -1,6 +1,6 @@
 package com.jcomm.datastructures;
 
-import com.javamex.classmexer.MemoryUtil;
+//import com.javamex.classmexer.MemoryUtil;
 import com.jcomm.threads.Bone;
 import com.jcomm.threads.Dog;
 
@@ -31,7 +31,7 @@ private int a[] = new int[6];
 
 
 
-        System.out.println(MemoryUtil.deepMemoryUsageOf(new char[0]));
+      //  System.out.println(MemoryUtil.deepMemoryUsageOf(new char[0]));
 
         displaySizeMinAndMax(Byte.TYPE, Byte.SIZE, Byte.MIN_VALUE, Byte.MAX_VALUE);
         displaySizeMinAndMax(Short.TYPE, Short.SIZE, Short.MIN_VALUE, Short.MAX_VALUE);

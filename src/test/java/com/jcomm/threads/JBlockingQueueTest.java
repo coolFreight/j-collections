@@ -15,13 +15,36 @@ public class JBlockingQueueTest {
 		Assert.assertEquals(1, q.size());
 		Assert.assertEquals(Integer.valueOf(5), q.removeElement());
 	}
-	
-	
+
 	@Test
-	public void testAddAwait() throws InterruptedException{	
+	public void When_testAdd(){
+		q.addElement(Integer.valueOf(5));
+		Assert.assertEquals(1, q.size());
+		Assert.assertEquals(Integer.valueOf(5), q.removeElement());
+	}
+
+
+
+	@Test
+	public void testAddAwait() throws InterruptedException{
 		IntAdder ia = new IntAdder(q);
 		Thread t1 = new Thread(ia);
 		t1.start();	
+		Thread.sleep(1000);
+		Assert.assertEquals(Thread.State.WAITING, t1.getState());
+		IntRemover ir = new IntRemover(q);
+		Thread t2 = new Thread(ir);
+		t2.start();
+		Thread.sleep(1000);
+		Assert.assertEquals(Thread.State.TERMINATED, t1.getState());
+	}
+
+
+	@Test
+	public void when_queueIsFull_then_additionalProducersWillBeInWaitState() throws InterruptedException{
+		IntAdder ia = new IntAdder(q);
+		Thread t1 = new Thread(ia);
+		t1.start();
 		Thread.sleep(1000);
 		Assert.assertEquals(Thread.State.WAITING, t1.getState());
 		IntRemover ir = new IntRemover(q);
@@ -37,7 +60,6 @@ public class JBlockingQueueTest {
 		IntRemover ir = new IntRemover(q);
 		Thread t1 = new Thread(ir);
 		t1.start();
-		
 	}
 	
 	
@@ -45,7 +67,6 @@ public class JBlockingQueueTest {
 	 private static class IntAdder implements Runnable{
 
 		private JBlockingQueue<Integer> q;
-		
 		public IntAdder(JBlockingQueue<Integer> q){
 			this.q = q;
 		}
