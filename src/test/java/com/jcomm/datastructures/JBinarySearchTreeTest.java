@@ -22,10 +22,19 @@ public class JBinarySearchTreeTest {
 		
 		
 	}
+
+	@Test
+	public void testRemovalOfOfSubTreeWithTwoChildren(){
+		bst.insert(9);
+		Assert.assertEquals(Integer.valueOf(9), bst.getRootNode().getValue());
+		bst.insert(12);
+		bst.insert(3);
+		bst.remove(9);
+		Assert.assertEquals(Integer.valueOf(12), bst.getRootNode().getValue());
+	}
 	
 	@Test
 	public void testInorder(){
-		
 		bst.insert(6);
 		bst.insert(2);
 		bst.insert(7);
@@ -58,9 +67,12 @@ public class JBinarySearchTreeTest {
 		bst.insert(11);
 		bst.insert(10);
 		bst.insert(2);
-		bst.insert(7);		
+		bst.insert(7);
+		CollectionsHelper.printCollection(bst.getLevelOrder());
 		bst.remove(9);
-		Assert.assertEquals(Integer.valueOf(12), bst.getRootNode().getValue());
+		CollectionsHelper.printCollection(bst.getLevelOrder());
+		Assert.assertNull(bst.rootNode.getParentNode());
+		Assert.assertEquals(Integer.valueOf(10), bst.getRootNode().getValue());
 	}
 	
 	@Test 
