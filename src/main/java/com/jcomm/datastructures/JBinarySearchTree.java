@@ -17,10 +17,8 @@ import java.util.*;
  *
  */
 public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
-
-    JTreeNode<T> rootNode = null;
+    private JTreeNode<T> rootNode = null;
     private int treeSize = 0;
-
 
     public JTreeNode<T> getRootNode() {
         return this.rootNode;
@@ -98,24 +96,18 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     private JTreeNode<T> getCurrentNode(JTreeNode<T> root, T insertValue) {
-
         if (root.getLeftNode() == null && root.getRightNode() == null)
             return root;
-
         if (root.getValue().compareTo(insertValue) > 0
                 && root.getLeftNode() != null)
             return getCurrentNode(root.getLeftNode(), insertValue);
-
         if ((root.getValue().compareTo(insertValue) < 0)
                 && (root.getRightNode() != null))
             return getCurrentNode(root.getRightNode(), insertValue);
-
         return root;
-
     }
 
     public JList<T> getNodesPreOrder() {
-
         JList<T> l = new JLinkedList<T>();
         getNodesPreOrder(this.rootNode, l);
         return l;
@@ -131,10 +123,8 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
      * @param root
      */
     public void getNodesPreOrder(JTreeNode<T> root, JList<T> t) {
-
         if (root == null)
             return;
-
         t.add(root.getValue());
         getNodesPreOrder(root.getLeftNode(), t);
         getNodesPreOrder(root.getRightNode(), t);
@@ -147,17 +137,14 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
      * @return list of nodes in inorder position
      */
     public JList<T> getNodesInorder() {
-
         JList<T> l = new JLinkedList<T>();
         getNodesInorder(this.rootNode, l);
         return l;
     }
 
     private void getNodesInorder(JTreeNode<T> root, JList<T> list) {
-
         if (root == null)
             return;
-
         getNodesInorder(root.getLeftNode(), list);
         list.add(root.getValue());
         getNodesInorder(root.getRightNode(), list);
@@ -170,12 +157,9 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
      * @return true if the value is found; false otherwise
      */
     public boolean findValue(T value) {
-
         JTreeNode<T> val = findValue(this.rootNode, value);
-
         if (val == null)
             return false;
-
         return true;
     }
 
@@ -192,24 +176,20 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     public void printPostorderTreeTraversal(JTreeNode<T> root) {
         if (root == null)
             return;
-
         printPostorderTreeTraversal(root.getLeftNode());
         printPostorderTreeTraversal(root.getRightNode());
         System.out.print(root.getValue() + ", ");
     }
 
     public void swapNodes(T firstValue, T secondValue) {
-
         JTreeNode<T> firstValueParentNode = findParentNode(this.rootNode,
                 new JTreeNode<T>(null), firstValue);
         JTreeNode<T> secondValueParentNode = findParentNode(this.rootNode,
                 new JTreeNode<T>(null), secondValue);
-
         if (((firstValueParentNode.getLeftNode() != null && secondValueParentNode
                 .getLeftNode() != null)
                 && firstValueParentNode.getLeftNode().isEqual(firstValue) && secondValueParentNode
                 .getLeftNode().isEqual(secondValue))) {
-
             JTreeNode<T> tempNode = firstValueParentNode.getLeftNode();
             firstValueParentNode.setLeftNode(secondValueParentNode
                     .getLeftNode());
@@ -218,7 +198,6 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
                 .getRightNode() != null)
                 && firstValueParentNode.getRightNode().isEqual(firstValue) && secondValueParentNode
                 .getRightNode().isEqual(secondValue))) {
-
             JTreeNode<T> tempNode = firstValueParentNode.getRightNode();
             firstValueParentNode.setRightNode(secondValueParentNode
                     .getRightNode());
@@ -227,7 +206,6 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
                 .getRightNode() != null)
                 && firstValueParentNode.getLeftNode().isEqual(firstValue) && secondValueParentNode
                 .getRightNode().isEqual(secondValue))) {
-
             JTreeNode<T> tempNode = firstValueParentNode.getLeftNode();
             firstValueParentNode.setLeftNode(secondValueParentNode
                     .getRightNode());
@@ -242,25 +220,18 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
     public <T extends Comparable<T>> JTreeNode<T> findParentNode(
             JTreeNode<T> node, JTreeNode<T> parentNode, T value) {
-
         JTreeNode<T> tempNode = null;
         if (node == null)
             return null;
-
         if (node.isEqual(value)) {
-
             tempNode = parentNode;
-
         } else {
-
             if (tempNode == null)
                 tempNode = findParentNode(node.getLeftNode(), node, value);
             if (tempNode == null)
                 tempNode = findParentNode(node.getRightNode(), node, value);
         }
-
         return tempNode;
-
     }
 
     /**
@@ -282,13 +253,11 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     public void printLevelTreeTraversal(JTreeNode<T> root, JTreeNode<T> parentNode) {
-
         System.out.print(root.getValue() + ", ");
         System.out.print(root.getLeftNode().getValue() + ", ");
         System.out.print(root.getRightNode().getValue() + ", ");
         printLevelTreeTraversal(root.getLeftNode(), root.getRightNode());
     }
-
 
     /**
      * Gets a list of all values from the tree in level order from right to left
@@ -305,7 +274,6 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
         return getLevelOrder(this.rootNode);
     }
 
-
     private JLinkedList<T> getLevelOrder(JTreeNode<T> root) {
         JQueue<JTreeNode<T>> q = new JLinkedList<>();
         JLinkedList<T> l = new JLinkedList<>();
@@ -316,33 +284,25 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
             l.add(root.getValue());
             if (root.getLeftNode() != null) {
                 q.enqueue(root.getLeftNode());
-//                System.out.print(root.getLeftNode() + " ");
             }
             if (root.getRightNode() != null) {
                 q.enqueue(root.getRightNode());
-//                System.out.print(root.getRightNode() +" ");
             }
-
         }
         return l;
     }
-
 
     public void printIterative(JTreeNode n) {
         final Deque<JTreeNode<T>> nodeTracker = new ArrayDeque<>();
         nodeTracker.push(n);
         while (!nodeTracker.isEmpty()) {
-
             while (n.getLeftNode() != null && !n.getLeftNode().isVisited()) {
                 nodeTracker.push(n.getLeftNode());
                 n = n.getLeftNode();
-
             }
-
             System.out.println(n.getValue());
             n.setVisited(true);
             nodeTracker.pop();
-
             if (n.getRightNode() != null && !n.getRightNode().isVisited()) {
                 nodeTracker.push(n.getRightNode());
             }
@@ -355,62 +315,46 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
         if (n == null)
             return;
         System.out.println("n : " + n.getValue());
-
         nodeTracker.push(n);
-
         while (n != null) {
-
             if (n.getLeftNode() != null && !n.getLeftNode().isVisited()) {
                 n = n.getLeftNode();
                 n.setVisited(true);
                 nodeTracker.push(n);
                 System.out.println("n : " + n.getValue());
             } else {
-
                 n = nodeTracker.pop();
                 if (n.getRightNode() != null && !n.getRightNode().isVisited()) {
                     n = n.getRightNode();
                     n.setVisited(true);
                     nodeTracker.push(n);
                     System.out.println("n : " + n.getValue());
-
                 }
             }
         }
-
     }
 
     public JTreeNode<T> convertToLinkList() {
-
         JTreeNode<T> left = convertList(rootNode.getLeftNode(), true);
-
         while (left.getLeftNode() != null) {
-
             left = left.getLeftNode();
         }
-
         JTreeNode<T> farLeft = left;
         if (farLeft != null) {
-
             while (farLeft.getRightNode() != null) {
                 farLeft = farLeft.getRightNode();
             }
             farLeft.setRightNode(rootNode);
         }
-
         JTreeNode<T> right = convertList(rootNode.getRightNode(), false);
-
         if (right != null) {
             while (right.getLeftNode() != null) {
-
                 right = right.getLeftNode();
             }
             rootNode.setRightNode(right);
         }
-
         return (left != null ? left : rootNode);
     }
-
 
     private JTreeNode<T> convertList(JTreeNode<T> current, boolean isLeft) {
         if (current == null) {
@@ -465,7 +409,6 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
         }
         return paths;
     }
-
 
     private int getPathsSumToVal(JTreeNode<Integer> current, int index, int parentIndex, int[] parents, int[] vals) {
         if (current == null)

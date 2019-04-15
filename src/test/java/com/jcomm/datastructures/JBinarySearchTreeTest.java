@@ -71,7 +71,7 @@ public class JBinarySearchTreeTest {
 		CollectionsHelper.printCollection(bst.getLevelOrder());
 		bst.remove(9);
 		CollectionsHelper.printCollection(bst.getLevelOrder());
-		Assert.assertNull(bst.rootNode.getParentNode());
+		Assert.assertNull(bst.getRootNode().getParentNode());
 		Assert.assertEquals(Integer.valueOf(10), bst.getRootNode().getValue());
 	}
 	
@@ -141,7 +141,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);
 
-		bst.printIterative(bst.rootNode);
+		bst.printIterative(bst.getRootNode());
 	}
 
 
@@ -155,7 +155,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);
 
-		bst.printIterativePreOrder(bst.rootNode);
+		bst.printIterativePreOrder(bst.getRootNode());
 	}
 
 
@@ -206,7 +206,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(70);
 		bst.insert(11);
 
-		Set<List<Integer>> paths = bst.getPathsSumToVal(bst.rootNode.getRightNode().getRightNode(), 155);
+		Set<List<Integer>> paths = bst.getPathsSumToVal(bst.getRootNode().getRightNode().getRightNode(), 155);
 
 		CollectionsHelper.printCollection(paths);
 
@@ -231,7 +231,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(375);
 		bst.insert(405);
 
-		System.out.println("Tree diameter is "+ bst.getTreeDiameter(bst.rootNode));
+		System.out.println("Tree diameter is "+ bst.getTreeDiameter(bst.getRootNode()));
 
 
 	}
