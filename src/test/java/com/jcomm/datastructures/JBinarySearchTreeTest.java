@@ -1,10 +1,10 @@
 package com.jcomm.datastructures;
 
-import com.jcomm.trees.JTree;
 import com.jcomm.trees.JTreeNode;
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -22,10 +22,19 @@ public class JBinarySearchTreeTest {
 		
 		
 	}
+
+	@Test
+	public void testRemovalOfOfSubTreeWithTwoChildren(){
+		bst.insert(9);
+		Assert.assertEquals(Integer.valueOf(9), bst.getRootNode().getValue());
+		bst.insert(12);
+		bst.insert(3);
+		bst.remove(9);
+		Assert.assertEquals(Integer.valueOf(12), bst.getRootNode().getValue());
+	}
 	
 	@Test
 	public void testInorder(){
-		
 		bst.insert(6);
 		bst.insert(2);
 		bst.insert(7);
@@ -58,9 +67,12 @@ public class JBinarySearchTreeTest {
 		bst.insert(11);
 		bst.insert(10);
 		bst.insert(2);
-		bst.insert(7);		
+		bst.insert(7);
+		CollectionsHelper.printCollection(bst.getLevelOrder());
 		bst.remove(9);
-		Assert.assertEquals(Integer.valueOf(12), bst.getRootNode().getValue());
+		CollectionsHelper.printCollection(bst.getLevelOrder());
+		Assert.assertNull(bst.getRootNode().getParentNode());
+		Assert.assertEquals(Integer.valueOf(10), bst.getRootNode().getValue());
 	}
 	
 	@Test 
@@ -129,11 +141,12 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);
 
-		bst.printIterative(bst.rootNode);
+		bst.printIterative(bst.getRootNode());
 	}
 
 
 	@Test
+	@Ignore
 	public void testJova(){
 		bst.insert(20);
 		bst.insert(10);
@@ -142,7 +155,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);
 
-		bst.printIterativePreOrder(bst.rootNode);
+		bst.printIterativePreOrder(bst.getRootNode());
 	}
 
 
@@ -193,7 +206,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(70);
 		bst.insert(11);
 
-		Set<List<Integer>> paths = bst.getPathsSumToVal(bst.rootNode.getRightNode().getRightNode(), 155);
+		Set<List<Integer>> paths = bst.getPathsSumToVal(bst.getRootNode().getRightNode().getRightNode(), 155);
 
 		CollectionsHelper.printCollection(paths);
 
@@ -218,7 +231,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(375);
 		bst.insert(405);
 
-		System.out.println("Tree diameter is "+ bst.getTreeDiameter(bst.rootNode));
+		System.out.println("Tree diameter is "+ bst.getTreeDiameter(bst.getRootNode()));
 
 
 	}

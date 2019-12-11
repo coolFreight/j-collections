@@ -234,5 +234,9 @@ public class JLinkedList<T> implements JQueue<T>, JList<T> {
         head = prev;
     }
 
+    protected void testProtectedMethod(){
+        System.out.println("Called protected method ");
+    }
+
 
 }

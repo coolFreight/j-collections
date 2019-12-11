@@ -14,7 +14,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @param <T>
  */
 
-public  class JArrayList<T> implements JList<T>{
+public  class JArrayList<T> implements JList<T> {
 	
 	
 	private T internalArray [];
