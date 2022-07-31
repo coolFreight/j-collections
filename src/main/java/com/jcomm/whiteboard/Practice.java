@@ -1,137 +1,147 @@
 package com.jcomm.whiteboard;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
  * Created by jova on 4/21/15.
  */
 public class Practice {
+	
+	
+	public static void MaximumSubArray(){
+		
+		int arr [] = {100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97};
+		
+		
+		for(int x = 0; x<arr.length; x++){
+			
+			for(int i =0; i<arr.length; ){
+				
+				
+			}
+			
+		}
+		
+	}
 
+	
+	
+	public static void isNested(String arg[]) {
 
-    public static void main(String[] args) {
+		char[] p = { '(', '(', '(', ')', '(', ')', ')', '(', ')' };
+		Stack<Character> openP = new Stack<>();
+		boolean malformed;
 
+		int count = 0;
 
-    }
+		for (char c : p) {
 
-    public static void isNested(String arg[]){
+			if (c == '(') {
+				count++;
+				openP.push(c);
+			} else if (c == ')') {
+				count--;
+				if (openP.isEmpty()) {
+					System.out.println("the " + count + " char is malformed");
+					malformed = true;
+				}
+				openP.pop();
+			}
+		}
 
-        char [] p = { '(','(','(', ')', '(', ')', ')', '(', ')'};
-        Stack<Character> openP = new Stack<>();
-        boolean malformed;
+		if (!openP.isEmpty()) {
+			System.out.println("the " + count + " char is malformed");
+			malformed = true;
+		}
+		malformed = false;
+		System.out.println("Is malformed " + malformed);
+	}
 
-        int count = 0;
+	public static void main(String arg[]) {
+		Practice p = new Practice();
+		int[] arr = { 1, 4, 2, 1 };
+		p.Kareem(arr);
 
-        for(char c : p){
+	}
 
-            if(c=='('){
-                count++;
-                openP.push(c);
-            }else if(c==')'){
-                count--;
-                if(openP.isEmpty()) {
-                    System.out.println("the " + count + " char is malformed");
-                    malformed = true;
-                }
+	public static void ana(int depth, char[] words, boolean[] cans, char[] orig) {
 
-                openP.pop();
-            }
-        }
+		if (depth == words.length) {
 
-        if(!openP.isEmpty()){
-            System.out.println("the " + count + " char is malformed");
-            malformed = true;
-        }
+			for (int x = 0; x < words.length; x++) {
 
-        malformed = false;
+				System.out.print(words[x]);
+			}
 
+			System.out.println();
 
+		} else {
 
-        System.out.println("Is malformed "+malformed);
-    }
+			int idx[] = new int[orig.length];
+			int candids = 0;
+			for (int x = 0; x < cans.length; x++) {
+				if (cans[x] == false) {
+					idx[candids] = x;
+					candids++;
+				}
+			}
 
+			for (int x = 0; x < candids; x++) {
+				words[depth] = orig[idx[x]];
+				cans[idx[x]] = true;
+				ana(depth + 1, words, cans, orig);
+				cans[idx[x]] = false;
+			}
+		}
 
+	}
 
+	public void reverseLinkedList() {
 
+		PracticeNode pn1 = new PracticeNode();
 
+		PracticeNode pn2 = new PracticeNode();
 
-    public static void ana(int depth, char [] words,  boolean [] cans, char [] orig){
+		PracticeNode pn3 = new PracticeNode();
 
+		PracticeNode pn4 = new PracticeNode();
 
-        if(depth == words.length){
+		pn1.setX(4);
 
-            for(int x = 0; x < words.length; x++){
+		pn2.setX(8);
 
-                System.out.print(words[x]);
-            }
+		pn3.setX(1);
 
-            System.out.println();
+		pn4.setX(898);
 
-        }else {
+	}
 
-            int idx []= new int [orig.length];
-            int candids = 0;
-            for (int x = 0; x < cans.length; x++) {
-                if (cans[x] == false) {
-                    idx[candids] = x;
-                    candids++;
-                }
-            }
+	public void Kareem(int[] arr) {
 
-            for (int x = 0; x < candids; x++) {
-                words[depth] = orig[idx[x]];
-                cans[idx[x]] = true;
-                ana(depth + 1, words,  cans, orig);
-                cans[idx[x]] = false;
-            }
-        }
+		Arrays.sort(arr);
 
+		for (int j = arr.length - 1; j >= 0; j--) {
+			if (arr[j] < arr.length && arr.length - j > arr[j] && (j != arr.length - 1 && arr[j] != arr[j + 1])) {
+				System.out.println(arr[j]);
+				return;
+			}
+		}
 
-    }
+	}
 
+	private class PracticeNode {
 
-    public void reverseLinkedList(){
+		private Integer x = new Integer(0);
+		private PracticeNode next = null;
 
-        PracticeNode pn1 = new PracticeNode();
+		public Integer getX() {
+			return x;
+		}
 
-        PracticeNode pn2 = new PracticeNode();
+		public void setX(Integer x) {
+			this.x = x;
+		}
 
-        PracticeNode pn3 = new PracticeNode();
-
-        PracticeNode pn4  = new PracticeNode();
-
-
-        pn1.setX(4);
-
-
-        pn2.setX(8);
-
-        pn3.setX(1);
-
-        pn4.setX(898);
-
-
-
-    }
-
-    private class PracticeNode{
-
-
-
-        private Integer x = new Integer(0);
-        private PracticeNode next = null;
-
-
-        public Integer getX() {
-            return x;
-        }
-
-        public void setX(Integer x) {
-            this.x = x;
-        }
-
-        
-
-
-
-    }
+	}
 }
