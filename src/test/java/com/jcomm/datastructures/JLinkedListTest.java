@@ -1,11 +1,11 @@
 package com.jcomm.datastructures;
 
-import com.jcomm.trees.JTreeNode;
-import com.jcomm.trees.Node;
-import org.junit.Assert;
-import org.junit.Test;
 
 import com.jcomm.exceptions.IllegalOperationException;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JLinkedListTest {
 
@@ -17,21 +17,22 @@ public class JLinkedListTest {
         l.add(3);
         l.add(10);
 
-        Assert.assertEquals(Integer.valueOf(5), l.getValueAtIndex(0));
+        assertEquals(Integer.valueOf(5), l.getValueAtIndex(0));
         l.removeFirst();
-        Assert.assertEquals(Integer.valueOf(3), l.getValueAtIndex(0));
-        Assert.assertEquals(Integer.valueOf(10), l.getValueAtIndex(1));
+        assertEquals(Integer.valueOf(3), l.getValueAtIndex(0));
+        assertEquals(Integer.valueOf(10), l.getValueAtIndex(1));
     }
 
 
-    @Test(expected = IllegalOperationException.class)
+    @Test
     public void testGetIndexOutOfBounds() {
 
         JLinkedList<Integer> l = new JLinkedList<>();
         l.add(5);
         l.add(3);
         l.add(10);
-        l.getValueAtIndex(4);
+
+        Assertions.assertThatThrownBy(() -> l.getValueAtIndex(4)).isInstanceOf(IllegalOperationException.class);
     }
 
 
@@ -48,9 +49,9 @@ public class JLinkedListTest {
 
         CollectionsHelper.printCollection(l);
 
-        Assert.assertEquals(10, l.removeFirst().intValue());
-        Assert.assertEquals(3, l.removeFirst().intValue());
-        Assert.assertEquals(5, l.removeFirst().intValue());
+        assertEquals(10, l.removeFirst().intValue());
+        assertEquals(3, l.removeFirst().intValue());
+        assertEquals(5, l.removeFirst().intValue());
     }
 
     @Test

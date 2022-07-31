@@ -1,20 +1,21 @@
 package com.jcomm.datastructures;
 
-import com.jcomm.trees.JTreeNode;
-import junit.framework.Assert;
+import com.jcomm.datastructures.trees.JTreeNode;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JBinarySearchTreeTest {
 	private JBinarySearchTree<Integer> bst;
 	
 	
-	@Before
+	@BeforeEach
 	public void setup(){
 		
 		bst = new JBinarySearchTree<>();
@@ -26,11 +27,11 @@ public class JBinarySearchTreeTest {
 	@Test
 	public void testRemovalOfOfSubTreeWithTwoChildren(){
 		bst.insert(9);
-		Assert.assertEquals(Integer.valueOf(9), bst.getRootNode().getValue());
+		assertEquals(Integer.valueOf(9), bst.getRootNode().getValue());
 		bst.insert(12);
 		bst.insert(3);
 		bst.remove(9);
-		Assert.assertEquals(Integer.valueOf(12), bst.getRootNode().getValue());
+		assertEquals(Integer.valueOf(12), bst.getRootNode().getValue());
 	}
 	
 	@Test
@@ -40,11 +41,11 @@ public class JBinarySearchTreeTest {
 		bst.insert(7);
 		JList<Integer> l = bst.getNodesInorder();
 		Integer c = l.removeFirst();
-		Assert.assertEquals(Integer.valueOf(2), c);
+		assertEquals(Integer.valueOf(2), c);
 		c = l.removeFirst();
-		Assert.assertEquals(Integer.valueOf(6), c);
+		assertEquals(Integer.valueOf(6), c);
 		c = l.removeFirst();
-		Assert.assertEquals(Integer.valueOf(7), c);
+		assertEquals(Integer.valueOf(7), c);
 	}
 	
 	@Test
@@ -52,10 +53,10 @@ public class JBinarySearchTreeTest {
 		bst.insert(6);
 		bst.insert(2);
 		bst.insert(7);
-		Assert.assertTrue(bst.findValue(Integer.valueOf(2)));
-		Assert.assertTrue(bst.findValue(Integer.valueOf(6)));
-		Assert.assertTrue(bst.findValue(Integer.valueOf(7)));
-		Assert.assertFalse(bst.findValue(Integer.valueOf(23)));
+		assertTrue(bst.findValue(Integer.valueOf(2)));
+		assertTrue(bst.findValue(Integer.valueOf(6)));
+		assertTrue(bst.findValue(Integer.valueOf(7)));
+		assertFalse(bst.findValue(Integer.valueOf(23)));
 	}
 	
 	@Test 
@@ -71,8 +72,8 @@ public class JBinarySearchTreeTest {
 		CollectionsHelper.printCollection(bst.getLevelOrder());
 		bst.remove(9);
 		CollectionsHelper.printCollection(bst.getLevelOrder());
-		Assert.assertNull(bst.getRootNode().getParentNode());
-		Assert.assertEquals(Integer.valueOf(10), bst.getRootNode().getValue());
+		assertNull(bst.getRootNode().getParentNode());
+		assertEquals(Integer.valueOf(10), bst.getRootNode().getValue());
 	}
 	
 	@Test 
@@ -86,7 +87,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);		
 		bst.remove(3);
-		Assert.assertEquals(Integer.valueOf(7), bst.getRootNode().getLeftNode().getValue());
+		assertEquals(Integer.valueOf(7), bst.getRootNode().getLeftNode().getValue());
 	}
 	
 	@Test 
@@ -100,7 +101,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);		
 		bst.remove(12);
-		Assert.assertEquals(Integer.valueOf(15), bst.getRootNode().getRightNode().getValue());
+		assertEquals(Integer.valueOf(15), bst.getRootNode().getRightNode().getValue());
 	}
 	
 	@Test 
@@ -114,7 +115,7 @@ public class JBinarySearchTreeTest {
 		bst.insert(2);
 		bst.insert(7);		
 		bst.remove(12);
-		Assert.assertEquals(Integer.valueOf(2), bst.findMinimum());
+		assertEquals(Integer.valueOf(2), bst.findMinimum());
 	}
 	
 	@Test 
@@ -146,7 +147,7 @@ public class JBinarySearchTreeTest {
 
 
 	@Test
-	@Ignore
+	@Disabled
 	public void testJova(){
 		bst.insert(20);
 		bst.insert(10);

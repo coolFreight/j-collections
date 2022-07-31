@@ -1,8 +1,10 @@
 package com.jcomm.datastructures;
 
-import junit.framework.Assert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public class JHashMapTest {
 
@@ -22,11 +24,11 @@ public class JHashMapTest {
 		map.put(tester, tester);
 		map.put(tester2, tester2);
 		
-		Assert.assertEquals(tester, tester);
-		Assert.assertEquals(tester2, tester2);
-		Assert.assertNotSame(tester, tester2);
-		Assert.assertEquals("jovaughn", map.get(tester).toString());
-		Assert.assertEquals("default", map.get(tester2).toString());
+		assertEquals(tester, tester);
+		assertEquals(tester2, tester2);
+		assertNotSame(tester, tester2);
+		assertEquals("jovaughn", map.get(tester).toString());
+		assertEquals("default", map.get(tester2).toString());
 	}
 	
 	@Test
@@ -50,11 +52,11 @@ public class JHashMapTest {
 		map.put(tester2, tester2);
 		map.put(tester3, tester3);
 		
-		Assert.assertEquals(tester, tester);
-		Assert.assertEquals(tester2, tester2);
-		Assert.assertNotSame(tester, tester2);
-		Assert.assertEquals("jovaughn", map.get(tester).toString());
-		Assert.assertEquals("default", map.get(tester2).toString());
+		assertEquals(tester, tester);
+		assertEquals(tester2, tester2);
+		assertNotSame(tester, tester2);
+		assertEquals("jovaughn", map.get(tester).toString());
+		assertEquals("default", map.get(tester2).toString());
 	}
 	
 	

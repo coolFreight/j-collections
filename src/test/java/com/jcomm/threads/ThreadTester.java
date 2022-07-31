@@ -17,6 +17,7 @@ public class ThreadTester {
     Thread t1;
     Thread t2;
     Thread t3;
+    JT j1 = new JT(1);
     JT j2 = new JT(1);
     JT j3 = new JT(1);
 
@@ -26,10 +27,8 @@ public class ThreadTester {
 
     public void print(){
 
-        //t1 = new Thread(j1, "1");
-
+       t1 = new Thread(j1, "1");
         t2 = new Thread(j2, "2");
-
         t3 = new Thread(j3, "3");
 
         t1.start();
@@ -40,7 +39,6 @@ public class ThreadTester {
 
 
     public static void main(String arg[]){
-
         ThreadTester tt = new ThreadTester();
         tt.print();
     }

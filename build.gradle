@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+group = 'JCollections'
+version = '0.0.2-SNAPSHOT'
+
+description = "JCollections"
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+
+
+repositories {
+
+     maven { url "https://repo.maven.apache.org/maven2/" }
+}
+dependencies {
+//    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.18.0'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version:'3.0.0'
+    implementation group: 'org.apache.hadoop', name: 'hadoop-common', version:'3.0.0-alpha2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version:'1.9.5'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+}

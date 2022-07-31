@@ -18,21 +18,17 @@ public class LRUCache {
 
 
     public String getItem(String item) {
-
         String result = map.remove(item);
         if (result == null) {
             System.out.println("Cache Miss ");
             // got to back store
             result = "Random" + Math.random();
         }
-
         map.put(item, result);
-
         return result;
     }
 
     public void printCacheElements(){
-
         map.entrySet().stream().forEach(e -> System.out.println("Key="+e.getKey()+", Value="+e.getValue()));
     }
 }

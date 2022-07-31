@@ -1,5 +1,10 @@
 package com.jcomm.threads;
 
+import com.jcomm.models.Bone;
+import com.jcomm.models.Dog;
+import com.jcomm.models.Person;
+import com.jcomm.models.Person1;
+
 public class DeadLockExample {
 	
 	

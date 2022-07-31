@@ -1,5 +1,7 @@
 package com.jcomm.threads;
 
+import com.jcomm.models.Dog;
+
 public class PersonDenip implements Runnable {
 
 	private PersonNonSynchronized pns;
@@ -27,13 +29,10 @@ public class PersonDenip implements Runnable {
 	public void run() {
 		int [] arr = new int[3];
 		
-		int e = arr[9];
-		
 		if(nonsyn)
 			loopNonSyncronizer();
 		else
 			loopSyncronizer();
-
 	}
 	
 	public void loopSyncronizer(){

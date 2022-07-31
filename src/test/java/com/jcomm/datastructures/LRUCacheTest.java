@@ -1,6 +1,6 @@
 package com.jcomm.datastructures;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by jovaughnlockridge1 on 3/23/17.

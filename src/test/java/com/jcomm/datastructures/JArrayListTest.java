@@ -1,7 +1,9 @@
 package com.jcomm.datastructures;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class JArrayListTest {
 	
@@ -30,13 +32,13 @@ public class JArrayListTest {
 			switch(i){
 			
 			case 25:
-				Assert.assertEquals(Integer.valueOf(25),  i);
+				assertEquals(Integer.valueOf(25),  i);
 				return;
 			case 30:
-				Assert.assertEquals(Integer.valueOf(30),  i);
+				assertEquals(Integer.valueOf(30),  i);
 				return;
 			default:
-				Assert.fail();
+				fail();
 				return;
 			}
 			

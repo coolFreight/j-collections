@@ -35,11 +35,9 @@ public class CollectionsHelper {
 
 	
 	public static <T> void printCollection(Iterable<T> coll) {
-
 		for (T i : coll) {
 			System.out.print(i + ",");
 		}
-
 		System.out.println("");
 	}
 

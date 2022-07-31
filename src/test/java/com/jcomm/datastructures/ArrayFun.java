@@ -1,8 +1,8 @@
 package com.jcomm.datastructures;
 
 //import com.javamex.classmexer.MemoryUtil;
-import com.jcomm.threads.Bone;
-import com.jcomm.threads.Dog;
+import com.jcomm.models.Bone;
+import com.jcomm.models.Dog;
 
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;

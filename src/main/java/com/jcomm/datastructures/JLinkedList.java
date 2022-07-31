@@ -114,7 +114,7 @@ public class JLinkedList<T> implements JQueue<T>, JList<T> {
         return new LinkedListIterator();
     }
 
-    private class Link<P> {
+    public class Link<P> {
 
         public P element;
         public Link<P> next = null;
@@ -217,20 +217,15 @@ public class JLinkedList<T> implements JQueue<T>, JList<T> {
 
 
     public void reverseList(){
-
         last = head;
         Link<T> curr = head;
-
-
         Link<T> prev = null;
         while(curr != null){
-
             Link<T> temp = curr.getNext();
             curr.setNext(prev);
             prev = curr;
             curr = temp;
         }
-
         head = prev;
     }
 

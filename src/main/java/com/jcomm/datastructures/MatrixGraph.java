@@ -162,13 +162,11 @@ public class MatrixGraph implements Graph {
 	}
 
 	private void shortestPathQueueInsert(Path newPath) {
-
 		Path temp = null;
 		for (Path p : pQueue) {
 			if (p.getEndNode().getLabel() == newPath.getEndNode().getLabel())
 				temp = p;
 		}
-
 		if (temp == null) {
 			// Path not in the queue
 			// add new path
@@ -179,7 +177,6 @@ public class MatrixGraph implements Graph {
 			pQueue.add(newPath);
 
 		}
-
 	}
 
 	public void findCheapsestNeighbor(Vertex v, List<Path> mininumSpanTree) {

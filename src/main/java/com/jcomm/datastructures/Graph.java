@@ -3,8 +3,6 @@ package com.jcomm.datastructures;
 import java.util.function.Function;
 
 public interface Graph {
-
-	
 	void printGraph();
 	void createVertex(String label);
 	void addEdge(String start, String end, int weight, boolean directed);

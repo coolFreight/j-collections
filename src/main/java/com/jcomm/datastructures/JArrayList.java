@@ -6,7 +6,6 @@ package com.jcomm.datastructures;
 
 import java.util.Iterator;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -204,19 +203,19 @@ public  class JArrayList<T> implements JList<T> {
 
     @Override
 	public T removeFirst() {
-		throw new NotImplementedException();
+        throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 
 	@Override
 	public T getFirst() {
-		throw new NotImplementedException();
+        throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 
 	@Override
 	public void addAll(JList<T> list) {
-		throw new NotImplementedException();
+        throw new UnsupportedOperationException("Not supported yet.");
 	}
 
     @Override

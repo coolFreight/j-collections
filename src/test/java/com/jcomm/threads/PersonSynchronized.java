@@ -1,5 +1,7 @@
 package com.jcomm.threads;
 
+import com.jcomm.models.Dog;
+
 import java.lang.Thread.UncaughtExceptionHandler;
 
 public class PersonSynchronized  {

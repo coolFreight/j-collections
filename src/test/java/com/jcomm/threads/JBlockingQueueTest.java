@@ -1,9 +1,9 @@
 package com.jcomm.threads;
 
 import com.jcomm.datastructures.JBlockingQueue;
-import junit.framework.Assert;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JBlockingQueueTest {
 	
@@ -12,15 +12,15 @@ public class JBlockingQueueTest {
 	@Test
 	public void testAdd(){
 		q.addElement(Integer.valueOf(5));
-		Assert.assertEquals(1, q.size());
-		Assert.assertEquals(Integer.valueOf(5), q.removeElement());
+		assertEquals(1, q.size());
+		assertEquals(Integer.valueOf(5), q.removeElement());
 	}
 
 	@Test
 	public void When_testAdd(){
 		q.addElement(Integer.valueOf(5));
-		Assert.assertEquals(1, q.size());
-		Assert.assertEquals(Integer.valueOf(5), q.removeElement());
+		assertEquals(1, q.size());
+		assertEquals(Integer.valueOf(5), q.removeElement());
 	}
 
 
@@ -31,12 +31,12 @@ public class JBlockingQueueTest {
 		Thread t1 = new Thread(ia);
 		t1.start();	
 		Thread.sleep(1000);
-		Assert.assertEquals(Thread.State.WAITING, t1.getState());
+		assertEquals(Thread.State.WAITING, t1.getState());
 		IntRemover ir = new IntRemover(q);
 		Thread t2 = new Thread(ir);
 		t2.start();
 		Thread.sleep(1000);
-		Assert.assertEquals(Thread.State.TERMINATED, t1.getState());
+		assertEquals(Thread.State.TERMINATED, t1.getState());
 	}
 
 
@@ -46,12 +46,12 @@ public class JBlockingQueueTest {
 		Thread t1 = new Thread(ia);
 		t1.start();
 		Thread.sleep(1000);
-		Assert.assertEquals(Thread.State.WAITING, t1.getState());
+		assertEquals(Thread.State.WAITING, t1.getState());
 		IntRemover ir = new IntRemover(q);
 		Thread t2 = new Thread(ir);
 		t2.start();
 		Thread.sleep(1000);
-		Assert.assertEquals(Thread.State.TERMINATED, t1.getState());
+		assertEquals(Thread.State.TERMINATED, t1.getState());
 	}
 	
 	@Test

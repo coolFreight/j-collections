@@ -8,8 +8,10 @@ import java.util.Stack;
 public class Practice {
 
 
+    public static void main(String[] args) {
 
 
+    }
 
     public static void isNested(String arg[]){
 
@@ -49,13 +51,7 @@ public class Practice {
 
 
 
-    public static void main(String arg[]){
 
-        char c [] = {'a', 't', 'w', 'l'};
-        int l = c.length;
-        ana(0, new char[l], new boolean[l], c);
-
-    }
 
 
     public static void ana(int depth, char [] words,  boolean [] cans, char [] orig){

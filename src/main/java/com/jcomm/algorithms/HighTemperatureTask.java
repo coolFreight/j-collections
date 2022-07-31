@@ -19,7 +19,7 @@ public class HighTemperatureTask implements Callable<Integer> {
 
         Random r = new Random();
         Integer responseTime = r.nextInt(30);
-        System.out.println("Simulating response time of " + responseTime + " seconds");
+        System.out.println("Simulating response time of " + responseTime + " seconds"+" for value "+highTemperature);
         Thread.sleep(responseTime * 1_000);
         return highTemperature;
     }

@@ -1,11 +1,10 @@
 package com.jcomm.datastructures;
 
 
+import org.junit.jupiter.api.Test;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.jcomm.trees.HeapSort;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CollectionsHelperTest {
 	
@@ -17,11 +16,11 @@ public class CollectionsHelperTest {
 		array[0] = 35;
 		array[1] = 2;
 			
-		Assert.assertEquals(array[0],  Integer.valueOf(35));
-		Assert.assertEquals(array[1],  Integer.valueOf(2));
+		assertEquals(array[0],  Integer.valueOf(35));
+		assertEquals(array[1],  Integer.valueOf(2));
 		CollectionsHelper.swapValues(array, 0, 1);
-		Assert.assertEquals(array[0],  Integer.valueOf(2));
-		Assert.assertEquals(array[1],  Integer.valueOf(35));
+		assertEquals(array[0],  Integer.valueOf(2));
+		assertEquals(array[1],  Integer.valueOf(35));
 	}
 	
 	@Test
@@ -33,7 +32,7 @@ public class CollectionsHelperTest {
 		for(int x = 0; x<A.length-1; x++){	
 			highestVal = A[x+1];
 			if(highestVal < A[x]){
-				Assert.fail(highestVal+" is not greater than "+A[x]);	
+				fail(highestVal+" is not greater than "+A[x]);	
 			}
 			
 		}
@@ -50,7 +49,7 @@ public class CollectionsHelperTest {
 		for(int x = 0; x<A.length-1; x++){	
 			highestVal = A[x+1];
 			if(highestVal < A[x]){
-				Assert.fail(highestVal+" is not greater than "+A[x]);	
+				fail(highestVal+" is not greater than "+A[x]);	
 			}
 			
 		}
@@ -74,7 +73,7 @@ public class CollectionsHelperTest {
 		CollectionsHelper.rotateArray(arr, 1, 2);
 
 		Integer [] expectedArray = {6, 2,4};
-		//Assert.assertArrayEquals(expectedArray, arr);
+		//assertArrayEquals(expectedArray, arr);
 		
 		
 		

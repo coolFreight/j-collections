@@ -1,18 +1,21 @@
 package com.jcomm.datastructures;
 
+import org.apache.http.annotation.GuardedBy;
+import org.apache.http.annotation.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Scanner;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+//import javax.annotation.concurrent.GuardedBy;
+//import javax.annotation.concurrent.ThreadSafe;
 
 @ThreadSafe
 public class JBlockingQueue<T> {
 
-    private static final Logger logger = LoggerFactory.getLogger(JBlockingQueue.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JBlockingQueue.class);
     @GuardedBy("lock")
     private T arr[];
     private int numOfElements;
@@ -31,22 +34,19 @@ public class JBlockingQueue<T> {
 
     public void addElement(T element) {
         try {
-
-            //acquires the lock
             lock.lock();
-            while (isFull()) {//this thread checks to see if can do any useful work
+            while (isFull()) {//this thread checks to see if it can do any useful work
 
-                logger.info("Queue is full.  No action can be taken");
+                LOGGER.info("Queue is full.  No action can be taken");
                 offerCondition.await();//it gives up the lock and put into a wait queue
                 //when the thread is put back into a running state it will check again
                 //if it can do any useful work
                 //KEEP IN MIND it has acquired the lock again without you calling the lock() method
             }
-
-            arr[back % SIZE] = element;
+            arr[back] = element;
+            back = (back + 1)% SIZE;
             numOfElements++;
-            back++;
-            logger.info("Element add " + element);
+            LOGGER.info("Element add " + element);
             pollingCondition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -63,12 +63,11 @@ public class JBlockingQueue<T> {
             while (isEmpty()) {
                 pollingCondition.await();
             }
-
             element = (T) arr[front];
-            logger.info("Removed element : " + element);
-            front++;
+            LOGGER.info("Removed element : " + element);
+            front = (front + 1) % SIZE;
             numOfElements--;
-            offerCondition.signal();
+            offerCondition.signalAll();
             return element;
 
         } catch (InterruptedException e) {
@@ -93,7 +92,7 @@ public class JBlockingQueue<T> {
 
         try {
             lock.lock();
-            return front == back;
+            return  numOfElements == 0;
         } finally {
             lock.unlock();
         }
@@ -107,11 +106,83 @@ public class JBlockingQueue<T> {
         } finally {
             lock.unlock();
         }
+    }
 
+    public T peek(){
+        T element = null;
+        try {
+            lock.lock();
+            while (isEmpty()) {
+                return null;
+            }
+            element = (T) arr[front];
+            return element;
+
+        }finally {
+            lock.unlock();
+        }
     }
 
 
     public void printItemsOnQueue() {
         CollectionsHelper.printArray(arr);
+    }
+
+    public static void main(String[] args) {
+        JBlockingQueue<String> q = new JBlockingQueue<>(5);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a command");
+        String v = sc.nextLine();
+        while (!"q".trim().equalsIgnoreCase(v)) {
+            switch(v) {
+                case "add":
+                    System.out.println("Enter a value to enqueue");
+                    String value  = sc.nextLine();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Enqueing ......");
+                            q.addElement(value);
+                            System.out.println("Done Enqueing ......");
+                        }
+                    }).start();
+                    break;
+                case "remove" :
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Remove element ......");
+                            String removedElement = q.removeElement();
+                            System.out.println("Removed element "+removedElement);
+                        }
+                    }).start();
+                    break;
+                case "print":
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Printing .....");
+                            q.printItemsOnQueue();
+                            System.out.println("Done Printing");
+                        }
+                    }).start();
+                    break;
+                case "peek":
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Peek .....");
+                            String peek = q.peek();
+                            System.out.println("Peek value "+peek);
+                        }
+                    }).start();
+                    break;
+                default :
+                    System.out.println("Unknown command "+v);
+            }
+            System.out.println("Enter a command");
+            v = sc.nextLine();
+        }
+
     }
 }

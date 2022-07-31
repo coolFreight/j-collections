@@ -1,5 +1,7 @@
 package com.jcomm.threads;
 
+import com.jcomm.models.Dog;
+
 public class PersonManip implements Runnable {
 
 	private PersonNonSynchronized pns;

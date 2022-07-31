@@ -1,14 +1,17 @@
 package com.jcomm.datastructures;
 
+import org.assertj.core.api.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import java.util.function.Function;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Ignore
+
+@Disabled
 public class GraphTest {
 
 	ListGraph listGraph = new ListGraph();
@@ -24,10 +27,9 @@ public class GraphTest {
 
 	
 	
-	@Before
+	@BeforeEach
 	public void setUp(){
 		listGraph = new ListGraph();
-
 	}
 	
 	
@@ -74,10 +76,10 @@ public class GraphTest {
 
 			switch (end) {
 				case "B":
-					Assert.assertEquals(10, p.getCost());
+					assertEquals(10, p.getCost());
 					break;
 				case "D":
-					Assert.assertEquals(30, p.getCost());
+					assertEquals(30, p.getCost());
 					break;
 
 			}
@@ -126,7 +128,7 @@ public class GraphTest {
 //			public Vertex apply(Vertex t) {
 //				System.out.println("Vertex : "+t);
 //				return t;
-//			}		
+//			}
 //		});
 	}
 

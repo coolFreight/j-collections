@@ -18,9 +18,8 @@ public class MaxSubArray{
 	
 	System.out.print("the max profit is : "+tuple.getSum()+" lo: "+tuple.getLo()+" hi: "+tuple.getHi());
 	}
-	
-	
-	
+
+
 
 	public Tuple maxSubArray(int A[], int lo, int hi){
 
