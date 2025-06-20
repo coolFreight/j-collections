@@ -20,23 +20,27 @@ public class Permutations extends Backtrack<Integer> {
 	}
 
 	@Override
-	public void constructCandidates(int[] a, int k, Integer input, int[] c,
+	public void  constructCandidates(int[] a, int k, Integer input, int[] possibleCandidates,
 			RefObj ncandidates) {
-		int i = 0;
 		int nMax = input.intValue()+1;
 		boolean [] in_perm = new boolean[nMax];
-		
-		for(i =1; i<nMax; i++)
+
+		//reset the permutations here
+		//this is probably not needed
+		for(int i =1; i<nMax; i++)
 			in_perm[i] = false;
-		
-		for (i=0; i<k; i++)
+
+
+		for (int i=0; i<k; i++)
 			in_perm[ a[i]] = true;
 		
 		ncandidates.setVal(0);
-		for(i =1; i<=input.intValue(); i++){
-			if(in_perm[i] == false){
-				c[ncandidates.getVal()] = i;
-				ncandidates.setVal( ncandidates.getVal()+1);			
+		for(int i =1; i<=input.intValue(); i++){
+			if(!in_perm[i]){
+ 				possibleCandidates[ncandidates.getVal()] = i;
+
+				 //increment to the next value that can be used
+				ncandidates.setVal( ncandidates.getVal()+1);
 			}
 		}	
 	}
@@ -53,13 +57,13 @@ public class Permutations extends Backtrack<Integer> {
 		
 	}
 	
-	public void generate_permutations(int n){
+	public void generate_permutations(int input){
 		
-		int a[] = new int[n+1];
-		backtrack(a,0,n);
+		int[] a = new int[input+1];
+		backtrack(a,0, input);
 	}
 	
-	public static void main(String ars[]){
+	public static void  main(String[] ars){
 		Permutations p = new Permutations();
 		p.maxCandidates = 3;
 		p.generate_permutations(3);

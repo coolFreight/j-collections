@@ -9,20 +9,20 @@ import java.util.function.Function;
 
 public class ListGraph implements Graph {
 
-	private Map<String, JList<Edge>> mapOfEdges = new HashMap<>();
-	private Map<String, Vertex> mapOfVertices = new HashMap<>();
-	private Map<String, Integer> mapOfVerticeIndex = new HashMap<>();
-	private JList<Vertex> edges[] = new JLinkedList[1000];
-	private Vertex vertices[] = new Vertex[1000];
+	private final Map<String, JList<Edge>> mapOfEdges = new HashMap<>();
+	private final Map<String, Vertex> mapOfVertices = new HashMap<>();
+	private final Map<String, Integer> mapOfVerticeIndex = new HashMap<>();
+	private final JList<Vertex>[] edges = new JLinkedList[1000];
+	private final Vertex[] vertices = new Vertex[1000];
 	private int verticeCount = 0;
-	private Queue<Vertex> pQueue = new java.util.LinkedList<>();
-	private Stack<Vertex> stackVertices = new Stack<>();
-	private JLinkedList<Vertex> parentVertices[] = new JLinkedList[1000];
-	private int entry[] = new int[1000];
-	private int exit[] = new int[1000];
-	private int parent[] = new int[1000];
-	private STATE state[] = new STATE[1000];
-	private Vertex parentVertex [] = new Vertex[1000];
+	private final Queue<Vertex> pQueue = new java.util.LinkedList<>();
+	private final Stack<Vertex> stackVertices = new Stack<>();
+	private final JLinkedList<Vertex>[] parentVertices = new JLinkedList[1000];
+	private final int[] entry = new int[1000];
+	private final int[] exit = new int[1000];
+	private final int[] parent = new int[1000];
+	private final STATE[] state = new STATE[1000];
+	private final Vertex[] parentVertex = new Vertex[1000];
 	private int time = 0;
 
 
@@ -100,7 +100,7 @@ public class ListGraph implements Graph {
 	@Override
 	public void bfs(String label, Function<Vertex, Vertex> action) {
 		Vertex v = getVertex(label);
-		if (v.wasVisited() == false) {
+		if (!v.wasVisited()) {
 			v.setVisited(true);
 			action.apply(v);
 			pQueue.add(v);
@@ -109,7 +109,7 @@ public class ListGraph implements Graph {
 		JList<Vertex> listOfAdjacent = getEdges(mapOfVerticeIndex.get(v.getLabel()));
 		for (Vertex neighbor : listOfAdjacent) {
 
-			if (neighbor.wasVisited() == false) {
+			if (!neighbor.wasVisited()) {
 				neighbor.setVisited(true);
 				action.apply(neighbor);
 				pQueue.add(neighbor);
@@ -145,15 +145,11 @@ public class ListGraph implements Graph {
 	}
 
 	public void dfs(Function<Vertex, Vertex> action) {
-
 		for (Vertex next : vertices) {
-
-			if (next!= null && next.wasVisited() == false) {
+			if (next!= null && !next.wasVisited()) {
 				dfs(next.getLabel(), action);
-
 			}
 		}
-		
 		for (Vertex next : vertices)
 			next.setVisited(false);	
 	}
@@ -174,7 +170,6 @@ public class ListGraph implements Graph {
 			}else if(state[vIndex] != STATE.PROCESSSED){
 				processEdge(vertexIndex, vIndex);
 			}
-
 		}
 
 		state[vertexIndex] = STATE.PROCESSSED;
@@ -232,7 +227,7 @@ public class ListGraph implements Graph {
 	public void dfs(String label, Function<Vertex, Vertex> action) {
 
 		Vertex v = getVertex(label);
-		if (v.wasVisited() == false) {
+		if (!v.wasVisited()) {
 			v.setVisited(true);
 			action.apply(v);
 			stackVertices.add(v);
@@ -240,7 +235,7 @@ public class ListGraph implements Graph {
 
 		JList<Vertex> listOfAdjacent = getEdges(mapOfVerticeIndex.get(v.getLabel()));
 		for (Vertex t : listOfAdjacent) {
-			if (t.wasVisited() == false) {
+			if (!t.wasVisited()) {
 				t.setVisited(true);
 				int vertexIndex = mapOfVerticeIndex.get(t.getLabel());
 				parentVertices[vertexIndex].add(v);

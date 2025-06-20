@@ -6,30 +6,26 @@ import com.jcomm.models.Person;
 import com.jcomm.models.Person1;
 
 public class DeadLockExample {
-	
-	
-	public static void main(String args[]){
-	
-		Dog d = new Dog();
-		Bone b = new Bone();
-		b.setDog(d);
-		d.setBone(b);
 
 
-		Dog d1 = new Dog();
-		Bone b1 = new Bone();
-		b.setDog(d);
-		d.setBone(b1);
+    public static void main(String[] args) {
 
+        Dog spot = new Dog("spot");
+        Dog rufus = new Dog("bo");
+        Bone b1 = new Bone();
+        Bone b2 = new Bone();
 
+        spot.setBone(b1);
+        b1.setDog(spot);
 
+        rufus.setBone(b2);
+        b2.setDog(rufus);
 
-		
-		Thread t1 = new Thread(new Person(d));
-		Thread t2 = new Thread(new Person1(d1));
-		
-		//t2.start();
-		t1.start();
-	}
+        Thread t1 = new Thread(new Person(spot));
+        Thread t2 = new Thread(new Person1(rufus));
+
+        t2.start();
+        t1.start();
+    }
 
 }

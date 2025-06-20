@@ -4,9 +4,9 @@
  */
 package com.jcomm.datastructures;
 
-import java.util.Iterator;
-
 import com.jcomm.exceptions.IllegalOperationException;
+
+import java.util.Iterator;
 
 /**
  *
@@ -233,5 +233,41 @@ public class JLinkedList<T> implements JQueue<T>, JList<T> {
         System.out.println("Called protected method ");
     }
 
+    public static void main(String[] args) {
+
+    }
+
+    private int getCountOfNodes(Link<T>  head){
+        if(head == null) {
+            return 0;
+        }
+
+        int count = getCountOfNodes(head.next);
+        return ++count;
+    }
+
+
+    public int getCountOfNodes(){
+        return getCountOfNodes(head);
+    }
+
+    public void removeNode(int indexToRemove) {
+        int index = 0;
+        int nodeBefore = indexToRemove-1;
+        Link<T> node = head;
+
+        while(index != nodeBefore) {
+            node = node.next;
+            index++;
+        }
+
+        if(node.next == null) {
+            return;
+        } else if(node.next.next != null){
+            node.next = node.next.next;
+        }
+
+        System.out.println(head);
+    }
 
 }

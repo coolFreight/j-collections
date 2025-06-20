@@ -8,6 +8,7 @@ import java.util.concurrent.*;
  * Created by jovaughnlockridge1 on 5/16/17.
  */
 public class USDateService implements DateService {
+/**/
 
     private final BlockingQueue<Integer> q = new ArrayBlockingQueue<>(4);
     ExecutorService ses = Executors.newFixedThreadPool(4);
@@ -34,7 +35,7 @@ public class USDateService implements DateService {
         return new USDateServiceResponse(f);
     }
 
-    public static void main (String a[]) throws InterruptedException {
+    public static void main (String[] a) throws InterruptedException {
 
         USDateService s = new USDateService();
         s.startService();

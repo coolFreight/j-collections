@@ -7,7 +7,7 @@ public class PersonNonSynchronized {
 	public PersonNonSynchronized(Dog d){
 		this.d = d;
 	}
-	private Dog d;
+	private final Dog d;
 	public synchronized void printPockets(){
 			System.out.println("Empty Pockets");
 			d.printDog();
@@ -15,7 +15,7 @@ public class PersonNonSynchronized {
 	
 	public static void main(String []args){
 		
-		Dog d = new Dog();
+		Dog d = new Dog("shadow");
 		PersonNonSynchronized pns = new PersonNonSynchronized(d);
 		
 		PersonDenip pd = new PersonDenip(pns);
@@ -41,5 +41,4 @@ public class PersonNonSynchronized {
 			}
 		}	
 	}
-
 }

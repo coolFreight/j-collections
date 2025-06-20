@@ -7,12 +7,12 @@ public abstract class Backtrack<T> {
 	protected int maxCandidates  = 0;
 	
 	
-	public final void backtrack(int a[], int k, T input){
+	public final void backtrack(int[] a, int k, T input){
 		
-		int []possibleCandidates = new int[maxCandidates];
+		int [] possibleCandidates = new int[maxCandidates];
 		RefObj numCandidates = new RefObj();
 
-		if(isSolution(a, k, input))
+		if(isSolution(a, k, input)) //when k is equal to an input you have a solution or subset `
 			processSolution(a,k,input);
 		 else{
 			k = k+1;
@@ -27,10 +27,10 @@ public abstract class Backtrack<T> {
 		}	
 	}
 	
-	public abstract boolean isSolution(int a[], int k, T input);
-	public abstract void processSolution(int a[], int k, T input);
-	public abstract void constructCandidates(int a[], int k, T input, int []possibleCandidates, RefObj ncandidates);
-	public abstract void make_move(int a[], int k, T input);
-	public abstract void unmake_move(int a[], int k, T input);
+	public abstract boolean isSolution(int[] a, int k, T input);
+	public abstract void processSolution(int[] a, int k, T input);
+	public abstract void constructCandidates(int[] a, int k, T input, int []possibleCandidates, RefObj ncandidates);
+	public abstract void make_move(int[] a, int k, T input);
+	public abstract void unmake_move(int[] a, int k, T input);
 
 }
