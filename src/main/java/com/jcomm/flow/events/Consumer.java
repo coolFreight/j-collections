@@ -5,7 +5,7 @@ import java.util.concurrent.Flow;
 import java.util.concurrent.TimeUnit;
 
 public class Consumer implements Flow.Subscriber<Event> {
-    private String name;
+    private final String name;
     private Flow.Subscription subscription;
 
 

@@ -1,12 +1,7 @@
 package com.jcomm.threads;
 
-import com.jcomm.datastructures.PriorityQueue;
-
 import java.util.Queue;
 import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by jovaughnlockridge1 on 11/15/15.
@@ -38,7 +33,7 @@ public class ThreadTester {
     }
 
 
-    public static void main(String arg[]){
+    public static void main(String[] arg){
         ThreadTester tt = new ThreadTester();
         tt.print();
     }

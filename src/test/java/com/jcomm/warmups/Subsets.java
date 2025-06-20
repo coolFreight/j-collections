@@ -32,8 +32,7 @@ public class Subsets extends Backtrack<Integer> {
 			RefObj ncandidates) {
 
 		c[0] = TRUE;
-		;
-		c[1] = FALSE;
+        c[1] = FALSE;
 		ncandidates.setVal(2);
 
 	}
@@ -55,13 +54,13 @@ public class Subsets extends Backtrack<Integer> {
 		backtrack(a, 0, n);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		Subsets s = new Subsets();
 		// s.maxCandidates = 2;
 
-		int array[] = { 23, 2, 45 };
-		int result[] = new int[3];
-		boolean bits[] = new boolean[3];
+		int[] array = { 23, 2, 45 };
+		int[] result = new int[3];
+		boolean[] bits = new boolean[3];
 		s.permutations(array, bits, result, 2);
 
 		// long start = System.nanoTime();
@@ -77,7 +76,7 @@ public class Subsets extends Backtrack<Integer> {
 
 	}
 
-	public void permutations(int A[], boolean bits[], int result[], int index) {
+	public void permutations(int[] A, boolean[] bits, int[] result, int index) {
 		if (index < 0) {
 			for (int i : result) {
 				System.out.print(i + ",");
@@ -88,7 +87,7 @@ public class Subsets extends Backtrack<Integer> {
 		}
 
 		for (int x = 0; x < A.length; x++) {
-			if (bits[x] == false) {
+			if (!bits[x]) {
 				bits[x] = true;
 				result[index] = A[x];
 				permutations(A, bits, result, index - 1);
@@ -97,14 +96,14 @@ public class Subsets extends Backtrack<Integer> {
 		}
 	}
 
-	public void subsets(int[] array, int idx, boolean bits[]) {
+	public void subsets(int[] array, int idx, boolean[] bits) {
 
 		if (idx < 0) {
 
 			System.out.print("{");
 			for (int x = 0; x < array.length; x++) {
 
-				if (bits[x] == true) {
+				if (bits[x]) {
 					System.out.print(array[x] + ", ");
 				}
 			}
@@ -119,7 +118,7 @@ public class Subsets extends Backtrack<Integer> {
 
 	}
 
-	public void subsets(int n, boolean a[]) {
+	public void subsets(int n, boolean[] a) {
 
 		if (n == a.length) {
 			System.out.print("{");

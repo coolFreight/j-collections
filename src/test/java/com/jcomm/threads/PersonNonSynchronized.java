@@ -15,7 +15,7 @@ public class PersonNonSynchronized {
 	
 	public static void main(String []args){
 		
-		Dog d = new Dog("shadow");
+		Dog d = new Dog();
 		PersonNonSynchronized pns = new PersonNonSynchronized(d);
 		
 		PersonDenip pd = new PersonDenip(pns);

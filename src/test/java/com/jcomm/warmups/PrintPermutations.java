@@ -11,7 +11,7 @@ public class PrintPermutations {
 	
 	
 	
-	public static void main (String args[]){
+	public static void main (String[] args){
 		
 		char [] word = {'c','a', 't', 's'};
 		
@@ -20,7 +20,7 @@ public class PrintPermutations {
 	}
 	
 	
-	public void swapper(int A[], int x) {
+	public void swapper(int[] A, int x) {
 
 		if(x == 1 ){
 			CollectionsHelper.printArray(A);
@@ -31,11 +31,10 @@ public class PrintPermutations {
 			swapper(A, x-1);
 			rotate(A, x);
 		}
-		
-		return;
-	}
+
+    }
 	
-	public void rotate(int A[], int x){
+	public void rotate(int[] A, int x){
 		int k = A.length-x;
 		int c = A[k];
 		
@@ -50,7 +49,7 @@ public class PrintPermutations {
 	
 	public void lottoNumbers(){
 		
-		int number [] = new int [5];
+		int[] number = new int [5];
 		
 		Map<Integer, Integer> map = new HashMap<>();
 		

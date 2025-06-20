@@ -2,7 +2,7 @@ package com.jcomm.warmups;
 
 public abstract class CodingProblems {
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 
 		// int [] values = {5,-1,-2};
 		//
@@ -29,16 +29,16 @@ public abstract class CodingProblems {
 
 	public static char findNonFirstRepeating(String str) {
 
-		int count[] = new int[256];
+		int[] count = new int[256];
 
 		for (int x = 0; x < str.length(); x++) {
-			int key = (int) str.charAt(x);
+			int key = str.charAt(x);
 			count[key]++;
 		}
 
 		for (int y = 0; y < str.length(); y++) {
 
-			int key = (int) str.charAt(y);
+			int key = str.charAt(y);
 			if (count[key] == 1)
 				return str.charAt(y);
 
@@ -53,9 +53,9 @@ public abstract class CodingProblems {
 
 		for (char c : str.toCharArray()) {
 
-			int key = (int) c;
-			if (word[key] == false) {
-				sb.append((char) c);
+			int key = c;
+			if (!word[key]) {
+				sb.append(c);
 				word[key] = true;
 			}
 		}

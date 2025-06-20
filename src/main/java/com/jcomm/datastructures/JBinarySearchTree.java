@@ -158,9 +158,7 @@ public class JBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
      */
     public boolean findValue(T value) {
         JTreeNode<T> val = findValue(this.rootNode, value);
-        if (val == null)
-            return false;
-        return true;
+        return val != null;
     }
 
     private JTreeNode<T> findValue(JTreeNode<T> root, T value) {

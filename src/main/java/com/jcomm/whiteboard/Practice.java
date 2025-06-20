@@ -11,7 +11,7 @@ public class Practice {
 	
 	public static void MaximumSubArray(){
 		
-		int arr [] = {100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97};
+		int[] arr = {100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97};
 		
 		
 		for(int x = 0; x<arr.length; x++){
@@ -27,7 +27,7 @@ public class Practice {
 
 	
 	
-	public static void isNested(String arg[]) {
+	public static void isNested(String[] arg) {
 
 		char[] p = { '(', '(', '(', ')', '(', ')', ')', '(', ')' };
 		Stack<Character> openP = new Stack<>();
@@ -58,7 +58,7 @@ public class Practice {
 		System.out.println("Is malformed " + malformed);
 	}
 
-	public static void main(String arg[]) {
+	public static void main(String[] arg) {
 		Practice p = new Practice();
 		int[] arr = { 1, 4, 2, 1 };
 		p.Kareem(arr);
@@ -78,10 +78,10 @@ public class Practice {
 
 		} else {
 
-			int idx[] = new int[orig.length];
+			int[] idx = new int[orig.length];
 			int candids = 0;
 			for (int x = 0; x < cans.length; x++) {
-				if (cans[x] == false) {
+				if (!cans[x]) {
 					idx[candids] = x;
 					candids++;
 				}
@@ -132,8 +132,8 @@ public class Practice {
 
 	private class PracticeNode {
 
-		private Integer x = new Integer(0);
-		private PracticeNode next = null;
+		private Integer x = Integer.valueOf(0);
+		private final PracticeNode next = null;
 
 		public Integer getX() {
 			return x;

@@ -1,9 +1,6 @@
 package com.jcomm.warmups;
 
-import com.jcomm.datastructures.CollectionsHelper;
-
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Created by jovaughnlockridge1 on 3/6/16.
@@ -15,7 +12,7 @@ public class TwoArraySetIntersection<T extends Comparable> {
     private int arr2Count = 0;
 
 
-    public static void main(String a []){
+    public static void main(String[] a){
 
 
         TwoArraySetIntersection<Integer> t = new TwoArraySetIntersection<>();
@@ -36,7 +33,7 @@ public class TwoArraySetIntersection<T extends Comparable> {
 
         Arrays.sort(arr1);
         Arrays.sort(arr2);
-        T outputArray[]= null;
+        T[] outputArray = null;
 
         T lastInsVal = null;
         while(arr1Count < arr1.length &&

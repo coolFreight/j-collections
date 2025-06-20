@@ -10,8 +10,8 @@ public class DeadLockExample {
 
     public static void main(String[] args) {
 
-        Dog spot = new Dog("spot");
-        Dog rufus = new Dog("bo");
+        Dog spot = new Dog( );
+        Dog rufus = new Dog();
         Bone b1 = new Bone();
         Bone b2 = new Bone();
 

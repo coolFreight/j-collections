@@ -7,8 +7,8 @@ import java.util.concurrent.SubmissionPublisher;
 import java.util.concurrent.TimeUnit;
 
 public class Producer implements Runnable {
-    private SubmissionPublisher<Event> publisher;
-    private String name;
+    private final SubmissionPublisher<Event> publisher;
+    private final String name;
 
     public Producer(SubmissionPublisher<Event> publisher, String name) {
         this.publisher = publisher;

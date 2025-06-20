@@ -6,8 +6,8 @@ import java.util.concurrent.Flow;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class MyPublisher implements Flow.Publisher<News> {
-    private ConcurrentLinkedDeque<ConsumerData> consumers;
-    private ThreadPoolExecutor executor;
+    private final ConcurrentLinkedDeque<ConsumerData> consumers;
+    private final ThreadPoolExecutor executor;
 
 
     public MyPublisher() {

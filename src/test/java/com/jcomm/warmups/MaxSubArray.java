@@ -2,7 +2,7 @@ package com.jcomm.warmups;
 
 public class MaxSubArray{
 
-	public static void main(String args[]){
+	public static void main(String[] args){
 	
 	MaxSubArray ms = new MaxSubArray();
 	
@@ -12,7 +12,7 @@ public class MaxSubArray{
 	//int A[] = {-63,-25,-93,-16,-23,-7,-5,-22};
 	
 	//my book not example
-	int A[] = {13,24,-28,33};
+	int[] A = {13,24,-28,33};
 	
 	Tuple tuple = ms.maxSubArray(A, 0, A.length-1);
 	
@@ -21,7 +21,7 @@ public class MaxSubArray{
 
 
 
-	public Tuple maxSubArray(int A[], int lo, int hi){
+	public Tuple maxSubArray(int[] A, int lo, int hi){
 
 		if(lo==hi){
 			System.out.println("hi :" +hi);
@@ -53,7 +53,7 @@ public class MaxSubArray{
 			return maxCrossTuple;
 	}
 
-	private Tuple maxCrossSubArray(int A[], int lo, int mid, int hi){
+	private Tuple maxCrossSubArray(int[] A, int lo, int mid, int hi){
 		
 		int leftSum = 0;
 		int maxLeftSum = -99999;

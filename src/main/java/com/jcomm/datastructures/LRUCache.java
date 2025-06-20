@@ -9,7 +9,7 @@ import java.util.Map;
 public class LRUCache {
 
     private static final int MAX_ENTRIES = 3;
-    private LinkedHashMap<String, String> map = new LinkedHashMap<String, String>() {
+    private final LinkedHashMap<String, String> map = new LinkedHashMap<String, String>() {
 
         protected boolean removeEldestEntry(Map.Entry eldest) {
             return map.size() > MAX_ENTRIES;

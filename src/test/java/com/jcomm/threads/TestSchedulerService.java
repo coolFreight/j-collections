@@ -1,8 +1,8 @@
 package com.jcomm.threads;
 
-import org.junit.Test;
 
-import java.util.concurrent.ExecutorService;
+import org.junit.jupiter.api.Test;
+
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +26,7 @@ public class TestSchedulerService {
         public void run() {
             try {
                 ++timesCalled;
-                System.out.println("called "+this.toString()+" "+timesCalled+" times");
+                System.out.println("called "+ this +" "+timesCalled+" times");
                 TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();

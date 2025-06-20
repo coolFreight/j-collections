@@ -1,20 +1,19 @@
 package com.jcomm.warmups;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.jcomm.datastructures.CollectionsHelper;
+
+import java.util.LinkedList;
 
 public class KnapSack {
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 
 		// int V[] = {9,7,8};
 		// int W[] = {5,3,2};
 
 		// System.out.println(KnapSack.maxVal(V, W, 2, 5, 0));
 
-		int A[] = { 1, 2, 3, 1, 1, 5 };
+		int[] A = { 1, 2, 3, 1, 1, 5 };
 		// 0 1 2 3 4 5
 		CollectionsHelper.printCollection((minHops(A, 0, 0)));
 
@@ -22,7 +21,7 @@ public class KnapSack {
 
 	// {1,2}; size = 2
 	// 0 1 2 3 4 5
-	static int minhops(int A[], int index, int hops) {
+	static int minhops(int[] A, int index, int hops) {
 
 		if (index >= A.length - 1)
 			return hops;
@@ -38,7 +37,7 @@ public class KnapSack {
 		return val;
 	}
 
-	static int maxVal(int V[], int W[], int index, int weightAvailable, int val) {
+	static int maxVal(int[] V, int[] W, int index, int weightAvailable, int val) {
 
 		if (index < 0)
 			return val;
@@ -56,7 +55,7 @@ public class KnapSack {
 		return leftVal;
 	}
 	
-	public static LinkedList<Integer> minHops(int A[], int idx, int hops){
+	public static LinkedList<Integer> minHops(int[] A, int idx, int hops){
 		
 		LinkedList<Integer> result = new LinkedList<>();
 		if(idx == A.length-1){

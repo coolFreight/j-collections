@@ -26,7 +26,7 @@ public class CollectionsHelperTest {
 	@Test
 	public void testHeapSortSortedInAscendingOrder(){
 
-		Integer A[] = {100,23,90,55,32,-2,9};
+		Integer[] A = {100,23,90,55,32,-2,9};
 		CollectionsHelper.heapSort(A);
 		int highestVal;
 		for(int x = 0; x<A.length-1; x++){	
@@ -42,7 +42,7 @@ public class CollectionsHelperTest {
 	@Test
 	public void testQuickSortSortedInAscendingOrder(){
 
-		int A[] = {100,23,90,55,32,-2,9};
+		int[] A = {100,23,90,55,32,-2,9};
 		CollectionsHelper.quickSort(A);
 		CollectionsHelper.printArray(A);
 		int highestVal;
@@ -59,7 +59,7 @@ public class CollectionsHelperTest {
 	@Test
 	public void testSelectionSort(){
 
-		int A[] = {100,23,90,55,32,-2,9};
+		int[] A = {100,23,90,55,32,-2,9};
 		CollectionsHelper.selectionSort(A);
 		CollectionsHelper.printArray(A);
 

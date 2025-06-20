@@ -9,7 +9,7 @@ public class Spreadsheet {
 
 
 
-    public static void main (String a []){
+    public static void main (String[] a){
         System.out.println(Spreadsheet.getSpreadsheetColumnFromString("BA"));
         System.out.println(Spreadsheet.getColumnId("BA"));
     }

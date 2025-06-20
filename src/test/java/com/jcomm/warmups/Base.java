@@ -22,7 +22,7 @@ public class Base {
 
 	}
 
-	public static void main(String a[]){
+	public static void main(String[] a){
 
 
 		Base b = new Base();

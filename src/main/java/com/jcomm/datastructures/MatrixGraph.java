@@ -18,15 +18,15 @@ import java.util.function.Function;
  */
 public class MatrixGraph implements Graph {
 
-	private final int graph[][];
+	private final int[][] graph;
 	private final int ROWS;
 	private final int COLS;
-	private Queue<Vertex> queueOfNodes = new java.util.LinkedList<>();
-	private Stack<Vertex> visitedNodes = new Stack<>();
-	private PriorityQueue<Path> pQueue = new PriorityQueue<Path>();
-	private Vertex[] vertices;
+	private final Queue<Vertex> queueOfNodes = new java.util.LinkedList<>();
+	private final Stack<Vertex> visitedNodes = new Stack<>();
+	private final PriorityQueue<Path> pQueue = new PriorityQueue<Path>();
+	private final Vertex[] vertices;
 	private int vertexIndexCount = 0;
-	private Map<String, Integer> vertexIndexes = new HashMap<>();
+	private final Map<String, Integer> vertexIndexes = new HashMap<>();
 
 	public MatrixGraph(int size) {
 
@@ -83,7 +83,7 @@ public class MatrixGraph implements Graph {
 		for (int i = 0; i < this.COLS; i++) {
 			if (graph[row][i] == 1) {
 				Vertex t = getVertex(i);
-				if (t.wasVisited() == false)
+				if (!t.wasVisited())
 					dfs(t.getLabel());
 			}
 		}
@@ -97,7 +97,7 @@ public class MatrixGraph implements Graph {
 		for (int i = 0; i < this.COLS; i++) {
 			if (graph[row][i] == 1) {
 				Vertex t = getVertex(i);
-				if (t.wasVisited() == false) {
+				if (!t.wasVisited()) {
 					System.out.println(v + " to " + t);
 					mst(t.getLabel());
 				}
@@ -224,7 +224,7 @@ public class MatrixGraph implements Graph {
 	public void recursiveBFS(String label) {
 
 		Vertex v = getVertex(label);
-		if (v.wasVisited() == false) {
+		if (!v.wasVisited()) {
 			v.setVisited(true);
 			this.queueOfNodes.add(v);
 			System.out.println("Visited vertex : " + v);
@@ -235,7 +235,7 @@ public class MatrixGraph implements Graph {
 			if (graph[r][i] == 1) {
 
 				Vertex t = this.vertices[i];
-				if (t.wasVisited() == false) {
+				if (!t.wasVisited()) {
 					t.setVisited(true);
 					this.queueOfNodes.add(t);
 					System.out.println("Visited vertex : " + t);
@@ -252,7 +252,7 @@ public class MatrixGraph implements Graph {
 
 		int index = getVertexIndex(label);
 
-		if (vertices[index].wasVisited() == false) {
+		if (!vertices[index].wasVisited()) {
 			vertices[index].setVisited(true);
 
 			action.apply(vertices[index]);
@@ -260,7 +260,7 @@ public class MatrixGraph implements Graph {
 
 		for (int cols = 0; cols < COLS; cols++) {
 
-			if (graph[index][cols] == 1 && vertices[cols].wasVisited() == false) {
+			if (graph[index][cols] == 1 && !vertices[cols].wasVisited()) {
 				vertices[cols].setVisited(true);
 				queueOfNodes.add(vertices[cols]);
 				action.apply(vertices[cols]);
@@ -279,22 +279,22 @@ public class MatrixGraph implements Graph {
 
 	public void findConnected(String label) {
 		int index = getVertexIndex(label);
-		if (vertices[index].wasVisited() == false) {
+		if (!vertices[index].wasVisited()) {
 			vertices[index].setVisited(true);
 			visitedNodes.push(vertices[index]);
 			System.out.println("push " + label);
 		}
 		// traverse columns
 		for (int col = 0; col < COLS; col++) {
-			if (graph[index][col] == 1 && vertices[col].wasVisited() == false) {
+			if (graph[index][col] == 1 && !vertices[col].wasVisited()) {
 				findConnected(getVertex(col).getLabel());
 			}
 		}
 
-		if (visitedNodes.isEmpty() == false) {
+		if (!visitedNodes.isEmpty()) {
 			System.out.println("pop " + visitedNodes.pop().getLabel());
 		}
-		if (visitedNodes.isEmpty() == false) {
+		if (!visitedNodes.isEmpty()) {
 			findConnected(visitedNodes.peek().getLabel());
 		}
 	}
@@ -306,9 +306,10 @@ public class MatrixGraph implements Graph {
 			noSuccessorVertex = vertices[r];
 			int noSuccessorColumn = r;
 			for (int c = 0; c < COLS; c++) {
-				if (graph[r][c] > 0) {
-					noSuccessorVertex = null;
-				}
+                if (graph[r][c] > 0) {
+                    noSuccessorVertex = null;
+                    break;
+                }
 			}
 			if (noSuccessorVertex != null) {
 				for (r = 0; r < ROWS; r++)

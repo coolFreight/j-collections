@@ -32,7 +32,7 @@ public class Main {
         publisher.subscribe(consumer2);
         publisher.subscribe(consumer3);
 
-        System.out.printf("Main: Start\n");
+        System.out.print("Main: Start\n");
 
         News news=new News();
         news.setTxt("Basketball news");
@@ -78,7 +78,7 @@ public class Main {
         publisher.publish(news);
 
         publisher.shutdown();
-        System.out.printf("Main: End\n");
+        System.out.print("Main: End\n");
 
     }
 }

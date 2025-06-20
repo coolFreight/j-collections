@@ -5,8 +5,8 @@ import java.util.concurrent.Flow;
 
 public class Consumer implements Flow.Subscriber<News> {
     private MySubscription subscription;
-    private String name;
-    private Set<Integer> categories;
+    private final String name;
+    private final Set<Integer> categories;
 
     public Consumer(String name, Set<Integer> categories) {
         this.name = name;

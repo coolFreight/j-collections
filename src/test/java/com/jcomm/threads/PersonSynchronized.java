@@ -28,7 +28,7 @@ public class PersonSynchronized  {
 		PersonSynchronized ps = new PersonSynchronized();
 		
 		PersonDenip pd = new PersonDenip(ps);
-		Dog dog = new Dog("shadow");
+		Dog dog = new Dog();
 		pd.setDog(dog);
 		
 		PersonManip pm = new PersonManip(ps);

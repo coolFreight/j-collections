@@ -3,8 +3,8 @@ package com.jcomm.datastructures;
 
 public class JHashMap<K, V> {
 
-	private Bag<K, V>[] array;
-	private int size;
+	private final Bag<K, V>[] array;
+	private final int size;
 
 	@SuppressWarnings("unchecked")
 	public JHashMap(int size) {

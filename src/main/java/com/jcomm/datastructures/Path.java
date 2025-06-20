@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Path implements Comparable<Path>, Cloneable {
 
-	private Vertex start;
-	private List<Vertex> listOfDestinations;
+	private final Vertex start;
+	private final List<Vertex> listOfDestinations;
 
 	private int cost;
-	private String path;
+	private final String path;
 
 	public Path(Vertex start, Vertex otherNode, int cost) {
 		this.start = start;

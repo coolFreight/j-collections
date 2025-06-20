@@ -13,7 +13,7 @@ public class bitmanipulation {
 
 
 
-    public static void main (String args []){
+    public static void main (String[] args){
 
         int a =4;
         // prints "2"
@@ -26,7 +26,7 @@ public class bitmanipulation {
 
 
     public void m(){
-        PriorityQueue<Integer> max = new PriorityQueue<>(Comparator.<Integer>reverseOrder());
+        PriorityQueue<Integer> max = new PriorityQueue<>(Comparator.reverseOrder());
     }
 
 

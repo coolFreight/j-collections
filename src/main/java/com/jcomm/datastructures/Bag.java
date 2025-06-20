@@ -2,9 +2,9 @@ package com.jcomm.datastructures;
 
 public class Bag<K, V> {
 
-	private K key;
-	private V value;
-	private int hashCode;
+	private final K key;
+	private final V value;
+	private final int hashCode;
 	
 	public Bag(K key, V value, int hashCode){
 		this.key = key;

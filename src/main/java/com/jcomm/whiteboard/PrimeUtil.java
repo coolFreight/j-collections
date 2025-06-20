@@ -45,7 +45,7 @@ public class PrimeUtil {
         return true;
     }
 
-    public static void main(String a[]){
+    public static void main(String[] a){
         Stream.iterate(0L, PrimeUtil::next).
 //                skip(100).
                 limit(5).

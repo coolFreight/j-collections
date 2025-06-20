@@ -1,8 +1,8 @@
 package com.jcomm.flow.news;
 
 public class PublisherTask implements Runnable{
-    private ConsumerData consumerData;
-    private News news;
+    private final ConsumerData consumerData;
+    private final News news;
 
     public PublisherTask(ConsumerData consumerData, News news) {
         this.consumerData = consumerData;

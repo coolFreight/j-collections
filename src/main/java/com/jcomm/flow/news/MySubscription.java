@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class MySubscription implements Flow.Subscription {
 
     private boolean cancelled;
-    private AtomicLong requested = new AtomicLong(0);
+    private final AtomicLong requested = new AtomicLong(0);
     private Set<Integer> categories;
 
     @Override

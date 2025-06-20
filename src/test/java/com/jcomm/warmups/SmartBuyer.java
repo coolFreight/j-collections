@@ -1,7 +1,6 @@
 package com.jcomm.warmups;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,19 +14,19 @@ public class SmartBuyer {
 
 		items = new LinkedList<>();
 
-		String s[] = { "Burger" };
+		String[] s = { "Burger" };
 		Item one = new Item(1, 5, s, "Burger");
 
-		String b[] = { "French_Frice" };
+		String[] b = { "French_Frice" };
 		Item two = new Item(2, 4, b, "French_Frice");
 
-		String c[] = { "Coldrink" };
+		String[] c = { "Coldrink" };
 		Item three = new Item(3, 8, c, "Coldrink");
 
-		String d[] = { "Burger", "French_Frice", "Coldrink" };
+		String[] d = { "Burger", "French_Frice", "Coldrink" };
 		Item four = new Item(4, 12, d, "Burger,French_Frice,Coldrink");
 
-		String e[] = { "Burger", "Coldrink" };
+		String[] e = { "Burger", "Coldrink" };
 		Item five = new Item(5, 14, e, "Burger, Coldrink");
 
 		items.add(one);
@@ -43,7 +42,7 @@ public class SmartBuyer {
 		mapOfItems.put("Burger, Coldrink", five);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 
 		SmartBuyer s = new SmartBuyer();
 		List<String> l = new LinkedList<>();
@@ -57,13 +56,13 @@ public class SmartBuyer {
 		int itemsSeparate = 0;
 		List<Integer> itemListSeparate = new LinkedList<>();
 
-		boolean items[] = new boolean[mapOfItems.size()];
+		boolean[] items = new boolean[mapOfItems.size()];
 		for (String name : itemsToBuy) {
 			itemsSeparate += mapOfItems.get(name).getValue();
 			itemListSeparate.add(mapOfItems.get(name).getItemNumber());
 
 			for (Entry<String, Item> o : mapOfItems.entrySet()) {
-					if (o.getValue().contains(name)==false) {
+					if (!o.getValue().contains(name)) {
 						// true means does not have the value
 						items[o.getValue().getItemNumber() - 1] = true;
 					}
@@ -74,7 +73,7 @@ public class SmartBuyer {
 		int together = 999999;
 		for (Entry<String, Item> o : mapOfItems.entrySet()) {
 			
-			if (items[o.getValue().getItemNumber()-1] == false) {
+			if (!items[o.getValue().getItemNumber() - 1]) {
 
 				if (o.getValue().getValue() < together) {
 					together = o.getValue().getValue();
@@ -96,10 +95,10 @@ public class SmartBuyer {
 
 	public class Item {
 
-		private int itemNumber;
-		private Map<String, String> mapItems = new HashMap<>();
+		private final int itemNumber;
+		private final Map<String, String> mapItems = new HashMap<>();
 		String name;
-		private int value;
+		private final int value;
 
 		public Item(int itemNumber, int itemPrice, String[] itemNames,
 				String name) {
